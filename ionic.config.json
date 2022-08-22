@@ -1,0 +1,7 @@
+{
+  "name": "visitAr",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
