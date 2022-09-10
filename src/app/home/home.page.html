@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
+    <ion-title  mode=ios>
       Cuestionario
     </ion-title>
   </ion-toolbar>
@@ -12,9 +12,128 @@
       <ion-title size="large">Cuestionario</ion-title>
     </ion-toolbar>
   </ion-header>
+  <div style="max-width: 500px; width:100%; margin: auto; text-align: center;" >
+    <div *ngFor="let grupos of encuesta; let i=index">
+      <div *ngIf="grupos.EsMultiple==false">
+          <ion-item-divider color="primary">
+            <ion-label>
+              {{grupos.Grupo}}
+            </ion-label>
+          </ion-item-divider>
+          <br>
+          <div *ngFor="let subgrupos of grupos.Subgrupo; let j=index">
+              <ion-item>
+                <ion-label class="ion-text-wrap">
+                  <ion-text color="primary">
+                    <h1>{{subgrupos.Subgrupo}}</h1>
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+              <div *ngFor="let preguntas of subgrupos.pregutas; let k=index">
+                
+                  <div *ngIf="preguntas.tipo=='Texto'">
+                    <ion-item>
+                      <ion-label position="floating">
+                        <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                        {{preguntas.id}}-{{preguntas.preguta}}:
+                      </ion-label>
+                      <ion-input type="text"></ion-input>
+                    </ion-item>    
+                  </div>
+                  <div *ngIf="preguntas.tipo=='Numero'">
+                    <ion-item>
+                      <ion-label position="floating">
+                        <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                        {{preguntas.id}}-{{preguntas.preguta}}:
+                      </ion-label>
+                      <ion-input type="number"></ion-input>
+                    </ion-item>
+                  </div>
+                  <div *ngIf="preguntas.tipo=='Select'">
+                    <ion-item>
+                      <ion-label >
+                        <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                        {{preguntas.id}}-{{preguntas.preguta}}:
+                      </ion-label>
+                      <ion-select  mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                        <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index">
+                          {{opcions}}
+                        </ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </div>
+                  <div *ngIf="preguntas.tipo=='Combo'">
+                        <ion-accordion-group [multiple]="true" [value]="['first',]">
+                          <ion-accordion value="first">
+                            <ion-item slot="header" color="light">
+                              <ion-label>
+                                <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                                {{preguntas.id}}-{{preguntas.preguta}}:
+                              </ion-label>
+                            </ion-item>
+                            <div class="ion-padding" slot="content">
+                              <ion-item *ngFor="let opcion of preguntas.opciones; let p=index">
+                                <ion-checkbox slot="start"></ion-checkbox>
+                                <ion-label>{{opcion}}</ion-label>
+                              </ion-item>
+                            </div>
+                          </ion-accordion>
+                        </ion-accordion-group> 
+                  </div>
+                  <div *ngIf="preguntas.tipo=='Fecha'">
+                    <ion-item>
+                      <ion-label >
+                        <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                        {{preguntas.id}}-{{preguntas.preguta}}:
+                      </ion-label>
+                      <ion-datetime-button  datetime="date"></ion-datetime-button>
+                      <ion-modal [keepContentsMounted]="true">
+                        <ng-template>
+                          <ion-datetime presentation="date" id="date"></ion-datetime>
+                        </ng-template>
+                      </ion-modal>
+                    </ion-item>
+                  </div>
+                  <div *ngIf="preguntas.tipo=='Booleano'">
+                    <ion-item>
+                      <ion-label >
+                        <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                        {{preguntas.id}}-{{preguntas.preguta}}:
+                      </ion-label>
+                      <ion-toggle color="success"></ion-toggle>
+                    </ion-item>
+                  </div>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+              </div>
+          </div>
+        </div> <!--  end if multiple -->
+        <div *ngIf="grupos.EsMultiple==true">
+            <ion-item-divider color="primary">
+              <ion-label>
+                {{grupos.Grupo}}
+              </ion-label>
+            </ion-item-divider>
+            <br>
+            <div *ngFor="let subgrupos of grupos.Subgrupo; let j=index">
+              <ion-item>
+                <ion-label class="ion-text-wrap">
+                  <ion-text color="primary">
+                    <h1>{{subgrupos.Subgrupo}}</h1>
+                  </ion-text>
+                </ion-label>
+              </ion-item>
+
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="formPreguntas" #ask1="ngForm">
+      <ion-list>       
+          
+          <ion-button expand="block" fill="outline" type="submit"   color="success">
+            <ion-icon slot="start" name="checkmark-done-circle-outline"></ion-icon>
+             Guardar
+          </ion-button>
+      </ion-list>
+    </form>
   </div>
 </ion-content>
