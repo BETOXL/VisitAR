@@ -14,22 +14,23 @@ export class HomePage {
       Subgrupo : [
         { 
           Subgrupo: "Ubicacion",
-          pregutas:
+          preguntas:
           [ 
             {
               id:2588,
-              preguta:"Ubicacion",
+              pregunta:"Ubicacion",
               tipo:"Select",
-              opciones:["Rural", "Urbana"]		
+              opciones:["Rural", "Urbana"],
+              valor:"Urbana"
             }
           ],
         },
         { Subgrupo: "Terreno",
-          pregutas:
+          preguntas:
           [ 
               {
                 id:1258,
-                preguta:"INSTITUCIONES BARRIALES / VECINALES",
+                pregunta:"INSTITUCIONES BARRIALES / VECINALES",
                 tipo:"Combo",
                 opciones:[	
                       "NO CONTESTA1",
@@ -51,7 +52,7 @@ export class HomePage {
               {
                 id:1025,
                 condicion:"{{1258}}=='OTROS ( Especificar )'",
-                preguta:"INSTITUCIONES BARRIALES / VECINALES DETALLE",
+                pregunta:"INSTITUCIONES BARRIALES / VECINALES DETALLE",
                 tipo:"Texto"
               }
           ]
@@ -65,26 +66,26 @@ export class HomePage {
     Subgrupo : [
       { 
         Subgrupo: "Datos Personales",
-        pregutas:
+        preguntas:
         [
           {
             id:2581,
-            preguta:"Nom",
+            pregunta:"Nombre",
             tipo:"Texto",
           },
           {
             id:2582,
-            preguta:"Edad",
+            pregunta:"Edad",
             tipo:"Numero",
           },
           {
             id:2583,
-            preguta:"Fecha Nacimiento",
+            pregunta:"Fecha Nacimiento",
             tipo:"Fecha",
           },
           {
             id:2184,
-            preguta:"Fumador?",
+            pregunta:"Fumador?",
             tipo:"Booleano",
           }
         ],
@@ -93,20 +94,21 @@ export class HomePage {
     }
   ];
   formPreguntas: FormGroup;
-  inputsPreguntas = [];
-  GruposNombre=[];
-  SubGruposNombre=[];
-  SubGruposMultiples=[];
+  //inputsPreguntas = [];
+  //GruposNombre=[];
+  //SubGruposNombre=[];
+  //SubGruposMultiples=[];
+  currentFood = undefined;
   constructor(private formBuilder: FormBuilder) {
     this.formPreguntas = formBuilder.group({});
   }
   async ionViewDidEnter(){
     setTimeout(() => {
-      this.preparingInputsQuestions();
+      //this.preparingInputsQuestions();
     }, 500);
   }
   
-
+ /*
   preparingInputsQuestions(){
     for (var grupos of this.encuesta){
         //Veo los grupos existentes
@@ -118,9 +120,9 @@ export class HomePage {
             this.SubGruposNombre.push(subgrupos.Subgrupo);
             //Recorro las preguntas
             if(grupos.EsMultiple==true){
-              this.SubGruposMultiples.push(subgrupos.pregutas);
+              this.SubGruposMultiples.push(subgrupos.preguntas);
             }
-            for (var preguntas of subgrupos.pregutas){
+            for (var preguntas of subgrupos.preguntas){
                 console.log("Agrego un preguntas ", preguntas);
                 this.inputsPreguntas.push(preguntas);
             }
@@ -129,6 +131,19 @@ export class HomePage {
     }
     
   }
+  */
+  addSubgrupoPreguntas(indGrupo:number,subgrupos:any){
+    this.encuesta[indGrupo].Subgrupo.push(subgrupos);
+    console.log(this.encuesta);
+  }
+  deleteSubgrupoPreguntas(indGrupo:number,idSubGrupo:number){
+    this.encuesta[indGrupo].Subgrupo.splice(idSubGrupo, 1);
+    console.log(this.encuesta);
+  }
 
+  handleChange(ev) {
+    this.currentFood = ev.target.value;
+    console.log(this.currentFood);
+  }
 
 }

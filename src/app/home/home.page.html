@@ -29,13 +29,12 @@
                   </ion-text>
                 </ion-label>
               </ion-item>
-              <div *ngFor="let preguntas of subgrupos.pregutas; let k=index">
-                
+              <div *ngFor="let preguntas of subgrupos.preguntas; let k=index">
                   <div *ngIf="preguntas.tipo=='Texto'">
                     <ion-item>
                       <ion-label position="floating">
                         <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
-                        {{preguntas.id}}-{{preguntas.preguta}}:
+                        {{preguntas.id}}-{{preguntas.pregunta}}:
                       </ion-label>
                       <ion-input type="text"></ion-input>
                     </ion-item>    
@@ -44,7 +43,7 @@
                     <ion-item>
                       <ion-label position="floating">
                         <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
-                        {{preguntas.id}}-{{preguntas.preguta}}:
+                        {{preguntas.id}}-{{preguntas.pregunta}}:
                       </ion-label>
                       <ion-input type="number"></ion-input>
                     </ion-item>
@@ -53,9 +52,9 @@
                     <ion-item>
                       <ion-label >
                         <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
-                        {{preguntas.id}}-{{preguntas.preguta}}:
+                        {{preguntas.id}}-{{preguntas.pregunta}}:
                       </ion-label>
-                      <ion-select  mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                      <ion-select  value="{{preguntas.valor}}" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
                         <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index">
                           {{opcions}}
                         </ion-select-option>
@@ -63,33 +62,32 @@
                     </ion-item>
                   </div>
                   <div *ngIf="preguntas.tipo=='Combo'">
-                        <ion-accordion-group [multiple]="true" [value]="['first',]">
-                          <ion-accordion value="first">
-                            <ion-item slot="header" color="light">
-                              <ion-label>
-                                <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
-                                {{preguntas.id}}-{{preguntas.preguta}}:
-                              </ion-label>
-                            </ion-item>
-                            <div class="ion-padding" slot="content">
-                              <ion-item *ngFor="let opcion of preguntas.opciones; let p=index">
-                                <ion-checkbox slot="start"></ion-checkbox>
-                                <ion-label>{{opcion}}</ion-label>
-                              </ion-item>
-                            </div>
-                          </ion-accordion>
-                        </ion-accordion-group> 
+                        <ion-item>
+                          <ion-label >
+                            <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                            {{preguntas.id}}-{{preguntas.pregunta}}:
+                          </ion-label>
+                          <ion-select
+                            [compareWith]="compareWith"
+                            placeholder="Multiple"
+                            (ionChange)="handleChange($event)"
+                            [multiple]="true"
+                            value="preguntas.valor"
+                          >
+                            <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{ opcion }}</ion-select-option>
+                          </ion-select>
+                        </ion-item>
                   </div>
                   <div *ngIf="preguntas.tipo=='Fecha'">
                     <ion-item>
                       <ion-label >
                         <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
-                        {{preguntas.id}}-{{preguntas.preguta}}:
+                        {{preguntas.id}}-{{preguntas.pregunta}}:
                       </ion-label>
                       <ion-datetime-button  datetime="date"></ion-datetime-button>
                       <ion-modal [keepContentsMounted]="true">
                         <ng-template>
-                          <ion-datetime presentation="date" id="date"></ion-datetime>
+                          <ion-datetime [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
                         </ng-template>
                       </ion-modal>
                     </ion-item>
@@ -98,7 +96,7 @@
                     <ion-item>
                       <ion-label >
                         <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
-                        {{preguntas.id}}-{{preguntas.preguta}}:
+                        {{preguntas.id}}-{{preguntas.pregunta}}:
                       </ion-label>
                       <ion-toggle color="success"></ion-toggle>
                     </ion-item>
@@ -116,12 +114,98 @@
             <br>
             <div *ngFor="let subgrupos of grupos.Subgrupo; let j=index">
               <ion-item>
-                <ion-label class="ion-text-wrap">
-                  <ion-text color="primary">
-                    <h1>{{subgrupos.Subgrupo}}</h1>
-                  </ion-text>
-                </ion-label>
+                <ion-button (click)="addSubgrupoPreguntas(i,subgrupos)" color="warning">
+                  <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+                  Agregar
+                </ion-button>
+                <ion-button  *ngIf="j>0" (click)="deleteSubgrupoPreguntas(i,j)" color="dark">
+                  <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+                  Quitar
+                </ion-button>
               </ion-item>
+                
+                <ion-item>
+                  <ion-label class="ion-text-wrap">
+                    <ion-text color="primary">
+                      <h1>{{subgrupos.Subgrupo}}- {{j+1}}</h1>
+                    </ion-text>
+                  </ion-label>
+                </ion-item>
+                
+                <div *ngFor="let preguntas of subgrupos.preguntas; let k=index">
+                  <div *ngIf="preguntas.tipo=='Texto'">
+                    <ion-item>
+                      <ion-label position="floating">
+                        <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                        {{preguntas.id}}-{{preguntas.pregunta}}:
+                      </ion-label>
+                      <ion-input type="text"></ion-input>
+                    </ion-item>    
+                  </div>
+                  <div *ngIf="preguntas.tipo=='Numero'">
+                    <ion-item>
+                      <ion-label position="floating">
+                        <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                        {{preguntas.id}}-{{preguntas.pregunta}}:
+                      </ion-label>
+                      <ion-input type="number"></ion-input>
+                    </ion-item>
+                  </div>
+                  <div *ngIf="preguntas.tipo=='Select'">
+                    <ion-item>
+                      <ion-label >
+                        <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                        {{preguntas.id}}-{{preguntas.pregunta}}:
+                      </ion-label>
+                      <ion-select  mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                        <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index">
+                          {{opcions}}
+                        </ion-select-option>
+                      </ion-select>
+                    </ion-item>
+                  </div>
+                  <div *ngIf="preguntas.tipo=='Combo'">
+                      <ion-item>
+                        <ion-label >
+                          <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                          {{preguntas.id}}-{{preguntas.pregunta}}:
+                        </ion-label>
+                        <ion-select
+                          [compareWith]="compareWith"
+                          placeholder="Select food"
+                          (ionChange)="handleChange($event)"
+                          [multiple]="true"
+                          value="preguntas.valor"
+                        >
+                          <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{ opcion }}</ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                  </div>
+                  <div *ngIf="preguntas.tipo=='Fecha'">
+                    <ion-item>
+                      <ion-label >
+                        <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                        {{preguntas.id}}-{{preguntas.pregunta}}:
+                      </ion-label>
+                      <ion-datetime-button  datetime="date"></ion-datetime-button>
+                      <ion-modal [keepContentsMounted]="true">
+                        <ng-template>
+                          <ion-datetime [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                        </ng-template>
+                      </ion-modal>
+                    </ion-item>
+                  </div>
+                  <div *ngIf="preguntas.tipo=='Booleano'">
+                    <ion-item>
+                      <ion-label >
+                        <ion-icon color="success" name="checkmark-done-outline"></ion-icon>
+                        {{preguntas.id}}-{{preguntas.pregunta}}:
+                      </ion-label>
+                      <ion-toggle color="success"></ion-toggle>
+                    </ion-item>
+                  </div>
+
+              </div>
 
             </div>
         </div>
