@@ -152,6 +152,7 @@ export class HomePage {
 
   guardar(){
     console.log(this.encuesta);
+    alert(JSON.stringify(this.encuesta));
   }
   changeCombo(idPregunta:number,ev){
     this.currentRes = ev.target.value;
