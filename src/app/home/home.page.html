@@ -31,7 +31,7 @@
               </ion-item>
               <div *ngFor="let preguntas of subgrupos.preguntas; let k=index">
                 <div *ngIf="!preguntas.condicion">
-                      <div *ngIf="preguntas.tipo=='Texto'">
+                      <div *ngIf="preguntas.tipo=='Text'">
                         <ion-item>
                           <ion-label position="floating">
                             <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -40,7 +40,7 @@
                           <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
                         </ion-item>    
                       </div>
-                      <div *ngIf="preguntas.tipo=='Numero'">
+                      <div *ngIf="preguntas.tipo=='Number'">
                         <ion-item>
                           <ion-label position="floating">
                             <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -49,7 +49,7 @@
                           <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
                         </ion-item>
                       </div>
-                      <div *ngIf="preguntas.tipo=='Select'">
+                      <div *ngIf="preguntas.tipo=='Combo'">
                         <ion-item>
                           <ion-label >
                             <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -62,7 +62,7 @@
                           </ion-select>
                         </ion-item>
                       </div>
-                      <div *ngIf="preguntas.tipo=='Combo'">
+                      <div *ngIf="preguntas.tipo=='Check'">
                             <ion-item>
                               <ion-label >
                                 <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -81,7 +81,7 @@
                               </ion-select>
                             </ion-item>
                       </div>
-                      <div *ngIf="preguntas.tipo=='Fecha'">
+                      <div *ngIf="preguntas.tipo=='Date'">
                         <ion-item>
                           <ion-label >
                             <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -95,7 +95,7 @@
                           </ion-modal>
                         </ion-item>
                       </div>
-                      <div *ngIf="preguntas.tipo=='Booleano'">
+                      <div *ngIf="preguntas.tipo=='Bool'">
                         <ion-item>
                           <ion-label >
                             <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
@@ -108,7 +108,7 @@
                 <div *ngIf="preguntas.condicion">
                   <div *ngFor="let rescon of respuestasCon; let l=index">
                     <div *ngIf="rescon==preguntas.condicion"> 
-                            <div *ngIf="preguntas.tipo=='Texto'">
+                            <div *ngIf="preguntas.tipo=='Text'">
                               <ion-item>
                                 <ion-label position="floating">
                                   <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -117,7 +117,7 @@
                                 <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
                               </ion-item>    
                             </div>
-                            <div *ngIf="preguntas.tipo=='Numero'">
+                            <div *ngIf="preguntas.tipo=='Number'">
                               <ion-item>
                                 <ion-label position="floating">
                                   <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -126,7 +126,7 @@
                                 <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
                               </ion-item>
                             </div>
-                            <div *ngIf="preguntas.tipo=='Select'">
+                            <div *ngIf="preguntas.tipo=='Combo'">
                               <ion-item>
                                 <ion-label >
                                   <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -139,7 +139,7 @@
                                 </ion-select>
                               </ion-item>
                             </div>
-                            <div *ngIf="preguntas.tipo=='Combo'">
+                            <div *ngIf="preguntas.tipo=='Check'">
                                   <ion-item>
                                     <ion-label >
                                       <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -158,7 +158,7 @@
                                     </ion-select>
                                   </ion-item>
                             </div>
-                            <div *ngIf="preguntas.tipo=='Fecha'">
+                            <div *ngIf="preguntas.tipo=='Date'">
                               <ion-item>
                                 <ion-label >
                                   <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -172,7 +172,7 @@
                                 </ion-modal>
                               </ion-item>
                             </div>
-                            <div *ngIf="preguntas.tipo=='Booleano'">
+                            <div *ngIf="preguntas.tipo=='Bool'">
                               <ion-item>
                                 <ion-label >
                                   <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
@@ -196,18 +196,18 @@
               </ion-label>
             </ion-item-divider>
             <br>
+            <ion-item>
+              <ion-button (click)="addSubgrupoPreguntas(i,subgrupos)" color="warning">
+                <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+                Agregar
+              </ion-button>
+              <ion-button (click)="deleteSubgrupoPreguntas(i,j)" color="dark">
+                <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+                Quitar
+              </ion-button>
+            </ion-item>
             <div *ngFor="let subgrupos of grupos.Subgrupo; let j=index">
-              <ion-item>
-                <ion-button (click)="addSubgrupoPreguntas(i,subgrupos)" color="warning">
-                  <ion-icon slot="start" name="add-circle-outline"></ion-icon>
-                  Agregar
-                </ion-button>
-                <ion-button  *ngIf="j>0" (click)="deleteSubgrupoPreguntas(i,j)" color="dark">
-                  <ion-icon slot="start" name="close-circle-outline"></ion-icon>
-                  Quitar
-                </ion-button>
-              </ion-item>
-                
+              
                 <ion-item>
                   <ion-label class="ion-text-wrap">
                     <ion-text color="primary">
@@ -218,7 +218,7 @@
                 
                 <div *ngFor="let preguntas of subgrupos.preguntas; let k=index">
                       <div *ngIf="!preguntas.condicion">
-                        <div *ngIf="preguntas.tipo=='Texto'">
+                        <div *ngIf="preguntas.tipo=='Text'">
                           <ion-item>
                             <ion-label position="floating">
                               <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -227,7 +227,7 @@
                             <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
                           </ion-item>    
                         </div>
-                        <div *ngIf="preguntas.tipo=='Numero'">
+                        <div *ngIf="preguntas.tipo=='Number'">
                           <ion-item>
                             <ion-label position="floating">
                               <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -236,7 +236,7 @@
                             <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
                           </ion-item>
                         </div>
-                        <div *ngIf="preguntas.tipo=='Select'">
+                        <div *ngIf="preguntas.tipo=='Combo'">
                           <ion-item>
                             <ion-label >
                               <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -249,7 +249,7 @@
                             </ion-select>
                           </ion-item>
                         </div>
-                        <div *ngIf="preguntas.tipo=='Combo'">
+                        <div *ngIf="preguntas.tipo=='Check'">
                               <ion-item>
                                 <ion-label >
                                   <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -268,7 +268,7 @@
                                 </ion-select>
                               </ion-item>
                         </div>
-                        <div *ngIf="preguntas.tipo=='Fecha'">
+                        <div *ngIf="preguntas.tipo=='Date'">
                           <ion-item>
                             <ion-label >
                               <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -282,7 +282,7 @@
                             </ion-modal>
                           </ion-item>
                         </div>
-                        <div *ngIf="preguntas.tipo=='Booleano'">
+                        <div *ngIf="preguntas.tipo=='Bool'">
                           <ion-item>
                             <ion-label >
                               <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
@@ -295,7 +295,7 @@
                       <div *ngIf="preguntas.condicion">
                         <div *ngFor="let rescon of respuestasCon; let l=index">
                             <div *ngIf="rescon==preguntas.condicion"> 
-                                  <div *ngIf="preguntas.tipo=='Texto'">
+                                  <div *ngIf="preguntas.tipo=='Text'">
                                     <ion-item>
                                       <ion-label position="floating">
                                         <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -304,7 +304,7 @@
                                       <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
                                     </ion-item>    
                                   </div>
-                                  <div *ngIf="preguntas.tipo=='Numero'">
+                                  <div *ngIf="preguntas.tipo=='Number'">
                                     <ion-item>
                                       <ion-label position="floating">
                                         <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -313,7 +313,7 @@
                                       <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
                                     </ion-item>
                                   </div>
-                                  <div *ngIf="preguntas.tipo=='Select'">
+                                  <div *ngIf="preguntas.tipo=='Combo'">
                                     <ion-item>
                                       <ion-label >
                                         <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -326,7 +326,7 @@
                                       </ion-select>
                                     </ion-item>
                                   </div>
-                                  <div *ngIf="preguntas.tipo=='Combo'">
+                                  <div *ngIf="preguntas.tipo=='Check'">
                                         <ion-item>
                                           <ion-label >
                                             <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -345,7 +345,7 @@
                                           </ion-select>
                                         </ion-item>
                                   </div>
-                                  <div *ngIf="preguntas.tipo=='Fecha'">
+                                  <div *ngIf="preguntas.tipo=='Date'">
                                     <ion-item>
                                       <ion-label >
                                         <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -359,7 +359,7 @@
                                       </ion-modal>
                                     </ion-item>
                                   </div>
-                                  <div *ngIf="preguntas.tipo=='Booleano'">
+                                  <div *ngIf="preguntas.tipo=='Bool'">
                                     <ion-item>
                                       <ion-label >
                                         <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>

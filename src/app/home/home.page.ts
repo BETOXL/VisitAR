@@ -15,6 +15,7 @@ export class HomePage {
   //SubGruposMultiples=[];
   currentRes = undefined;
   respuestasCon =[];
+  contadorMul:number=0;
   constructor(private formBuilder: FormBuilder) {
     this.formPreguntas = formBuilder.group({});
   }
@@ -32,7 +33,7 @@ export class HomePage {
                 {
                   id:2588,
                   pregunta:"Ubicacion",
-                  tipo:"Select",
+                  tipo:"Combo",
                   opciones:["Rural", "Urbana"],
                   valor:"Urbana",
                   repuesta: ""
@@ -68,7 +69,7 @@ export class HomePage {
                     id:1025,
                     condicion:"{{1258}}=='OTROS (Especificar)'",
                     pregunta:"INSTITUCIONES BARRIALES / VECINALES DETALLE",
-                    tipo:"Texto",
+                    tipo:"Text",
                     repuesta: ""
                   }
               ]
@@ -87,30 +88,67 @@ export class HomePage {
               {
                 id:2581,
                 pregunta:"Nombre",
-                tipo:"Texto",
+                tipo:"Text",
                 repuesta: ""
               },
               {
                 id:2582,
-                pregunta:"Edad",
-                tipo:"Numero",
+                pregunta:"Genero",
+                tipo:"Combo",
+                opciones:["Mujer", "Hombre", "X"],
+                valor:"Mujer",
                 repuesta: ""
               },
               {
                 id:2583,
-                pregunta:"Fecha Nacimiento",
-                tipo:"Fecha",
+                pregunta:"Edad",
+                tipo:"Number",
                 repuesta: ""
               },
               {
-                id:2184,
+                id:2584,
+                pregunta:"Fecha Nacimiento",
+                tipo:"Date",
+                repuesta: ""
+              },
+              {
+                id:2185,
                 pregunta:"Fumador?",
-                tipo:"Booleano",
+                tipo:"Bool",
                 repuesta: false
               }
             ],
           },
-        ]
+          {
+            Subgrupo: "Datos de embarazo",
+            condicion:"{{2582}}=='Mujer'",
+            preguntas:
+            [
+              {
+                id:2581,
+                pregunta:"Cuantos Meses",
+                tipo:"Text",
+                repuesta: ""
+              },
+              {
+                id:2583,
+                pregunta:"Fecha de Parto",
+                tipo:"Date",
+                repuesta: ""
+              },
+              {
+                id:2184,
+                pregunta:"Fumadora?",
+                tipo:"Bool",
+                repuesta: false
+              }
+            ],
+
+          }
+        ],
+        Instancias:
+          [
+          ]
         }
       ];
       //this.preparingInputsQuestions();
@@ -141,10 +179,23 @@ export class HomePage {
     
   }
   */
-  addSubgrupoPreguntas(indGrupo:number,subgrupos:any){
-    this.encuesta[indGrupo].Subgrupo.push(subgrupos);
-    console.log(this.encuesta);
-  }
+  // addSubgrupoPreguntas(indGrupo:number,subgrupos:any){
+  //   for (var subgrupos of grupos.Subgrupo){
+  //     console.log("Agrego un subgrupo ", subgrupos.Subgrupo);
+  //     this.SubGruposNombre.push(subgrupos.Subgrupo);
+  //     //Recorro las preguntas
+  //     if(grupos.EsMultiple==true){
+  //       this.SubGruposMultiples.push(subgrupos.preguntas);
+  //     }
+  //     for (var preguntas of subgrupos.preguntas){
+  //         console.log("Agrego un preguntas ", preguntas);
+  //         this.inputsPreguntas.push(preguntas);
+  //     }
+  //   }
+  //   this.encuesta[indGrupo].Subgrupo.push(subgrupos);
+  //   console.log(this.encuesta);
+  // }
+
   deleteSubgrupoPreguntas(indGrupo:number,idSubGrupo:number){
     this.encuesta[indGrupo].Subgrupo.splice(idSubGrupo, 1);
     console.log(this.encuesta);
@@ -157,18 +208,61 @@ export class HomePage {
   changeCombo(idPregunta:number,ev){
     this.currentRes = ev.target.value;
     for (var respuesta of this.currentRes){
-      let conARM = `{{${idPregunta}}}=='${respuesta}'`;
-      this.respuestasCon.push(conARM);
+        let conARM = `{{${idPregunta}}}=='${respuesta}'`;
+        if(this.respuestasCon.length >0){
+          
+          this.respuestasCon.forEach((respAlm, index) => {
+            console.log(index); // 0, 1, 2
+            var splitted = respAlm.split("==", 2);
+            if(splitted[0] == `{{${idPregunta}}}`){
+              //elimina si el idpregunta es igual y pone el nuevo
+              this.respuestasCon.splice(index, 1);
+              this.respuestasCon.push(conARM);
+            }
+            console.log(splitted);
+          });
+        }else{
+          this.respuestasCon.push(conARM);
+        }
+        //elimina elementos repetidos
+        let uniqueChars = this.respuestasCon.filter((element, index) => {
+          return this.respuestasCon.indexOf(element) === index;
+        });
+        this.respuestasCon =uniqueChars;
     }
     console.log(this.respuestasCon);
 
   }
 
   changeSelect(idPregunta:number,ev){
+    
+  
     let respuSel = ev.target.value;
     let conARM = `{{${idPregunta}}}=='${respuSel}'`;
-    this.respuestasCon.push(conARM);
+    
+    if(this.respuestasCon.length >0){
+      this.respuestasCon.forEach((respAlm, index) => {
+        //console.log(index); // 0, 1, 2
+        var splitted = respAlm.split("==", 2);
+        if(splitted[0] == `{{${idPregunta}}}`){
+          //elimina si el idpregunta es igual y pone el nuevo
+          this.respuestasCon.splice(index, 1);
+          this.respuestasCon.push(conARM);
+        }else{
+          this.respuestasCon.push(conARM);
+        }
+        //console.log(splitted);
+      });
+      //elimina elementos repetidos
+      let uniqueChars = this.respuestasCon.filter((element, index) => {
+        return this.respuestasCon.indexOf(element) === index;
+      });
+      this.respuestasCon =uniqueChars;
+    }else{
+      this.respuestasCon.push(conARM);
+    }
     console.log(this.respuestasCon);
+
   }
 
   
