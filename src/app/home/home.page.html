@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title  mode=ios>
-      Cuestionario
+      VisitAR
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,11 +9,18 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Cuestionario</ion-title>
+      <ion-title size="large">VisitAR</ion-title>
     </ion-toolbar>
   </ion-header>
   <div style="max-width: 500px; width:100%; margin: auto; text-align: center;" >
+    <h1>Seleccione un grupo:</h1>
+    <ion-accordion-group #accordionGroup>
     <div *ngFor="let grupos of encuesta; let i=index">
+      <ion-accordion>
+        <ion-item slot="header" color="light">
+          <ion-label> {{grupos.Grupo}}</ion-label>
+        </ion-item>
+        <div class="ion-padding" slot="content">
       <div *ngIf="grupos.EsMultiple==false">
           <ion-item-divider color="primary">
             <ion-label>
@@ -22,279 +29,185 @@
           </ion-item-divider>
           <br>
           <div *ngFor="let subgrupos of grupos.Subgrupo; let j=index">
-              <ion-item>
-                <ion-label class="ion-text-wrap">
-                  <ion-text color="primary">
-                    <h1>{{subgrupos.Subgrupo}}</h1>
-                  </ion-text>
-                </ion-label>
-              </ion-item>
-              <div *ngFor="let preguntas of subgrupos.preguntas; let k=index">
-                <div *ngIf="!preguntas.condicion">
-                      <div *ngIf="preguntas.tipo=='Text'">
-                        <ion-item>
-                          <ion-label position="floating">
-                            <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                            {{preguntas.id}}-{{preguntas.pregunta}}:
-                          </ion-label>
-                          <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
-                        </ion-item>    
-                      </div>
-                      <div *ngIf="preguntas.tipo=='Number'">
-                        <ion-item>
-                          <ion-label position="floating">
-                            <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                            {{preguntas.id}}-{{preguntas.pregunta}}:
-                          </ion-label>
-                          <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
-                        </ion-item>
-                      </div>
-                      <div *ngIf="preguntas.tipo=='Combo'">
-                        <ion-item>
-                          <ion-label >
-                            <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                            {{preguntas.id}}-{{preguntas.pregunta}}:
-                          </ion-label>
-                          <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
-                            <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
-                              {{opcions}}
-                            </ion-select-option>
-                          </ion-select>
-                        </ion-item>
-                      </div>
-                      <div *ngIf="preguntas.tipo=='Check'">
+              <div *ngIf="!subgrupos.condicion">
+                  <ion-item>
+                    <ion-label class="ion-text-wrap">
+                      <ion-text color="primary">
+                        <h1>{{subgrupos.Subgrupo}}</h1>
+                      </ion-text>
+                    </ion-label>
+                  </ion-item>
+                  <div *ngFor="let preguntas of subgrupos.preguntas; let k=index">
+                    <div *ngIf="!preguntas.condicion">
+                          <div *ngIf="preguntas.tipo=='Text'">
+                            <ion-item>
+                              <ion-label position="floating">
+                                <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                {{preguntas.id}}-{{preguntas.pregunta}}:
+                              </ion-label>
+                              <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
+                            </ion-item>    
+                          </div>
+                          <div *ngIf="preguntas.tipo=='Number'">
+                            <ion-item>
+                              <ion-label position="floating">
+                                <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                {{preguntas.id}}-{{preguntas.pregunta}}:
+                              </ion-label>
+                              <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
+                            </ion-item>
+                          </div>
+                          <div *ngIf="preguntas.tipo=='Combo'">
                             <ion-item>
                               <ion-label >
                                 <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                 {{preguntas.id}}-{{preguntas.pregunta}}:
                               </ion-label>
-                              <ion-select
-                                [(ngModel)]="preguntas.repuesta"
-                                placeholder="Multiple"
-                                [multiple]="true"
-                                value="preguntas.valor"
-                                (ionChange)="changeCombo(preguntas.id,$event)"
-                                okText="Confirmar" cancelText="Cancelar"
-                                mode='ios'
-                              >
-                                <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
+                              <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                                <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
+                                  {{opcions}}
+                                </ion-select-option>
                               </ion-select>
                             </ion-item>
-                      </div>
-                      <div *ngIf="preguntas.tipo=='Date'">
-                        <ion-item>
-                          <ion-label >
-                            <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                            {{preguntas.id}}-{{preguntas.pregunta}}:
-                          </ion-label>
-                          <ion-datetime-button  datetime="date"></ion-datetime-button>
-                          <ion-modal [keepContentsMounted]="true">
-                            <ng-template>
-                              <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
-                            </ng-template>
-                          </ion-modal>
-                        </ion-item>
-                      </div>
-                      <div *ngIf="preguntas.tipo=='Bool'">
-                        <ion-item>
-                          <ion-label >
-                            <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
-                            {{preguntas.id}}-{{preguntas.pregunta}}:
-                          </ion-label>
-                          <ion-toggle mode='ios' [(ngModel)]="preguntas.repuesta" color="success"></ion-toggle>
-                        </ion-item>
-                      </div>
-                </div><!--  end if condicional -->
-                <div *ngIf="preguntas.condicion">
-                  <div *ngFor="let rescon of respuestasCon; let l=index">
-                    <div *ngIf="rescon==preguntas.condicion"> 
-                            <div *ngIf="preguntas.tipo=='Text'">
-                              <ion-item>
-                                <ion-label position="floating">
-                                  <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                                  {{preguntas.id}}-{{preguntas.pregunta}}:
-                                </ion-label>
-                                <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
-                              </ion-item>    
-                            </div>
-                            <div *ngIf="preguntas.tipo=='Number'">
-                              <ion-item>
-                                <ion-label position="floating">
-                                  <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                                  {{preguntas.id}}-{{preguntas.pregunta}}:
-                                </ion-label>
-                                <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
-                              </ion-item>
-                            </div>
-                            <div *ngIf="preguntas.tipo=='Combo'">
-                              <ion-item>
-                                <ion-label >
-                                  <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                                  {{preguntas.id}}-{{preguntas.pregunta}}:
-                                </ion-label>
-                                <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
-                                  <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
-                                    {{opcions}}
-                                  </ion-select-option>
-                                </ion-select>
-                              </ion-item>
-                            </div>
-                            <div *ngIf="preguntas.tipo=='Check'">
+                          </div>
+                          <div *ngIf="preguntas.tipo=='Check'">
+                                <ion-item>
+                                  <ion-label >
+                                    <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                    {{preguntas.id}}-{{preguntas.pregunta}}:
+                                  </ion-label>
+                                  <ion-select
+                                    [(ngModel)]="preguntas.repuesta"
+                                    placeholder="Multiple"
+                                    [multiple]="true"
+                                    value="preguntas.valor"
+                                    (ionChange)="changeCombo(preguntas.id,$event)"
+                                    okText="Confirmar" cancelText="Cancelar"
+                                    mode='ios'
+                                  >
+                                    <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
+                                  </ion-select>
+                                </ion-item>
+                          </div>
+                          <div *ngIf="preguntas.tipo=='Date'">
+                            <ion-item>
+                              <ion-label >
+                                <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                {{preguntas.id}}-{{preguntas.pregunta}}:
+                              </ion-label>
+                              <ion-datetime-button  datetime="date"></ion-datetime-button>
+                              <ion-modal [keepContentsMounted]="true">
+                                <ng-template>
+                                  <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                </ng-template>
+                              </ion-modal>
+                            </ion-item>
+                          </div>
+                          <div *ngIf="preguntas.tipo=='Bool'">
+                            <ion-item>
+                              <ion-label >
+                                <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
+                                {{preguntas.id}}-{{preguntas.pregunta}}:
+                              </ion-label>
+                              <ion-toggle mode='ios' [(ngModel)]="preguntas.repuesta" color="success"></ion-toggle>
+                            </ion-item>
+                          </div>
+                    </div><!--  end if condicional -->
+                    <div *ngIf="preguntas.condicion">
+                      <div *ngFor="let rescon of respuestasCon; let l=index">
+                        <div *ngIf="rescon==preguntas.condicion"> 
+                                <div *ngIf="preguntas.tipo=='Text'">
+                                  <ion-item>
+                                    <ion-label position="floating">
+                                      <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                      {{preguntas.id}}-{{preguntas.pregunta}}:
+                                    </ion-label>
+                                    <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
+                                  </ion-item>    
+                                </div>
+                                <div *ngIf="preguntas.tipo=='Number'">
+                                  <ion-item>
+                                    <ion-label position="floating">
+                                      <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                      {{preguntas.id}}-{{preguntas.pregunta}}:
+                                    </ion-label>
+                                    <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
+                                  </ion-item>
+                                </div>
+                                <div *ngIf="preguntas.tipo=='Combo'">
                                   <ion-item>
                                     <ion-label >
                                       <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.id}}-{{preguntas.pregunta}}:
                                     </ion-label>
-                                    <ion-select
-                                      [(ngModel)]="preguntas.repuesta"
-                                      placeholder="Multiple"
-                                      [multiple]="true"
-                                      value="preguntas.valor"
-                                      (ionChange)="changeCombo(preguntas.id,$event)"
-                                      okText="Confirmar" cancelText="Cancelar"
-                                      mode='ios'
-                                    >
-                                      <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
+                                    <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                                      <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
+                                        {{opcions}}
+                                      </ion-select-option>
                                     </ion-select>
                                   </ion-item>
-                            </div>
-                            <div *ngIf="preguntas.tipo=='Date'">
-                              <ion-item>
-                                <ion-label >
-                                  <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                                  {{preguntas.id}}-{{preguntas.pregunta}}:
-                                </ion-label>
-                                <ion-datetime-button  datetime="date"></ion-datetime-button>
-                                <ion-modal [keepContentsMounted]="true">
-                                  <ng-template>
-                                    <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
-                                  </ng-template>
-                                </ion-modal>
-                              </ion-item>
-                            </div>
-                            <div *ngIf="preguntas.tipo=='Bool'">
-                              <ion-item>
-                                <ion-label >
-                                  <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
-                                  {{preguntas.id}}-{{preguntas.pregunta}}:
-                                </ion-label>
-                                <ion-toggle mode='ios' [(ngModel)]="preguntas.repuesta" color="success"></ion-toggle>
-                              </ion-item>
-                            </div>
-                    </div>
+                                </div>
+                                <div *ngIf="preguntas.tipo=='Check'">
+                                      <ion-item>
+                                        <ion-label >
+                                          <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                          {{preguntas.id}}-{{preguntas.pregunta}}:
+                                        </ion-label>
+                                        <ion-select
+                                          [(ngModel)]="preguntas.repuesta"
+                                          placeholder="Multiple"
+                                          [multiple]="true"
+                                          value="preguntas.valor"
+                                          (ionChange)="changeCombo(preguntas.id,$event)"
+                                          okText="Confirmar" cancelText="Cancelar"
+                                          mode='ios'
+                                        >
+                                          <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
+                                        </ion-select>
+                                      </ion-item>
+                                </div>
+                                <div *ngIf="preguntas.tipo=='Date'">
+                                  <ion-item>
+                                    <ion-label >
+                                      <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                      {{preguntas.id}}-{{preguntas.pregunta}}:
+                                    </ion-label>
+                                    <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                    <ion-modal [keepContentsMounted]="true">
+                                      <ng-template>
+                                        <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                      </ng-template>
+                                    </ion-modal>
+                                  </ion-item>
+                                </div>
+                                <div *ngIf="preguntas.tipo=='Bool'">
+                                  <ion-item>
+                                    <ion-label >
+                                      <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
+                                      {{preguntas.id}}-{{preguntas.pregunta}}:
+                                    </ion-label>
+                                    <ion-toggle mode='ios' [(ngModel)]="preguntas.repuesta" color="success"></ion-toggle>
+                                  </ion-item>
+                                </div>
+                        </div>
 
+                      </div><!--  end for de respuestas nivel preguntas-->
+
+                    </div><!--  end if condicional -->
                   </div>
-
-                </div><!--  end if condicional -->
-              </div>
-          </div>
-        </div> <!--  end if multiple -->
-        <div *ngIf="grupos.EsMultiple==true">
-            <ion-item-divider color="primary">
-              <ion-label>
-                {{grupos.Grupo}}
-              </ion-label>
-            </ion-item-divider>
-            <br>
-            <ion-item>
-              <ion-button (click)="addSubgrupoPreguntas(i,subgrupos)" color="warning">
-                <ion-icon slot="start" name="add-circle-outline"></ion-icon>
-                Agregar
-              </ion-button>
-              <ion-button (click)="deleteSubgrupoPreguntas(i,j)" color="dark">
-                <ion-icon slot="start" name="close-circle-outline"></ion-icon>
-                Quitar
-              </ion-button>
-            </ion-item>
-            <div *ngFor="let subgrupos of grupos.Subgrupo; let j=index">
-              
-                <ion-item>
-                  <ion-label class="ion-text-wrap">
-                    <ion-text color="primary">
-                      <h1>{{subgrupos.Subgrupo}}- {{j+1}}</h1>
-                    </ion-text>
-                  </ion-label>
-                </ion-item>
-                
-                <div *ngFor="let preguntas of subgrupos.preguntas; let k=index">
-                      <div *ngIf="!preguntas.condicion">
-                        <div *ngIf="preguntas.tipo=='Text'">
+              </div><!--  end if condicional subgrupo-->
+              <div *ngIf="subgrupos.condicion">
+                <div *ngFor="let resconS of respuestasCon; let y=index">
+                    <div *ngIf="resconS==subgrupos.condicion">
                           <ion-item>
-                            <ion-label position="floating">
-                              <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                              {{preguntas.id}}-{{preguntas.pregunta}}:
+                            <ion-label class="ion-text-wrap">
+                              <ion-text color="primary">
+                                <h1>{{subgrupos.Subgrupo}}</h1>
+                              </ion-text>
                             </ion-label>
-                            <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
-                          </ion-item>    
-                        </div>
-                        <div *ngIf="preguntas.tipo=='Number'">
-                          <ion-item>
-                            <ion-label position="floating">
-                              <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                              {{preguntas.id}}-{{preguntas.pregunta}}:
-                            </ion-label>
-                            <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
                           </ion-item>
-                        </div>
-                        <div *ngIf="preguntas.tipo=='Combo'">
-                          <ion-item>
-                            <ion-label >
-                              <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                              {{preguntas.id}}-{{preguntas.pregunta}}:
-                            </ion-label>
-                            <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
-                              <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
-                                {{opcions}}
-                              </ion-select-option>
-                            </ion-select>
-                          </ion-item>
-                        </div>
-                        <div *ngIf="preguntas.tipo=='Check'">
-                              <ion-item>
-                                <ion-label >
-                                  <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                                  {{preguntas.id}}-{{preguntas.pregunta}}:
-                                </ion-label>
-                                <ion-select
-                                  [(ngModel)]="preguntas.repuesta"
-                                  placeholder="Multiple"
-                                  [multiple]="true"
-                                  value="preguntas.valor"
-                                  (ionChange)="changeCombo(preguntas.id,$event)"
-                                  okText="Confirmar" cancelText="Cancelar"
-                                  mode='ios'
-                                >
-                                  <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
-                                </ion-select>
-                              </ion-item>
-                        </div>
-                        <div *ngIf="preguntas.tipo=='Date'">
-                          <ion-item>
-                            <ion-label >
-                              <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
-                              {{preguntas.id}}-{{preguntas.pregunta}}:
-                            </ion-label>
-                            <ion-datetime-button  datetime="date"></ion-datetime-button>
-                            <ion-modal [keepContentsMounted]="true">
-                              <ng-template>
-                                <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
-                              </ng-template>
-                            </ion-modal>
-                          </ion-item>
-                        </div>
-                        <div *ngIf="preguntas.tipo=='Bool'">
-                          <ion-item>
-                            <ion-label >
-                              <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
-                              {{preguntas.id}}-{{preguntas.pregunta}}:
-                            </ion-label>
-                            <ion-toggle mode='ios' [(ngModel)]="preguntas.repuesta" color="success"></ion-toggle>
-                          </ion-item>
-                        </div>
-                      </div><!--  end if condicional -->
-                      <div *ngIf="preguntas.condicion">
-                        <div *ngFor="let rescon of respuestasCon; let l=index">
-                            <div *ngIf="rescon==preguntas.condicion"> 
+                          <div *ngFor="let preguntas of subgrupos.preguntas; let k=index">
+                            <div *ngIf="!preguntas.condicion">
                                   <div *ngIf="preguntas.tipo=='Text'">
                                     <ion-item>
                                       <ion-label position="floating">
@@ -368,24 +281,467 @@
                                       <ion-toggle mode='ios' [(ngModel)]="preguntas.repuesta" color="success"></ion-toggle>
                                     </ion-item>
                                   </div>
-                      </div>
+                            </div><!--  end if condicional -->
+                            <div *ngIf="preguntas.condicion">
+                              <div *ngFor="let rescon of respuestasCon; let l=index">
+                                <div *ngIf="rescon==preguntas.condicion"> 
+                                        <div *ngIf="preguntas.tipo=='Text'">
+                                          <ion-item>
+                                            <ion-label position="floating">
+                                              <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                              {{preguntas.id}}-{{preguntas.pregunta}}:
+                                            </ion-label>
+                                            <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
+                                          </ion-item>    
+                                        </div>
+                                        <div *ngIf="preguntas.tipo=='Number'">
+                                          <ion-item>
+                                            <ion-label position="floating">
+                                              <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                              {{preguntas.id}}-{{preguntas.pregunta}}:
+                                            </ion-label>
+                                            <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
+                                          </ion-item>
+                                        </div>
+                                        <div *ngIf="preguntas.tipo=='Combo'">
+                                          <ion-item>
+                                            <ion-label >
+                                              <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                              {{preguntas.id}}-{{preguntas.pregunta}}:
+                                            </ion-label>
+                                            <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                                              <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
+                                                {{opcions}}
+                                              </ion-select-option>
+                                            </ion-select>
+                                          </ion-item>
+                                        </div>
+                                        <div *ngIf="preguntas.tipo=='Check'">
+                                              <ion-item>
+                                                <ion-label >
+                                                  <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                                  {{preguntas.id}}-{{preguntas.pregunta}}:
+                                                </ion-label>
+                                                <ion-select
+                                                  [(ngModel)]="preguntas.repuesta"
+                                                  placeholder="Multiple"
+                                                  [multiple]="true"
+                                                  value="preguntas.valor"
+                                                  (ionChange)="changeCombo(preguntas.id,$event)"
+                                                  okText="Confirmar" cancelText="Cancelar"
+                                                  mode='ios'
+                                                >
+                                                  <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
+                                                </ion-select>
+                                              </ion-item>
+                                        </div>
+                                        <div *ngIf="preguntas.tipo=='Date'">
+                                          <ion-item>
+                                            <ion-label >
+                                              <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                              {{preguntas.id}}-{{preguntas.pregunta}}:
+                                            </ion-label>
+                                            <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                            <ion-modal [keepContentsMounted]="true">
+                                              <ng-template>
+                                                <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                              </ng-template>
+                                            </ion-modal>
+                                          </ion-item>
+                                        </div>
+                                        <div *ngIf="preguntas.tipo=='Bool'">
+                                          <ion-item>
+                                            <ion-label >
+                                              <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
+                                              {{preguntas.id}}-{{preguntas.pregunta}}:
+                                            </ion-label>
+                                            <ion-toggle mode='ios' [(ngModel)]="preguntas.repuesta" color="success"></ion-toggle>
+                                          </ion-item>
+                                        </div>
+                                </div>
+        
+                              </div><!--  end for de respuestas nivel preguntas-->
+        
+                            </div><!--  end if condicional -->
+                          </div>
 
-                      </div>
+                    </div><!--  end subgrupo condicion-->
+                </div><!--  end for de respuestas-->
+              </div><!--  end if condicional subgrupo verdadero-->
+          </div>
+        </div> <!--  end if multiple -->
+        <div *ngIf="grupos.EsMultiple==true">
+            <ion-item-divider color="primary">
+              <ion-label>
+                {{grupos.Grupo}}
+              </ion-label>
+            </ion-item-divider>
+            <br>
+            <ion-item>
+              <ion-button (click)="addIntanciasGrupos(i,grupos.Subgrupo)" color="warning">
+                <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+                Agregar
+              </ion-button>
+              
+            </ion-item>
+            <div *ngFor="let instancia of grupos.Instancias; let ins=index">
+              <p style="color:blue">Se agregó una nueva instancia {{grupos.Grupo}} Nro:{{ins+1}}</p>
+              <ion-button (click)="deleteIntanciasGrupos(i,ins)" color="dark">
+                <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+                Quitar
+              </ion-button>
+                  <div *ngFor="let subgruposIns of instancia; let ji=index">
+                    <div *ngIf="!subgruposIns.condicion">
+                        <ion-item>
+                          <ion-label class="ion-text-wrap">
+                            <ion-text color="primary">
+                              <h1>{{subgruposIns.Subgrupo}}</h1>
+                            </ion-text>
+                          </ion-label>
+                        </ion-item>
+                        <div *ngFor="let preguntas of subgruposIns.preguntas; let k=index">
+                          <div *ngIf="!preguntas.condicion">
+                                <div *ngIf="preguntas.tipo=='Text'">
+                                  <ion-item>
+                                    <ion-label position="floating">
+                                      <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                      {{preguntas.id}}-{{preguntas.pregunta}}:
+                                    </ion-label>
+                                    <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
+                                  </ion-item>    
+                                </div>
+                                <div *ngIf="preguntas.tipo=='Number'">
+                                  <ion-item>
+                                    <ion-label position="floating">
+                                      <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                      {{preguntas.id}}-{{preguntas.pregunta}}:
+                                    </ion-label>
+                                    <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
+                                  </ion-item>
+                                </div>
+                                <div *ngIf="preguntas.tipo=='Combo'">
+                                  <ion-item>
+                                    <ion-label >
+                                      <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                      {{preguntas.id}}-{{preguntas.pregunta}}:
+                                    </ion-label>
+                                    <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                                      <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
+                                        {{opcions}}
+                                      </ion-select-option>
+                                    </ion-select>
+                                  </ion-item>
+                                </div>
+                                <div *ngIf="preguntas.tipo=='Check'">
+                                      <ion-item>
+                                        <ion-label >
+                                          <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                          {{preguntas.id}}-{{preguntas.pregunta}}:
+                                        </ion-label>
+                                        <ion-select
+                                          [(ngModel)]="preguntas.repuesta"
+                                          placeholder="Multiple"
+                                          [multiple]="true"
+                                          value="preguntas.valor"
+                                          (ionChange)="changeCombo(preguntas.id,$event)"
+                                          okText="Confirmar" cancelText="Cancelar"
+                                          mode='ios'
+                                        >
+                                          <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
+                                        </ion-select>
+                                      </ion-item>
+                                </div>
+                                <div *ngIf="preguntas.tipo=='Date'">
+                                  <ion-item>
+                                    <ion-label >
+                                      <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                      {{preguntas.id}}-{{preguntas.pregunta}}:
+                                    </ion-label>
+                                    <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                    <ion-modal [keepContentsMounted]="true">
+                                      <ng-template>
+                                        <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                      </ng-template>
+                                    </ion-modal>
+                                  </ion-item>
+                                </div>
+                                <div *ngIf="preguntas.tipo=='Bool'">
+                                  <ion-item>
+                                    <ion-label >
+                                      <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
+                                      {{preguntas.id}}-{{preguntas.pregunta}}:
+                                    </ion-label>
+                                    <ion-toggle mode='ios' [(ngModel)]="preguntas.repuesta" color="success"></ion-toggle>
+                                  </ion-item>
+                                </div>
+                          </div><!--  end if condicional -->
+                          <div *ngIf="preguntas.condicion">
+                            <div *ngFor="let rescon of respuestasCon; let l=index">
+                              <div *ngIf="rescon==preguntas.condicion"> 
+                                      <div *ngIf="preguntas.tipo=='Text'">
+                                        <ion-item>
+                                          <ion-label position="floating">
+                                            <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                            {{preguntas.id}}-{{preguntas.pregunta}}:
+                                          </ion-label>
+                                          <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
+                                        </ion-item>    
+                                      </div>
+                                      <div *ngIf="preguntas.tipo=='Number'">
+                                        <ion-item>
+                                          <ion-label position="floating">
+                                            <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                            {{preguntas.id}}-{{preguntas.pregunta}}:
+                                          </ion-label>
+                                          <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
+                                        </ion-item>
+                                      </div>
+                                      <div *ngIf="preguntas.tipo=='Combo'">
+                                        <ion-item>
+                                          <ion-label >
+                                            <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                            {{preguntas.id}}-{{preguntas.pregunta}}:
+                                          </ion-label>
+                                          <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                                            <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
+                                              {{opcions}}
+                                            </ion-select-option>
+                                          </ion-select>
+                                        </ion-item>
+                                      </div>
+                                      <div *ngIf="preguntas.tipo=='Check'">
+                                            <ion-item>
+                                              <ion-label >
+                                                <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                                {{preguntas.id}}-{{preguntas.pregunta}}:
+                                              </ion-label>
+                                              <ion-select
+                                                [(ngModel)]="preguntas.repuesta"
+                                                placeholder="Multiple"
+                                                [multiple]="true"
+                                                value="preguntas.valor"
+                                                (ionChange)="changeCombo(preguntas.id,$event)"
+                                                okText="Confirmar" cancelText="Cancelar"
+                                                mode='ios'
+                                              >
+                                                <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
+                                              </ion-select>
+                                            </ion-item>
+                                      </div>
+                                      <div *ngIf="preguntas.tipo=='Date'">
+                                        <ion-item>
+                                          <ion-label >
+                                            <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                            {{preguntas.id}}-{{preguntas.pregunta}}:
+                                          </ion-label>
+                                          <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                          <ion-modal [keepContentsMounted]="true">
+                                            <ng-template>
+                                              <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                            </ng-template>
+                                          </ion-modal>
+                                        </ion-item>
+                                      </div>
+                                      <div *ngIf="preguntas.tipo=='Bool'">
+                                        <ion-item>
+                                          <ion-label >
+                                            <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
+                                            {{preguntas.id}}-{{preguntas.pregunta}}:
+                                          </ion-label>
+                                          <ion-toggle mode='ios' [(ngModel)]="preguntas.repuesta" color="success"></ion-toggle>
+                                        </ion-item>
+                                      </div>
+                              </div>
+      
+                            </div><!--  end for de respuestas nivel preguntas-->
+      
+                          </div><!--  end if condicional -->
+                        </div>
+                    </div><!--  end if condicional subgrupo-->
+                    <div *ngIf="subgruposIns.condicion">
+                      <div *ngFor="let resconS of respuestasCon; let y=index">
+                          <div *ngIf="resconS==subgruposIns.condicion">
+                                <ion-item>
+                                  <ion-label class="ion-text-wrap">
+                                    <ion-text color="primary">
+                                      <h1>{{subgruposIns.Subgrupo}}</h1>
+                                    </ion-text>
+                                  </ion-label>
+                                </ion-item>
+                                <div *ngFor="let preguntas of subgruposIns.preguntas; let k=index">
+                                  <div *ngIf="!preguntas.condicion">
+                                        <div *ngIf="preguntas.tipo=='Text'">
+                                          <ion-item>
+                                            <ion-label position="floating">
+                                              <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                              {{preguntas.id}}-{{preguntas.pregunta}}:
+                                            </ion-label>
+                                            <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
+                                          </ion-item>    
+                                        </div>
+                                        <div *ngIf="preguntas.tipo=='Number'">
+                                          <ion-item>
+                                            <ion-label position="floating">
+                                              <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                              {{preguntas.id}}-{{preguntas.pregunta}}:
+                                            </ion-label>
+                                            <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
+                                          </ion-item>
+                                        </div>
+                                        <div *ngIf="preguntas.tipo=='Combo'">
+                                          <ion-item>
+                                            <ion-label >
+                                              <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                              {{preguntas.id}}-{{preguntas.pregunta}}:
+                                            </ion-label>
+                                            <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                                              <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
+                                                {{opcions}}
+                                              </ion-select-option>
+                                            </ion-select>
+                                          </ion-item>
+                                        </div>
+                                        <div *ngIf="preguntas.tipo=='Check'">
+                                              <ion-item>
+                                                <ion-label >
+                                                  <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                                  {{preguntas.id}}-{{preguntas.pregunta}}:
+                                                </ion-label>
+                                                <ion-select
+                                                  [(ngModel)]="preguntas.repuesta"
+                                                  placeholder="Multiple"
+                                                  [multiple]="true"
+                                                  value="preguntas.valor"
+                                                  (ionChange)="changeCombo(preguntas.id,$event)"
+                                                  okText="Confirmar" cancelText="Cancelar"
+                                                  mode='ios'
+                                                >
+                                                  <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
+                                                </ion-select>
+                                              </ion-item>
+                                        </div>
+                                        <div *ngIf="preguntas.tipo=='Date'">
+                                          <ion-item>
+                                            <ion-label >
+                                              <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                              {{preguntas.id}}-{{preguntas.pregunta}}:
+                                            </ion-label>
+                                            <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                            <ion-modal [keepContentsMounted]="true">
+                                              <ng-template>
+                                                <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                              </ng-template>
+                                            </ion-modal>
+                                          </ion-item>
+                                        </div>
+                                        <div *ngIf="preguntas.tipo=='Bool'">
+                                          <ion-item>
+                                            <ion-label >
+                                              <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
+                                              {{preguntas.id}}-{{preguntas.pregunta}}:
+                                            </ion-label>
+                                            <ion-toggle mode='ios' [(ngModel)]="preguntas.repuesta" color="success"></ion-toggle>
+                                          </ion-item>
+                                        </div>
+                                  </div><!--  end if condicional -->
+                                  <div *ngIf="preguntas.condicion">
+                                    <div *ngFor="let rescon of respuestasCon; let l=index">
+                                      <div *ngIf="rescon==preguntas.condicion"> 
+                                              <div *ngIf="preguntas.tipo=='Text'">
+                                                <ion-item>
+                                                  <ion-label position="floating">
+                                                    <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                                    {{preguntas.id}}-{{preguntas.pregunta}}:
+                                                  </ion-label>
+                                                  <ion-input  [(ngModel)]="preguntas.repuesta"  type="text"></ion-input>
+                                                </ion-item>    
+                                              </div>
+                                              <div *ngIf="preguntas.tipo=='Number'">
+                                                <ion-item>
+                                                  <ion-label position="floating">
+                                                    <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                                    {{preguntas.id}}-{{preguntas.pregunta}}:
+                                                  </ion-label>
+                                                  <ion-input  [(ngModel)]="preguntas.repuesta" type="number"></ion-input>
+                                                </ion-item>
+                                              </div>
+                                              <div *ngIf="preguntas.tipo=='Combo'">
+                                                <ion-item>
+                                                  <ion-label >
+                                                    <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                                    {{preguntas.id}}-{{preguntas.pregunta}}:
+                                                  </ion-label>
+                                                  <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                                                    <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
+                                                      {{opcions}}
+                                                    </ion-select-option>
+                                                  </ion-select>
+                                                </ion-item>
+                                              </div>
+                                              <div *ngIf="preguntas.tipo=='Check'">
+                                                    <ion-item>
+                                                      <ion-label >
+                                                        <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                                        {{preguntas.id}}-{{preguntas.pregunta}}:
+                                                      </ion-label>
+                                                      <ion-select
+                                                        [(ngModel)]="preguntas.repuesta"
+                                                        placeholder="Multiple"
+                                                        [multiple]="true"
+                                                        value="preguntas.valor"
+                                                        (ionChange)="changeCombo(preguntas.id,$event)"
+                                                        okText="Confirmar" cancelText="Cancelar"
+                                                        mode='ios'
+                                                      >
+                                                        <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
+                                                      </ion-select>
+                                                    </ion-item>
+                                              </div>
+                                              <div *ngIf="preguntas.tipo=='Date'">
+                                                <ion-item>
+                                                  <ion-label >
+                                                    <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
+                                                    {{preguntas.id}}-{{preguntas.pregunta}}:
+                                                  </ion-label>
+                                                  <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                                  <ion-modal [keepContentsMounted]="true">
+                                                    <ng-template>
+                                                      <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                                    </ng-template>
+                                                  </ion-modal>
+                                                </ion-item>
+                                              </div>
+                                              <div *ngIf="preguntas.tipo=='Bool'">
+                                                <ion-item>
+                                                  <ion-label >
+                                                    <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
+                                                    {{preguntas.id}}-{{preguntas.pregunta}}:
+                                                  </ion-label>
+                                                  <ion-toggle mode='ios' [(ngModel)]="preguntas.repuesta" color="success"></ion-toggle>
+                                                </ion-item>
+                                              </div>
+                                      </div>
+              
+                                    </div><!--  end for de respuestas nivel preguntas-->
+              
+                                  </div><!--  end if condicional -->
+                                </div>
+      
+                          </div><!--  end subgrupo condicion-->
+                      </div><!--  end for de respuestas-->
+                    </div><!--  end if condicional subgrupo verdadero-->
+                </div>  
 
-                      </div><!--  end if condicional -->
-                </div>
-
-            </div>
+            </div><!--  end if for instancias -->
+        </div><!--  end if multiple true -->
+        <ion-button (click)="guardar()" expand="block" fill="outline" type="submit"   color="success">
+          <ion-icon slot="start" name="save"></ion-icon>
+           Guardar
+        </ion-button>
         </div>
-    </div>
-    <form [formGroup]="formPreguntas" #ask1="ngForm">
-      <ion-list>       
-          
-          <ion-button (click)="guardar()" expand="block" fill="outline" type="submit"   color="success">
-            <ion-icon slot="start" name="checkmark-done-circle-outline"></ion-icon>
-             Guardar
-          </ion-button>
-      </ion-list>
-    </form>
+      </ion-accordion>
+    </div><!--  end FOR GRUPOS -->
+
+    </ion-accordion-group>
   </div>
 </ion-content>

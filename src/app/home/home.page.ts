@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {FormGroup, Validators, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { AlertController, LoadingController } from '@ionic/angular';
+import { ApiVisitArService } from '../services/api-visit-ar.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -8,6 +10,7 @@ import {FormGroup, Validators, FormControl, FormBuilder, FormArray } from '@angu
 export class HomePage {
   
   encuesta:any;
+  jsonEncuestaGet: any;
   formPreguntas: FormGroup;
   //inputsPreguntas = [];
   //GruposNombre=[];
@@ -16,10 +19,12 @@ export class HomePage {
   currentRes = undefined;
   respuestasCon =[];
   contadorMul:number=0;
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,public alertController: AlertController,
+    public loadingController: LoadingController, public apiVisitArService:ApiVisitArService) {
     this.formPreguntas = formBuilder.group({});
   }
   async ionViewDidEnter(){
+    this.getEncuestaRonda();
     setTimeout(() => {
       this.encuesta = [
         { 
@@ -79,6 +84,9 @@ export class HomePage {
         },
         { 
         Grupo:"Personas" ,
+        Instancias:
+          [
+          ],
         EsMultiple: true,
         Subgrupo : [
           { 
@@ -146,12 +154,10 @@ export class HomePage {
 
           }
         ],
-        Instancias:
-          [
-          ]
+        
         }
       ];
-      //this.preparingInputsQuestions();
+      
     }, 500);
   }
   
@@ -195,9 +201,14 @@ export class HomePage {
   //   this.encuesta[indGrupo].Subgrupo.push(subgrupos);
   //   console.log(this.encuesta);
   // }
+  addIntanciasGrupos(idGrupo:number, subgrupoArray:any){
+      var insArray = JSON.parse(JSON.stringify(subgrupoArray));
+      this.encuesta[idGrupo].Instancias.push(insArray);
+      console.log(this.encuesta);
+  }
 
-  deleteSubgrupoPreguntas(indGrupo:number,idSubGrupo:number){
-    this.encuesta[indGrupo].Subgrupo.splice(idSubGrupo, 1);
+  deleteIntanciasGrupos(idGrupo:number,idInstancia:number){
+    this.encuesta[idGrupo].Instancias.splice(idInstancia, 1);
     console.log(this.encuesta);
   }
 
@@ -265,6 +276,35 @@ export class HomePage {
 
   }
 
+  async getEncuestaRonda(){
+    console.log("obtengo encuesta");
+    const loading = await this.loadingController.create({
+      message: 'Aguarde pidiendo json...',
+    });
+   
+    // await loading.present();
+    this.apiVisitArService.getEncuestaRonda().subscribe(
+      data => {
+        this.jsonEncuestaGet = data;
+        console.log(this.jsonEncuestaGet);
+        loading.dismiss();
+      },error => {  
+        loading.dismiss();
+        this.presentAlert('Error', 'Problema', error.error); 
+        console.log(error);
+    });
+  }
   
-
+  async presentAlert( header:string, subHeader:string, texto:string) {
+    const alert = await this.alertController.create({
+      backdropDismiss: false,
+      cssClass: 'alertCustomCss',
+      header: header,
+      subHeader: subHeader,
+      message: texto,
+      buttons: ['OK'],
+      mode: 'ios',
+    });
+    await alert.present();
+  }
 }
