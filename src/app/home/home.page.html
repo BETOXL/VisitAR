@@ -425,7 +425,7 @@
                                       <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.id}}-{{preguntas.pregunta}}:
                                     </ion-label>
-                                    <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                                    <ion-select  (ionChange)="changeSelectMul(ins,preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
                                       <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
                                         {{opcions}}
                                       </ion-select-option>
@@ -443,7 +443,7 @@
                                           placeholder="Multiple"
                                           [multiple]="true"
                                           value="preguntas.valor"
-                                          (ionChange)="changeCombo(preguntas.id,$event)"
+                                          (ionChange)="changeComboMul(ins,preguntas.id,$event)"
                                           okText="Confirmar" cancelText="Cancelar"
                                           mode='ios'
                                         >
@@ -477,7 +477,7 @@
                           </div><!--  end if condicional -->
                           <div *ngIf="preguntas.condicion">
                             <div *ngFor="let rescon of respuestasCon; let l=index">
-                              <div *ngIf="rescon==preguntas.condicion"> 
+                              <div *ngIf="rescon=='{{' + ins + '}}' + preguntas.condicion"> 
                                       <div *ngIf="preguntas.tipo=='Text'">
                                         <ion-item>
                                           <ion-label position="floating">
@@ -502,7 +502,7 @@
                                             <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                             {{preguntas.id}}-{{preguntas.pregunta}}:
                                           </ion-label>
-                                          <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                                          <ion-select  (ionChange)="changeSelectMul(ins,preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
                                             <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
                                               {{opcions}}
                                             </ion-select-option>
@@ -520,7 +520,7 @@
                                                 placeholder="Multiple"
                                                 [multiple]="true"
                                                 value="preguntas.valor"
-                                                (ionChange)="changeCombo(preguntas.id,$event)"
+                                                (ionChange)="changeComboMul(ins,preguntas.id,$event)"
                                                 okText="Confirmar" cancelText="Cancelar"
                                                 mode='ios'
                                               >
@@ -560,7 +560,7 @@
                     </div><!--  end if condicional subgrupo-->
                     <div *ngIf="subgruposIns.condicion">
                       <div *ngFor="let resconS of respuestasCon; let y=index">
-                          <div *ngIf="resconS==subgruposIns.condicion">
+                          <div *ngIf="resconS== '{{' + ins + '}}' + subgruposIns.condicion">
                                 <ion-item>
                                   <ion-label class="ion-text-wrap">
                                     <ion-text color="primary">
@@ -594,7 +594,7 @@
                                               <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.id}}-{{preguntas.pregunta}}:
                                             </ion-label>
-                                            <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                                            <ion-select  (ionChange)="changeSelectMul(ins,preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
                                               <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
                                                 {{opcions}}
                                               </ion-select-option>
@@ -612,7 +612,7 @@
                                                   placeholder="Multiple"
                                                   [multiple]="true"
                                                   value="preguntas.valor"
-                                                  (ionChange)="changeCombo(preguntas.id,$event)"
+                                                  (ionChange)="changeComboMul(ins,preguntas.id,$event)"
                                                   okText="Confirmar" cancelText="Cancelar"
                                                   mode='ios'
                                                 >
@@ -646,7 +646,7 @@
                                   </div><!--  end if condicional -->
                                   <div *ngIf="preguntas.condicion">
                                     <div *ngFor="let rescon of respuestasCon; let l=index">
-                                      <div *ngIf="rescon==preguntas.condicion"> 
+                                      <div *ngIf="rescon=='{{' + ins + '}}' + preguntas.condicion"> 
                                               <div *ngIf="preguntas.tipo=='Text'">
                                                 <ion-item>
                                                   <ion-label position="floating">
@@ -671,7 +671,7 @@
                                                     <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                                     {{preguntas.id}}-{{preguntas.pregunta}}:
                                                   </ion-label>
-                                                  <ion-select  (ionChange)="changeSelect(preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
+                                                  <ion-select  (ionChange)="changeSelectMul(ins,preguntas.id,$event)" [(ngModel)]="preguntas.repuesta" value="preguntas.valor" mode='ios'  placeholder="Selecciona"  okText="Confirmar" cancelText="Cancelar" >
                                                     <ion-select-option *ngFor="let opcions of preguntas.opciones; let u=index" [value]="opcions">
                                                       {{opcions}}
                                                     </ion-select-option>
@@ -689,7 +689,7 @@
                                                         placeholder="Multiple"
                                                         [multiple]="true"
                                                         value="preguntas.valor"
-                                                        (ionChange)="changeCombo(preguntas.id,$event)"
+                                                        (ionChange)="changeComboMul(ins,preguntas.id,$event)"
                                                         okText="Confirmar" cancelText="Cancelar"
                                                         mode='ios'
                                                       >
