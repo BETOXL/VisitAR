@@ -203,18 +203,18 @@ export class HomePage {
   // }
   addIntanciasGrupos(idGrupo:number, subgrupoArray:any){
       var insArray = JSON.parse(JSON.stringify(subgrupoArray));
-      this.encuesta[idGrupo].Instancias.push(insArray);
-      console.log(this.encuesta);
+      this.jsonEncuestaGet.Grupos[idGrupo].Instancias.push(insArray);
+      console.log(this.jsonEncuestaGet);
   }
 
   deleteIntanciasGrupos(idGrupo:number,idInstancia:number){
-    this.encuesta[idGrupo].Instancias.splice(idInstancia, 1);
-    console.log(this.encuesta);
+    this.jsonEncuestaGet.Grupos[idGrupo].Instancias.splice(idInstancia, 1);
+    console.log(this.jsonEncuestaGet);
   }
 
   guardar(){
-    console.log(this.encuesta);
-    alert(JSON.stringify(this.encuesta));
+    console.log(this.jsonEncuestaGet);
+    alert(JSON.stringify(this.jsonEncuestaGet));
   }
   changeCombo(idPregunta:number,ev){
     this.currentRes = ev.target.value;

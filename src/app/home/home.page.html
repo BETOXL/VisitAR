@@ -15,7 +15,7 @@
   <div style="max-width: 500px; width:100%; margin: auto; text-align: center;" >
     <h1>Seleccione un grupo:</h1>
     <ion-accordion-group #accordionGroup>
-    <div *ngFor="let grupos of encuesta; let i=index">
+    <div *ngFor="let grupos of jsonEncuestaGet?.Grupos; let i=index">
       <ion-accordion>
         <ion-item slot="header" color="light">
           <ion-label> {{grupos.Grupo}}</ion-label>
@@ -28,7 +28,7 @@
             </ion-label>
           </ion-item-divider>
           <br>
-          <div *ngFor="let subgrupos of grupos.Subgrupo; let j=index">
+          <div *ngFor="let subgrupos of grupos.Subgrupos; let j=index">
               <div *ngIf="!subgrupos.condicion">
                   <ion-item>
                     <ion-label class="ion-text-wrap">

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiVisitar: 'http://www.strausssrl.com.ar:3000/',
+  apiVisitar: 'https://632b4ccb1aabd8373983f812.mockapi.io/api/',
 };
