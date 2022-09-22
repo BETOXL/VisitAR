@@ -115,7 +115,7 @@ export class HomePage {
         loading.dismiss();
       },error => {  
         loading.dismiss();
-        this.presentAlert('Error', 'Problema', error.error); 
+        this.presentAlert('Error', 'Problema', JSON.stringify(error.error)); 
         console.log(error);
     });
   }
