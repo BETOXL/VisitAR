@@ -128,10 +128,10 @@
                                 <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                 {{preguntas.id}}-{{preguntas.pregunta}}:
                               </ion-label>
-                              <ion-datetime-button  datetime="date"></ion-datetime-button>
+                              <ion-datetime-button  datetime="date{{preguntas.id}}"></ion-datetime-button>
                               <ion-modal [keepContentsMounted]="true">
                                 <ng-template>
-                                  <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                  <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{preguntas.id}}"></ion-datetime>
                                 </ng-template>
                               </ion-modal>
                             </ion-item>
@@ -205,10 +205,10 @@
                                       <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.id}}-{{preguntas.pregunta}}:
                                     </ion-label>
-                                    <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                    <ion-datetime-button  datetime="date{{preguntas.id}}"></ion-datetime-button>
                                     <ion-modal [keepContentsMounted]="true">
                                       <ng-template>
-                                        <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                        <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{preguntas.id}}"></ion-datetime>
                                       </ng-template>
                                     </ion-modal>
                                   </ion-item>
@@ -297,10 +297,10 @@
                                         <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                         {{preguntas.id}}-{{preguntas.pregunta}}:
                                       </ion-label>
-                                      <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                      <ion-datetime-button  datetime="date{{preguntas.id}}"></ion-datetime-button>
                                       <ion-modal [keepContentsMounted]="true">
                                         <ng-template>
-                                          <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                          <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{preguntas.id}}"></ion-datetime>
                                         </ng-template>
                                       </ion-modal>
                                     </ion-item>
@@ -374,10 +374,10 @@
                                               <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.id}}-{{preguntas.pregunta}}:
                                             </ion-label>
-                                            <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                            <ion-datetime-button  datetime="date{{preguntas.id}}"></ion-datetime-button>
                                             <ion-modal [keepContentsMounted]="true">
                                               <ng-template>
-                                                <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                                <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{preguntas.id}}"></ion-datetime>
                                               </ng-template>
                                             </ion-modal>
                                           </ion-item>
@@ -490,10 +490,10 @@
                                       <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.id}}-{{preguntas.pregunta}}:
                                     </ion-label>
-                                    <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                    <ion-datetime-button  datetime="date{{ins}}{{preguntas.id}}"></ion-datetime-button>
                                     <ion-modal [keepContentsMounted]="true">
                                       <ng-template>
-                                        <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                        <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{ins}}{{preguntas.id}}"></ion-datetime>
                                       </ng-template>
                                     </ion-modal>
                                   </ion-item>
@@ -567,10 +567,10 @@
                                             <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                             {{preguntas.id}}-{{preguntas.pregunta}}:
                                           </ion-label>
-                                          <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                          <ion-datetime-button  datetime="date{{ins}}{{preguntas.id}}"></ion-datetime-button>
                                           <ion-modal [keepContentsMounted]="true">
                                             <ng-template>
-                                              <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                              <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{ins}}{{preguntas.id}}"></ion-datetime>
                                             </ng-template>
                                           </ion-modal>
                                         </ion-item>
@@ -659,10 +659,10 @@
                                               <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.id}}-{{preguntas.pregunta}}:
                                             </ion-label>
-                                            <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                            <ion-datetime-button  datetime="date{{ins}}{{preguntas.id}}"></ion-datetime-button>
                                             <ion-modal [keepContentsMounted]="true">
                                               <ng-template>
-                                                <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                                <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{ins}}{{preguntas.id}}"></ion-datetime>
                                               </ng-template>
                                             </ion-modal>
                                           </ion-item>
@@ -736,10 +736,10 @@
                                                     <ion-icon *ngIf="preguntas.repuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                                     {{preguntas.id}}-{{preguntas.pregunta}}:
                                                   </ion-label>
-                                                  <ion-datetime-button  datetime="date"></ion-datetime-button>
+                                                  <ion-datetime-button  datetime="date{{ins}}{{preguntas.id}}"></ion-datetime-button>
                                                   <ion-modal [keepContentsMounted]="true">
                                                     <ng-template>
-                                                      <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date"></ion-datetime>
+                                                      <ion-datetime [(ngModel)]="preguntas.repuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{ins}}{{preguntas.id}}"></ion-datetime>
                                                     </ng-template>
                                                   </ion-modal>
                                                 </ion-item>
