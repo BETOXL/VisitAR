@@ -13,7 +13,40 @@
     </ion-toolbar>
   </ion-header>
   <div style="max-width: 500px; width:100%; margin: auto; text-align: center;" >
-    <h1>Seleccione un grupo:</h1>
+    <ion-grid class="ion-grid-color">
+      <ion-row class="ion-row-borde">
+        <ion-col>
+          <b>CAPS:</b> {{jsonEncuestaGet?.CAPS}}
+        </ion-col>
+        <ion-col>
+          <b>Descripción:</b> {{jsonEncuestaGet?.Descripcion}}
+        </ion-col>
+        <ion-col>
+          <b>Nombre:</b> {{jsonEncuestaGet?.Nombre}}
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-row-borde">
+        <ion-col>
+          <b>Fecha Desde:</b> {{jsonEncuestaGet?.FechaDesde}} 
+        </ion-col>
+        <ion-col>
+          <b>Fecha Hasta:</b> {{jsonEncuestaGet?.FechaHasta}}
+        </ion-col>
+      </ion-row>
+      <ion-row  class="ion-row-borde">
+        <ion-col>
+          <b>Provincia:</b> {{jsonEncuestaGet?.Provincia}}
+        </ion-col>
+        <ion-col>
+          <b>Region:</b> {{jsonEncuestaGet?.Region}}
+        </ion-col>
+        <ion-col>
+          <b>Localidad:</b> {{jsonEncuestaGet?.Localidad}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <h3>Seleccione un grupo:</h3>
     <ion-accordion-group #accordionGroup>
     <div *ngFor="let grupos of jsonEncuestaGet?.Grupos; let i=index">
       <ion-accordion>
