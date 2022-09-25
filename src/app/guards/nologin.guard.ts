@@ -21,7 +21,7 @@ export class NologinGuard implements CanActivate {
     return this.authService.getToken().then(data => {
         let idUser = data;
         //console.log(idUser);
-        if (idUser== null || idUser == undefined || idUser == 'null') {
+        if (idUser== null || idUser == undefined || idUser == 'null' || idUser == 'undefined' ) {
           console.log('autorizadar...');
           return true;
         } else {

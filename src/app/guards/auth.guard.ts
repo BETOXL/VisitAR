@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
        
         let idUser = data;
         //console.log(idUser);
-        if (idUser==null || idUser ==undefined || idUser =='null' ) {
+        if (idUser==null || idUser ==undefined || idUser =='null' || idUser == 'undefined' ) {
           this.presentAlertPar(
             'Atención!',
             'Esta App esta disponible solo para usuarios registrados.',
