@@ -14,21 +14,27 @@ export class AuthService {
     async setToken(token: string) {
       this.token = String(token);
       await Preferences.set({
-        key: 'TOKENW',
+        key: 'TOKENVI',
         value: String(token),
       });
     }
 
     async getToken() {
-      const ret = await Preferences.get({ key: 'TOKENW' });
+      const ret = await Preferences.get({ key: 'TOKENVI' });
       this.token = String(ret.value);
       return  this.token;
     }
 
     async removeToken() {
       const promises = await Promise.all([
-        Preferences.remove({ key: 'TOKENW' }),
+        Preferences.remove({ key: 'TOKENVI' }),
       ]);
+    }
+
+    async logout() {
+      this.token=null;
+      await Preferences.remove({ key: 'TOKENVI' });
+      delete this.token;
     }
 
     

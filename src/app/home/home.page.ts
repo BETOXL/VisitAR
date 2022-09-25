@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import {FormGroup, Validators, FormControl, FormBuilder, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ApiVisitArService } from '../services/api-visit-ar.service';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -14,8 +16,8 @@ export class HomePage {
   currentRes = undefined;
   respuestasCon =[];
   contadorMul:number=0;
-  constructor(private formBuilder: FormBuilder,public alertController: AlertController,
-    public loadingController: LoadingController, public apiVisitArService:ApiVisitArService) {
+  constructor(private formBuilder: FormBuilder,public alertController: AlertController,private authService: AuthService,
+    public loadingController: LoadingController, public router:Router,public apiVisitArService:ApiVisitArService) {
     this.formPreguntas = formBuilder.group({});
   }
   async ionViewDidEnter(){
@@ -190,5 +192,9 @@ export class HomePage {
     }
     console.log(this.respuestasCon);
 
+  }
+  cerrar(){
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
