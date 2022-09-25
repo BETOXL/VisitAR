@@ -1,0 +1,39 @@
+<ion-header class="ion-no-border">
+
+</ion-header>
+
+<ion-content class="ion-padding gradient" mode="md">
+  <div class="container">
+    <ion-text color="primary">
+      <h1 class="page-title">Ingresar a mi cuenta</h1>
+    </ion-text>
+    <p>Escribí tu usuario y contraseña que asignaste a tu cuenta de VisitAR.</p>
+
+   <form [formGroup]="loginForm"  #vali1="ngForm"> 
+
+    <ion-item>          
+      <ion-input formControlName="usuario_f" color="primary" type="text" placeholder="Ingrese usuario" 
+      [(ngModel)]="userVa.usuario"
+       ></ion-input>
+    </ion-item>
+
+    <ion-item>          
+      <ion-input formControlName="password_f" color="primary" type="text" placeholder="Ingrese contraseña" 
+      [(ngModel)]="userVa.password"
+       ></ion-input>
+    </ion-item>
+      
+    <!-- <ion-button [routerLink]="['/new-password']" expand="block" fill="clear" shape="round">
+      ¿Olvidaste la contraseña?
+    </ion-button> -->
+
+
+    <div class="footer-button">
+
+      <ion-button  (click)="login()" expand="block" shape="round" [disabled]="!vali1.form.valid" [ngClass]="disabled ? 'deshabilitado' : ''" >
+        Ingresar
+      </ion-button>
+    </div>
+    </form>
+</div>
+</ion-content>

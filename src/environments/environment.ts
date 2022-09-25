@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiVisitar: 'https://632b4ccb1aabd8373983f812.mockapi.io/api/',
+  apiVisitar: 'https://strausssrl.com.ar:3443/',
 };
 
 /*
