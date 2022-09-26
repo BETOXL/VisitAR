@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ApiVisitArService } from '../services/api-visit-ar.service';
 import { AuthService } from '../services/auth.service';
+import { Geolocation } from '@capacitor/geolocation';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  
+  Ubilat: number = 0;
+  Ubilng: number = 0;
   jsonEncuestaGet: any;
   formPreguntas: FormGroup;
   currentRes = undefined;
@@ -22,6 +24,7 @@ export class HomePage {
   }
   async ionViewDidEnter(){
     this.getEncuestaRonda();
+    this.getCurrentPosition();
     setTimeout(() => {
       console.log("arranco");
     }, 500);
@@ -196,5 +199,53 @@ export class HomePage {
   cerrar(){
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  async getCurrentPosition() {
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
+      console.log('Current', coordinates);
+      this.Ubilat=  coordinates.coords.latitude;
+      this.Ubilng= coordinates.coords.longitude;
+    } catch (error) {
+      console.error(error);
+      this.presentAlertConfirmGPSactivar(error.message);
+    }
+    
+  }
+
+  async presentAlertConfirmGPSactivar(errorM) {
+    const permisos = await Geolocation.checkPermissions();
+    console.log(permisos);
+    if(permisos.location == 'denied'){
+      Geolocation.requestPermissions();
+    }
+    const alert = await this.alertController.create({
+      cssClass: 'my-custom-class',
+      header: "Ubicación",
+      subHeader: "ACTIVAR EL GPS! o no podrá cargar encuestas.",
+      message: "1- En chrome ir al candadito en la barra arriba, alado del sitio seguro hacer click y permitir ubicación 2- Android Ir a Ajustes - Aplicaciones - Permisos. " + errorM ,
+      buttons: [
+        {
+          text: "Cancelar",
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+            this.Ubilat=0;
+            this.Ubilng=0;
+            this.getCurrentPosition();
+          }
+        }, {
+          text: "Confirmar",
+          handler: () => {
+            this.getCurrentPosition();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+    
   }
 }
