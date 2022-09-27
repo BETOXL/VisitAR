@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">VisitAR</string>
+    <string name="title_activity_main">VisitAR</string>
+    <string name="package_name">app.web.visitar</string>
+    <string name="custom_url_scheme">app.web.visitar</string>
+</resources>
