@@ -6,7 +6,7 @@ import { NologinGuard } from './guards/nologin.guard';
 const routes: Routes = [
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule),
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
     canActivate: [AuthGuard]
   },
   {
@@ -18,6 +18,11 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
     canActivate: [NologinGuard]
+  },
+  {
+    path: 'campanias',
+    loadChildren: () => import('./pages/campanias/campanias.module').then( m => m.CampaniasPageModule),
+    canActivate: [AuthGuard]
   },
 ];
 

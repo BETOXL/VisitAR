@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import {FormGroup, Validators, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { ApiVisitArService } from '../services/api-visit-ar.service';
-import { AuthService } from '../services/auth.service';
+import { ApiVisitArService } from '../../services/api-visit-ar.service';
+import { AuthService } from '../../services/auth.service';
 import { Geolocation } from '@capacitor/geolocation';
 @Component({
   selector: 'app-home',
@@ -23,7 +23,6 @@ export class HomePage {
     this.formPreguntas = formBuilder.group({});
   }
   async ionViewDidEnter(){
-    this.getEncuestaRonda();
     this.getCurrentPosition();
     setTimeout(() => {
       console.log("arranco");
@@ -117,10 +116,12 @@ export class HomePage {
       data => {
         this.jsonEncuestaGet = data;
         console.log(this.jsonEncuestaGet);
+        this.jsonEncuestaGet.Lat = this.Ubilat;
+        this.jsonEncuestaGet.Lng = this.Ubilng;
         loading.dismiss();
       },error => {  
         loading.dismiss();
-        this.presentAlert('Error', 'Problema', JSON.stringify(error.error)); 
+        this.presentAlert('Info', 'Problema', error.message + ' ' +JSON.stringify(error.error));  
         console.log(error);
     });
   }
@@ -207,6 +208,7 @@ export class HomePage {
       console.log('Current', coordinates);
       this.Ubilat=  coordinates.coords.latitude;
       this.Ubilng= coordinates.coords.longitude;
+      this.getEncuestaRonda();
     } catch (error) {
       console.error(error);
       this.presentAlertConfirmGPSactivar(error.message);

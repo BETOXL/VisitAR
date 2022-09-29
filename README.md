@@ -39,3 +39,21 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ng deploy --base-href=/VisitAR/
 
+## Input type for questions
+
+-Text
+-Number
+-Combo
+-Check
+-Date
+-Bool
+
+## Conditional
+
+Works only for `check` and `combo` types
+Format:
+
+{{IdPregunta}}=='StringRespuesta'
+Example:
+
+{{1258}}=='OTROS (Especificar)'

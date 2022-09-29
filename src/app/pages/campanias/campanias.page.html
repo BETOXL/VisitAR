@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title  mode=ios>
+      VisitAR
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()" color="secondary">
+        <ion-icon slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content  [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">VisitAR</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div style="max-width: 500px; width:100%; margin: auto; text-align: center;" >
+    <ion-list lines="full" detail>
+      <ion-item-divider style="height: 40px;" color="secondary">
+        <h3>Campañas</h3>
+      </ion-item-divider>
+      <div *ngFor="let item of campanias?.relevamientos; let i = index" (click)="enviarEncuesta(i)">
+        <ion-item detail *ngIf="campanias?.relevamientos.length > 0" button>
+          <ion-thumbnail slot="start">
+            <img src="assets/imgs/campaign_icon.svg">
+          </ion-thumbnail>
+          <ion-label>
+            <h3>Id:{{item?.Id}} Nom: {{item?.Nombre}}</h3>
+            <p>{{item?.Descripcion}} - Fecha Fin: {{item?.FechaFin | date:"dd/MM/yy" }}</p>
+          </ion-label>
+        </ion-item>
+      </div>
+      <div *ngIf="campanias?.relevamientos.length <= 0">
+        <h2 text-center>No hay campañas disponibles...
+        </h2>
+      </div>
+    </ion-list>
+    <div class="footer-button">
+
+      <ion-button  (click)="login()" expand="block" shape="round"   >
+        Bajar Campañas
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

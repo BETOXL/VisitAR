@@ -25,7 +25,7 @@ export class NologinGuard implements CanActivate {
           console.log('autorizadar...');
           return true;
         } else {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/campanias']);
           return false;
         }
     });

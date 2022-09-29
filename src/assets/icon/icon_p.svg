@@ -79,50 +79,47 @@
   </metadata>
   <g
      id="layer1">
-    <g
-       id="g845">
-      <rect
-         style="fill:url(#linearGradient2923);fill-opacity:1;stroke:#0df0be;stroke-width:0.365;stroke-dasharray:none;stroke-opacity:1"
-         id="rect2863"
-         width="127.93716"
-         height="126.18433"
-         x="4.8356838"
-         y="5.3515148"
-         rx="17.415785"
-         ry="17.415785" />
-      <rect
-         style="opacity:0.904624;fill:url(#linearGradient819);fill-opacity:1;stroke-width:1.39838"
-         id="rect234"
-         width="127.49236"
-         height="129.16702"
-         x="3.5584378"
-         y="3.0789883"
-         ry="17.415785"
-         rx="17.415785"
-         clip-path="url(#clipPath2803)"
-         transform="translate(1.1366242,2.3789278)" />
-      <text
-         xml:space="preserve"
-         style="font-size:34.5869px;font-family:Galindo;-inkscape-font-specification:Galindo;fill:#909090;fill-opacity:1;stroke:#909090;stroke-width:2.6879;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         x="13.963128"
-         y="85.349632"
-         id="text12219"
-         transform="scale(0.99839019,1.0016124)"><tspan
-           id="tspan12217"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:34.5869px;font-family:Arial;-inkscape-font-specification:Arial;opacity:1;fill:#909090;fill-opacity:1;stroke:#909090;stroke-width:2.6879;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           x="13.963128"
-           y="85.349632">VisitAR</tspan></text>
-      <text
-         xml:space="preserve"
-         style="font-size:34.5869px;font-family:Galindo;-inkscape-font-specification:Galindo;fill:#f9f9f9;fill-opacity:1;stroke:#ffffff;stroke-width:2.6879;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         x="12.677715"
-         y="80.066483"
-         id="text4766"
-         transform="scale(0.99839019,1.0016124)"><tspan
-           id="tspan4764"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:34.5869px;font-family:Arial;-inkscape-font-specification:Arial;opacity:1;fill:#f9f9f9;fill-opacity:1;stroke:#ffffff;stroke-width:2.6879;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           x="12.677715"
-           y="80.066483">VisitAR</tspan></text>
-    </g>
+    <rect
+       style="fill:url(#linearGradient2923);fill-opacity:1;stroke:#0df0be;stroke-width:0.365;stroke-dasharray:none;stroke-opacity:1;opacity:0.99999999"
+       id="rect2863"
+       width="127.93716"
+       height="126.18433"
+       x="4.8356838"
+       y="5.3515148"
+       rx="17.415785"
+       ry="17.415785" />
+    <text
+       xml:space="preserve"
+       style="font-size:34.5869px;font-family:Galindo;-inkscape-font-specification:Galindo;fill:#909090;fill-opacity:1;stroke:#909090;stroke-width:2.6879;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="12.085057"
+       y="82.480843"
+       id="text12219"
+       transform="scale(0.99839019,1.0016124)"><tspan
+         id="tspan12217"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:34.5869px;font-family:Arial;-inkscape-font-specification:Arial;opacity:1;fill:#909090;fill-opacity:1;stroke:#909090;stroke-width:2.6879;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         x="12.085057"
+         y="82.480843">VisitAR</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:33.5115px;font-family:Galindo;-inkscape-font-specification:Galindo;fill:#f9f9f9;fill-opacity:1;stroke:#ffffff;stroke-width:2.60433;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="16.873608"
+       y="77.787811"
+       id="text4766"
+       transform="scale(0.96415121,1.0371817)"><tspan
+         id="tspan4764"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:33.5115px;font-family:Arial;-inkscape-font-specification:Arial;opacity:1;fill:#f9f9f9;fill-opacity:1;stroke:#ffffff;stroke-width:2.60433;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         x="16.873608"
+         y="77.787811">VisitAR</tspan></text>
+    <rect
+       style="opacity:0.904624;fill:url(#linearGradient819);fill-opacity:1;stroke-width:1.39838"
+       id="rect234"
+       width="127.49236"
+       height="129.16702"
+       x="3.5584378"
+       y="3.0789883"
+       ry="17.415785"
+       rx="17.415785"
+       clip-path="url(#clipPath2803)"
+       transform="translate(1.1366242,2.3789278)" />
   </g>
 </svg>

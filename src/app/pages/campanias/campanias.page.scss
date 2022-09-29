@@ -1,0 +1,15 @@
+ion-button{
+    --background: linear-gradient(135deg, var(--ion-color-success) 0%, var(--ion-color-tertiary) 100%)!important;
+    --padding-top: 25px!important;
+    --padding-bottom: 25px!important;
+    margin-bottom: 12px!important;
+    --color: #fff!important;
+    font-weight: bold;
+    font-size: 1.1em;
+    text-transform: inherit!important;
+    --box-shadow: none!important;
+}
+
+.deshabilitado{
+    --background: linear-gradient(135deg, #D9DCDF 0%, #F6F7FB 100%)!important;
+}

@@ -45,13 +45,20 @@ export class LoginPage implements OnInit {
         data => {
           loading.dismiss();
           console.log(data);
-          this.authService.setToken(data['token'])
-          setTimeout(() => {
-            this.router.navigate(['/home']);
-          }, 500);
+          if(data['token']){
+            this.authService.setToken(data['token'])
+            setTimeout(() => {
+              this.router.navigate(['/campanias']);
+            }, 500);
+          }else{
+            this.presentAlert('Info', 'Problema', data['message']); 
+            this.userVa.password='';
+          }
+         
         
         }, error => {
           console.log(error);
+          this.presentAlert('Info', 'Problema', error.message + ' ' +JSON.stringify(error.error)); 
           loading.dismiss();          
         }
 
