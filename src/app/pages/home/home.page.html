@@ -53,18 +53,21 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-
+    <ion-button (click)="guardarMensaje()" expand="block" fill="outline" type="submit"   color="success">
+      <ion-icon slot="start" name="save"></ion-icon>
+       Completar y Guardar
+    </ion-button>
     <h3>Seleccione un grupo:</h3>
     <ion-accordion-group #accordionGroup>
     <div *ngFor="let grupos of jsonEncuestaGet?.Grupos; let i=index">
       <ion-accordion>
         <ion-item slot="header" color="light">
-          <ion-label> {{grupos.Grupo}}</ion-label>
+          <ion-label text-wrap> {{grupos.Grupo}}</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
       <div *ngIf="grupos.EsMultiple==false">
           <ion-item-divider color="primary">
-            <ion-label>
+            <ion-label text-wrap>
               {{grupos.Grupo}}
             </ion-label>
           </ion-item-divider>
@@ -72,17 +75,17 @@
           <div *ngFor="let subgrupos of grupos.Subgrupos; let j=index">
               <div *ngIf="!subgrupos.condicion">
                   <ion-item>
-                    <ion-label class="ion-text-wrap">
+                    <ion-label text-wrap class="ion-text-wrap">
                       <ion-text color="primary">
                         <h1>{{subgrupos.Subgrupo}}</h1>
                       </ion-text>
                     </ion-label>
                   </ion-item>
-                  <div *ngFor="let preguntas of subgrupos.preguntas; let k=index">
+                  <div *ngFor="let preguntas of subgrupos.Preguntas; let k=index">
                     <div *ngIf="!preguntas.condicion">
                           <div *ngIf="preguntas.tipo=='Text'">
                             <ion-item>
-                              <ion-label position="floating">
+                              <ion-label text-wrap position="floating">
                                 <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                 {{preguntas.code}}-{{preguntas.pregunta}}:
                               </ion-label>
@@ -91,7 +94,7 @@
                           </div>
                           <div *ngIf="preguntas.tipo=='Number'">
                             <ion-item>
-                              <ion-label position="floating">
+                              <ion-label text-wrap position="floating">
                                 <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                 {{preguntas.code}}-{{preguntas.pregunta}}:
                               </ion-label>
@@ -100,7 +103,7 @@
                           </div>
                           <div *ngIf="preguntas.tipo=='Combo'">
                             <ion-item>
-                              <ion-label >
+                              <ion-label text-wrap >
                                 <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                 {{preguntas.code}}-{{preguntas.pregunta}}:
                               </ion-label>
@@ -113,7 +116,7 @@
                           </div>
                           <div *ngIf="preguntas.tipo=='Check'">
                                 <ion-item>
-                                  <ion-label >
+                                  <ion-label text-wrap >
                                     <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                     {{preguntas.code}}-{{preguntas.pregunta}}:
                                   </ion-label>
@@ -132,7 +135,7 @@
                           </div>
                           <div *ngIf="preguntas.tipo=='Date'">
                             <ion-item>
-                              <ion-label >
+                              <ion-label text-wrap >
                                 <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                 {{preguntas.code}}-{{preguntas.pregunta}}:
                               </ion-label>
@@ -146,7 +149,7 @@
                           </div>
                           <div *ngIf="preguntas.tipo=='Bool'">
                             <ion-item>
-                              <ion-label >
+                              <ion-label text-wrap >
                                 <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
                                 {{preguntas.code}}-{{preguntas.pregunta}}:
                               </ion-label>
@@ -159,7 +162,7 @@
                         <div *ngIf="rescon==preguntas.condicion"> 
                                 <div *ngIf="preguntas.tipo=='Text'">
                                   <ion-item>
-                                    <ion-label position="floating">
+                                    <ion-label text-wrap position="floating">
                                       <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
@@ -168,7 +171,7 @@
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Number'">
                                   <ion-item>
-                                    <ion-label position="floating">
+                                    <ion-label text-wrap position="floating">
                                       <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
@@ -177,7 +180,7 @@
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Combo'">
                                   <ion-item>
-                                    <ion-label >
+                                    <ion-label text-wrap >
                                       <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
@@ -190,7 +193,7 @@
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Check'">
                                       <ion-item>
-                                        <ion-label >
+                                        <ion-label text-wrap >
                                           <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                           {{preguntas.code}}-{{preguntas.pregunta}}:
                                         </ion-label>
@@ -209,7 +212,7 @@
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Date'">
                                   <ion-item>
-                                    <ion-label >
+                                    <ion-label text-wrap >
                                       <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
@@ -223,7 +226,7 @@
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Bool'">
                                   <ion-item>
-                                    <ion-label >
+                                    <ion-label text-wrap >
                                       <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
@@ -241,17 +244,17 @@
                 <div *ngFor="let resconS of respuestasCon; let y=index">
                     <div *ngIf="resconS==subgrupos.condicion">
                           <ion-item>
-                            <ion-label class="ion-text-wrap">
+                            <ion-label text-wrap class="ion-text-wrap">
                               <ion-text color="primary">
                                 <h1>{{subgrupos.Subgrupo}}</h1>
                               </ion-text>
                             </ion-label>
                           </ion-item>
-                          <div *ngFor="let preguntas of subgrupos.preguntas; let k=index">
+                          <div *ngFor="let preguntas of subgrupos.Preguntas; let k=index">
                             <div *ngIf="!preguntas.condicion">
                                   <div *ngIf="preguntas.tipo=='Text'">
                                     <ion-item>
-                                      <ion-label position="floating">
+                                      <ion-label text-wrap position="floating">
                                         <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                         {{preguntas.code}}-{{preguntas.pregunta}}:
                                       </ion-label>
@@ -260,7 +263,7 @@
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Number'">
                                     <ion-item>
-                                      <ion-label position="floating">
+                                      <ion-label text-wrap position="floating">
                                         <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                         {{preguntas.code}}-{{preguntas.pregunta}}:
                                       </ion-label>
@@ -269,7 +272,7 @@
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Combo'">
                                     <ion-item>
-                                      <ion-label >
+                                      <ion-label text-wrap >
                                         <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                         {{preguntas.code}}-{{preguntas.pregunta}}:
                                       </ion-label>
@@ -282,7 +285,7 @@
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Check'">
                                         <ion-item>
-                                          <ion-label >
+                                          <ion-label text-wrap >
                                             <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                             {{preguntas.code}}-{{preguntas.pregunta}}:
                                           </ion-label>
@@ -301,7 +304,7 @@
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Date'">
                                     <ion-item>
-                                      <ion-label >
+                                      <ion-label text-wrap >
                                         <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                         {{preguntas.code}}-{{preguntas.pregunta}}:
                                       </ion-label>
@@ -315,7 +318,7 @@
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Bool'">
                                     <ion-item>
-                                      <ion-label >
+                                      <ion-label text-wrap >
                                         <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
                                         {{preguntas.code}}-{{preguntas.pregunta}}:
                                       </ion-label>
@@ -328,7 +331,7 @@
                                 <div *ngIf="rescon==preguntas.condicion"> 
                                         <div *ngIf="preguntas.tipo=='Text'">
                                           <ion-item>
-                                            <ion-label position="floating">
+                                            <ion-label text-wrap position="floating">
                                               <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
@@ -337,7 +340,7 @@
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Number'">
                                           <ion-item>
-                                            <ion-label position="floating">
+                                            <ion-label text-wrap position="floating">
                                               <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
@@ -346,7 +349,7 @@
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Combo'">
                                           <ion-item>
-                                            <ion-label >
+                                            <ion-label text-wrap >
                                               <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
@@ -359,7 +362,7 @@
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Check'">
                                               <ion-item>
-                                                <ion-label >
+                                                <ion-label text-wrap >
                                                   <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                                   {{preguntas.code}}-{{preguntas.pregunta}}:
                                                 </ion-label>
@@ -378,7 +381,7 @@
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Date'">
                                           <ion-item>
-                                            <ion-label >
+                                            <ion-label text-wrap >
                                               <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
@@ -392,7 +395,7 @@
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Bool'">
                                           <ion-item>
-                                            <ion-label >
+                                            <ion-label text-wrap >
                                               <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
@@ -413,7 +416,7 @@
         </div> <!--  end if multiple -->
         <div *ngIf="grupos.EsMultiple==true">
             <ion-item-divider color="primary">
-              <ion-label>
+              <ion-label text-wrap>
                 {{grupos.Grupo}} --->
               </ion-label>
               <ion-button (click)="addIntanciasGrupos(i,grupos.Subgrupo)" color="warning">
@@ -431,7 +434,7 @@
                   <div *ngFor="let subgruposIns of instancia; let ji=index">
                     <div *ngIf="!subgruposIns.condicion">
                         <ion-item>
-                          <ion-label class="ion-text-wrap">
+                          <ion-label text-wrap class="ion-text-wrap">
                             <ion-text color="primary">
                               <h1>{{subgruposIns.Subgrupo}}</h1>
                             </ion-text>
@@ -441,7 +444,7 @@
                           <div *ngIf="!preguntas.condicion">
                                 <div *ngIf="preguntas.tipo=='Text'">
                                   <ion-item>
-                                    <ion-label position="floating">
+                                    <ion-label text-wrap position="floating">
                                       <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
@@ -450,7 +453,7 @@
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Number'">
                                   <ion-item>
-                                    <ion-label position="floating">
+                                    <ion-label text-wrap position="floating">
                                       <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
@@ -459,7 +462,7 @@
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Combo'">
                                   <ion-item>
-                                    <ion-label >
+                                    <ion-label text-wrap >
                                       <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
@@ -472,7 +475,7 @@
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Check'">
                                       <ion-item>
-                                        <ion-label >
+                                        <ion-label text-wrap >
                                           <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                           {{preguntas.code}}-{{preguntas.pregunta}}:
                                         </ion-label>
@@ -491,7 +494,7 @@
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Date'">
                                   <ion-item>
-                                    <ion-label >
+                                    <ion-label text-wrap >
                                       <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
@@ -505,7 +508,7 @@
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Bool'">
                                   <ion-item>
-                                    <ion-label >
+                                    <ion-label text-wrap >
                                       <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
@@ -518,7 +521,7 @@
                               <div *ngIf="rescon=='{{' + ins + '}}' + preguntas.condicion"> 
                                       <div *ngIf="preguntas.tipo=='Text'">
                                         <ion-item>
-                                          <ion-label position="floating">
+                                          <ion-label text-wrap position="floating">
                                             <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                             {{preguntas.code}}-{{preguntas.pregunta}}:
                                           </ion-label>
@@ -527,7 +530,7 @@
                                       </div>
                                       <div *ngIf="preguntas.tipo=='Number'">
                                         <ion-item>
-                                          <ion-label position="floating">
+                                          <ion-label text-wrap position="floating">
                                             <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                             {{preguntas.code}}-{{preguntas.pregunta}}:
                                           </ion-label>
@@ -536,7 +539,7 @@
                                       </div>
                                       <div *ngIf="preguntas.tipo=='Combo'">
                                         <ion-item>
-                                          <ion-label >
+                                          <ion-label text-wrap >
                                             <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                             {{preguntas.code}}-{{preguntas.pregunta}}:
                                           </ion-label>
@@ -549,7 +552,7 @@
                                       </div>
                                       <div *ngIf="preguntas.tipo=='Check'">
                                             <ion-item>
-                                              <ion-label >
+                                              <ion-label text-wrap >
                                                 <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                                 {{preguntas.code}}-{{preguntas.pregunta}}:
                                               </ion-label>
@@ -568,7 +571,7 @@
                                       </div>
                                       <div *ngIf="preguntas.tipo=='Date'">
                                         <ion-item>
-                                          <ion-label >
+                                          <ion-label text-wrap >
                                             <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                             {{preguntas.code}}-{{preguntas.pregunta}}:
                                           </ion-label>
@@ -582,7 +585,7 @@
                                       </div>
                                       <div *ngIf="preguntas.tipo=='Bool'">
                                         <ion-item>
-                                          <ion-label >
+                                          <ion-label text-wrap >
                                             <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
                                             {{preguntas.code}}-{{preguntas.pregunta}}:
                                           </ion-label>
@@ -600,7 +603,7 @@
                       <div *ngFor="let resconS of respuestasCon; let y=index">
                           <div *ngIf="resconS== '{{' + ins + '}}' + subgruposIns.condicion">
                                 <ion-item>
-                                  <ion-label class="ion-text-wrap">
+                                  <ion-label text-wrap class="ion-text-wrap">
                                     <ion-text color="primary">
                                       <h1>{{subgruposIns.Subgrupo}}</h1>
                                     </ion-text>
@@ -610,7 +613,7 @@
                                   <div *ngIf="!preguntas.condicion">
                                         <div *ngIf="preguntas.tipo=='Text'">
                                           <ion-item>
-                                            <ion-label position="floating">
+                                            <ion-label text-wrap position="floating">
                                               <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
@@ -619,7 +622,7 @@
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Number'">
                                           <ion-item>
-                                            <ion-label position="floating">
+                                            <ion-label text-wrap position="floating">
                                               <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
@@ -628,7 +631,7 @@
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Combo'">
                                           <ion-item>
-                                            <ion-label >
+                                            <ion-label text-wrap >
                                               <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
@@ -641,7 +644,7 @@
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Check'">
                                               <ion-item>
-                                                <ion-label >
+                                                <ion-label text-wrap >
                                                   <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                                   {{preguntas.code}}-{{preguntas.pregunta}}:
                                                 </ion-label>
@@ -660,7 +663,7 @@
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Date'">
                                           <ion-item>
-                                            <ion-label >
+                                            <ion-label text-wrap >
                                               <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
@@ -674,7 +677,7 @@
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Bool'">
                                           <ion-item>
-                                            <ion-label >
+                                            <ion-label text-wrap >
                                               <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
@@ -687,7 +690,7 @@
                                       <div *ngIf="rescon=='{{' + ins + '}}' + preguntas.condicion"> 
                                               <div *ngIf="preguntas.tipo=='Text'">
                                                 <ion-item>
-                                                  <ion-label position="floating">
+                                                  <ion-label text-wrap position="floating">
                                                     <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                                     {{preguntas.code}}-{{preguntas.pregunta}}:
                                                   </ion-label>
@@ -696,7 +699,7 @@
                                               </div>
                                               <div *ngIf="preguntas.tipo=='Number'">
                                                 <ion-item>
-                                                  <ion-label position="floating">
+                                                  <ion-label text-wrap position="floating">
                                                     <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                                     {{preguntas.code}}-{{preguntas.pregunta}}:
                                                   </ion-label>
@@ -705,7 +708,7 @@
                                               </div>
                                               <div *ngIf="preguntas.tipo=='Combo'">
                                                 <ion-item>
-                                                  <ion-label >
+                                                  <ion-label text-wrap >
                                                     <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                                     {{preguntas.code}}-{{preguntas.pregunta}}:
                                                   </ion-label>
@@ -718,7 +721,7 @@
                                               </div>
                                               <div *ngIf="preguntas.tipo=='Check'">
                                                     <ion-item>
-                                                      <ion-label >
+                                                      <ion-label text-wrap >
                                                         <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                                         {{preguntas.code}}-{{preguntas.pregunta}}:
                                                       </ion-label>
@@ -737,7 +740,7 @@
                                               </div>
                                               <div *ngIf="preguntas.tipo=='Date'">
                                                 <ion-item>
-                                                  <ion-label >
+                                                  <ion-label text-wrap >
                                                     <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                                     {{preguntas.code}}-{{preguntas.pregunta}}:
                                                   </ion-label>
@@ -751,7 +754,7 @@
                                               </div>
                                               <div *ngIf="preguntas.tipo=='Bool'">
                                                 <ion-item>
-                                                  <ion-label >
+                                                  <ion-label text-wrap >
                                                     <ion-icon  color="success" name="checkmark-done-outline"></ion-icon>
                                                     {{preguntas.code}}-{{preguntas.pregunta}}:
                                                   </ion-label>
@@ -772,10 +775,7 @@
 
             </div><!--  end if for instancias -->
         </div><!--  end if multiple true -->
-        <ion-button (click)="guardar()" expand="block" fill="outline" type="submit"   color="success">
-          <ion-icon slot="start" name="save"></ion-icon>
-           Guardar
-        </ion-button>
+        
         </div>
       </ion-accordion>
     </div><!--  end FOR GRUPOS -->

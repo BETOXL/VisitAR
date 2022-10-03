@@ -1,98 +1,201 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { ApiVisitArService } from 'src/app/services/api-visit-ar.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { Network } from '@capacitor/network';
+import { BaselocalService } from 'src/app/services/baselocal.service';
 @Component({
   selector: 'app-campanias',
   templateUrl: './campanias.page.html',
   styleUrls: ['./campanias.page.scss'],
 })
 export class CampaniasPage implements OnInit {
- campanias: any;
-  constructor() {
-   }
+  campaniasJson: any;
+  deferredPrompt;
+  constructor( private baselocalService:BaselocalService,public toastController: ToastController,
+    public router:Router,private authService: AuthService,public alertController: AlertController,
+    public apiVisitArService:ApiVisitArService ,public loadingController: LoadingController) 
+  {
+    this.campaniasJson= {
+      campanias: ''
+    }
+    Network.addListener('networkStatusChange', async status => {
+      //console.log('Network status changed', status);
+      this.verificoConectividad(status.connected);
+    });
+  }
 
   ngOnInit() {
   }
   async ionViewDidEnter(){
-    this.campanias = {
-      "success": true,
-      "relevamientos": [
-        {
-          "Id": 1,
-          "Nombre": "Chaco - Regon II - CAP 123 - Rcia",
-          "Descripcion": "Relevamiento 1",
-          "Activo": true,
-          "FechaInicio": "2022-09-19T00:39:29.000Z",
-          "FechaFin": "2022-10-19T00:39:32.000Z",
-          "CAP": 123,
-          "IdRegion": 1,
-          "IdProvincia": null,
-          "IdLocalidad": null
-        },
-        {
-          "Id": 2,
-          "Nombre": "Chaco 2 - Regon I - CAP 123 - Rcia",
-          "Descripcion": "Relevamiento 2",
-          "Activo": true,
-          "FechaInicio": "2022-09-19T00:39:33.000Z",
-          "FechaFin": "2022-10-18T00:39:34.000Z",
-          "CAP": 124,
-          "IdRegion": null,
-          "IdProvincia": null,
-          "IdLocalidad": null
-        },
-        {
-          "Id": 3,
-          "Nombre": "Chaco 3 - Regon I - CAP 123 - Rcia",
-          "Descripcion": "Relevamiento 3",
-          "Activo": true,
-          "FechaInicio": "2022-09-19T00:39:35.000Z",
-          "FechaFin": "2022-10-19T00:39:36.000Z",
-          "CAP": 1244,
-          "IdRegion": null,
-          "IdProvincia": null,
-          "IdLocalidad": null
-        },
-        {
-          "Id": 4,
-          "Nombre": "Chaco 6 - Regon I - CAP 123 - Rcia",
-          "Descripcion": "Relevamiento 3",
-          "Activo": true,
-          "FechaInicio": "2022-09-19T00:39:37.000Z",
-          "FechaFin": "2022-10-19T00:39:38.000Z",
-          "CAP": 1255,
-          "IdRegion": null,
-          "IdProvincia": null,
-          "IdLocalidad": null
-        },
-        {
-          "Id": 5,
-          "Nombre": "Chaco 5 - Regon I - CAP 123 - Rcia",
-          "Descripcion": "Relevamiento 5",
-          "Activo": true,
-          "FechaInicio": "2022-09-19T00:39:40.000Z",
-          "FechaFin": "2022-10-19T00:39:39.000Z",
-          "CAP": 1255,
-          "IdRegion": null,
-          "IdProvincia": null,
-          "IdLocalidad": null
-        },
-        {
-          "Id": 6,
-          "Nombre": "Chaco 7 - Regon I - CAP 123 - Rcia",
-          "Descripcion": "Relevamiento 7",
-          "Activo": false,
-          "FechaInicio": "2022-09-01T03:00:00.000Z",
-          "FechaFin": "2022-10-01T03:00:00.000Z",
-          "CAP": 1255,
-          "IdRegion": null,
-          "IdProvincia": null,
-          "IdLocalidad": null
-        }
-      ]
-    }
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('beforeinstallprompt Event fired');
+      // Prevent Chrome 67 and earlier from automatically showing the prompt
+      e.preventDefault()
+      // Stash the event so it can be triggered later.
+      this.deferredPrompt = e
+    });
+    Network.getStatus().then (async status => {
+      this.verificoConectividad(status.connected);
+    });
     
-    setTimeout(() => {
-      this.campanias['relevamientos']  = this.campanias['relevamientos'].sort((a, b) => b.Id - a.Id );
-    }, 500);
   }
+  showInstallBanner() {
+    if (this.deferredPrompt !== undefined && this.deferredPrompt !== null) {
+      // Show the prompt
+      this.deferredPrompt.prompt()
+      // Wait for the user to respond to the prompt
+      this.deferredPrompt.userChoice
+        .then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the A2HS prompt');
+          } else {
+            console.log('User dismissed the A2HS prompt');
+          }
+          // We no longer need the prompt.  Clear it up.
+          this.deferredPrompt = null
+        })
+    }
+  }
+  async verificoConectividad(estado){
+        //console.log('Network status changed', status);
+        if(estado){
+            console.log("Conectado Internet Get");
+            setTimeout(() => {
+              this.getCampanias();
+            }, 1500);
+        }else{
+          console.log("Sin Internet Get");
+          this.baselocalService.getArrayCampanias().then(
+            data => {
+              this.campaniasJson['campanias'] = data;
+            }, error => {
+              console.log(error);
+            }
+          );
+          const toast = await this.toastController.create({
+            message: 'Sin conectividad',
+            duration: 4000,
+            cssClass: 'custom-toast',
+            buttons: [
+              {
+                text: 'cerrar',
+                role: 'cancel'
+              }
+            ],
+          });
+      
+          await toast.present();
+          
+        }
+
+  }
+
+  async getCampanias(){
+    console.log("Obtengo Campañas");
+    const loading = await this.loadingController.create({
+      message: 'Aguarde pidiendo json...',
+    });
+   
+    loading.present();
+    this.apiVisitArService.getCampanias().subscribe(
+      data => {
+        loading.dismiss();
+        this.campaniasJson = data;
+        console.log(this.campaniasJson);
+        setTimeout(() => {
+          this.campaniasJson['campanias']  = this.campaniasJson['campanias'].sort((a, b) => b.Id - a.Id );
+          this.getModelosEncuentas();
+        }, 500);
+        this.baselocalService.setArrayCampanias(this.campaniasJson['campanias']);
+      },error => {  
+        loading.dismiss();
+        this.presentAlert('Info', 'Problema', error.message + ' ' +JSON.stringify(error.error));  
+        console.log(error);
+    });
+  }
+
+  async presentAlert( header:string, subHeader:string, texto:string) {
+    const alert = await this.alertController.create({
+      backdropDismiss: false,
+      cssClass: 'alertCustomCss',
+      header: header,
+      subHeader: subHeader,
+      message: texto,
+      buttons: ['OK'],
+      mode: 'ios',
+    });
+    await alert.present();
+  }
+  cerrar(){
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  enviarCampanias(indCampanias: number){
+    this.router.navigate(['misencuestas', {
+      idCampania: indCampanias
+    }]);
+  }
+  async getModelosEncuentas(){
+    console.log("Obtengo Modelos");
+    const loading = await this.loadingController.create({
+      message: 'Aguarde pidiendo json...',
+    });
+    loading.present();
+    var limit = this.campaniasJson['campanias'].length;
+    var cont = 0;
+    await this.campaniasJson['campanias'].forEach(async (element, indice) => {
+            // await loading.present();
+          this.apiVisitArService.getEncuestaModelo(element.Id).subscribe(
+            async data => {
+              cont++;
+              this.baselocalService.setArrayModelo(data);
+              console.log("Modelo ", cont);
+              if(cont==limit){
+                  console.log('Finaliza bajada de modelos');
+                  loading.dismiss();
+
+                  const toast = await this.toastController.create({
+                    message: 'Descarga Completo',
+                    duration: 3000,
+                    cssClass: 'custom-toast',
+                    buttons: [
+                      {
+                        text: 'cerrar',
+                        role: 'cancel'
+                      }
+                    ],
+                  });
+                  await toast.present();
+              }
+            },async error => {  
+              cont++;
+              if(cont==limit){
+                  console.log('Finaliza bajada de modelos');
+                  loading.dismiss();
+
+                  const toast = await this.toastController.create({
+                    message: 'Descarga Completo',
+                    duration: 3000,
+                    cssClass: 'custom-toast',
+                    buttons: [
+                      {
+                        text: 'cerrar',
+                        role: 'cancel'
+                      }
+                    ],
+                  });
+                  await toast.present();
+                 
+              }
+              //this.presentAlert('Info', 'Problema', error.message + ' ' +JSON.stringify(error.error));  
+              console.log(error);
+          });
+
+    }); 
+    
+  }
+
 }

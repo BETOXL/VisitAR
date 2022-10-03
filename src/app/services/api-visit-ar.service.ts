@@ -28,6 +28,39 @@ export class ApiVisitArService {
     return this.http.post( `${environment.apiVisitar}login`, post);
   } 
 
+  public getCampanias(){
+    const tokenp =  this.authService.token;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token':  tokenp,
+      })
+    };
+    //console.log(tokenp);
+    return this.http.get( `${environment.apiVisitar}campanias`, httpOptions);
+  }
+
+  public getEncuestaModelo(idCampania: Number){
+    const tokenp =  this.authService.token;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token':  tokenp,
+      })
+    };
+    //console.log(tokenp);
+    return this.http.get( `${environment.apiVisitar}JSON/${idCampania}`, httpOptions);
+  }
+  public postEncuesta(post){
+    const tokenp =  this.authService.token;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token':  tokenp,
+      })
+    };
+    return this.http.post( `${environment.apiVisitar}JSON/`, post,httpOptions);
+  } 
 
 
 }

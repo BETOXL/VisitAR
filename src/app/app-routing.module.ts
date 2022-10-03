@@ -24,6 +24,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/campanias/campanias.module').then( m => m.CampaniasPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'misencuestas',
+    loadChildren: () => import('./pages/misencuestas/misencuestas.module').then( m => m.MisencuestasPageModule),
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import {FormGroup, Validators, FormControl, FormBuilder, FormArray } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ApiVisitArService } from '../../services/api-visit-ar.service';
 import { AuthService } from '../../services/auth.service';
 import { Geolocation } from '@capacitor/geolocation';
+import { BaselocalService } from 'src/app/services/baselocal.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -18,18 +19,28 @@ export class HomePage {
   currentRes = undefined;
   respuestasCon =[];
   contadorMul:number=0;
+  id_Campania:number = 0;
   constructor(private formBuilder: FormBuilder,public alertController: AlertController,private authService: AuthService,
-    public loadingController: LoadingController, public router:Router,public apiVisitArService:ApiVisitArService) {
+    public loadingController: LoadingController, private activatedRoute: ActivatedRoute, private baselocalService:BaselocalService,
+    public router:Router,public apiVisitArService:ApiVisitArService) {
     this.formPreguntas = formBuilder.group({});
   }
   async ionViewDidEnter(){
-    this.getCurrentPosition();
+
+    this.id_Campania = 0;
+    this.activatedRoute.paramMap.subscribe(async paramMap => {
+      this.id_Campania = Number(paramMap.get('idCampania'));
+      console.log(this.id_Campania);
+    });
     setTimeout(() => {
       console.log("arranco");
+      this.getCurrentPosition();
     }, 500);
   }
   
-
+  ngOnInit() {
+    
+  }
   addIntanciasGrupos(idGrupo:number, subgrupoArray:any){
       var insArray = JSON.parse(JSON.stringify(subgrupoArray));
       this.jsonEncuestaGet.Grupos[idGrupo].Instancias.push(insArray);
@@ -40,10 +51,70 @@ export class HomePage {
     this.jsonEncuestaGet.Grupos[idGrupo].Instancias.splice(idInstancia, 1);
     console.log(this.jsonEncuestaGet);
   }
-
-  guardar(){
+  async guardarMensaje() {
+    const alert = await this.alertController.create({
+      cssClass: 'alertMandado',
+      mode: 'ios',
+      header: '¿Esta seguro que termino la carga de los grupo de encuestas?',
+      message: '¿Contesto todas las <strong>preguntas</strong>?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          id: 'cancel-button',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Confirmar',
+          id: 'confirm-button',
+          handler: () => {
+            console.log('Confirm Okay');
+            this.guardar();
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+  async guardar(){
     console.log(this.jsonEncuestaGet);
-    alert(JSON.stringify(this.jsonEncuestaGet));
+    console.log("Guardo encuesta");
+    const loading = await this.loadingController.create({
+      message: 'Guardando Encuesta Realizada',
+    });
+   
+    loading.present();
+    this.apiVisitArService.postEncuesta(this.jsonEncuestaGet).subscribe(
+      data => {
+        loading.dismiss();
+        if(data['success'] == true){
+          this.jsonEncuestaGet.Enviado = true;
+          setTimeout(() => {
+            this.guardarStorage();
+          }, 500);
+        }else{
+          this.jsonEncuestaGet.Enviado = false;
+          this.guardarStorage();
+        }
+      },error => {  
+        this.jsonEncuestaGet.Enviado = false;
+        loading.dismiss();
+        this.guardarStorage();
+        //this.presentAlert('Info', 'Problema', error.message + ' ' +JSON.stringify(error.error));  
+        console.log(error);
+    });
+
+  }
+
+  guardarStorage(){
+    this.baselocalService.setArrayEncuesta(this.jsonEncuestaGet);
+    this.presentAlert('Satisfactorio', 'Info', "Se guarda correctamente la encuesta");  
+    //alert(JSON.stringify(this.jsonEncuestaGet));
+    this.router.navigate(['misencuestas', {
+      idCampania: this.id_Campania
+    }]);
   }
   changeCombo(idPregunta:number,ev){
     this.currentRes = ev.target.value;
@@ -111,17 +182,17 @@ export class HomePage {
       message: 'Aguarde pidiendo json...',
     });
    
-    // await loading.present();
-    this.apiVisitArService.getEncuestaRonda().subscribe(
-      data => {
-        this.jsonEncuestaGet = data;
-        console.log(this.jsonEncuestaGet);
-        this.jsonEncuestaGet.Lat = this.Ubilat;
-        this.jsonEncuestaGet.Lng = this.Ubilng;
+    loading.present();
+    this.baselocalService.getModeloForIdCam(this.id_Campania).then(
+      res => {
+        this.jsonEncuestaGet = res;
+        console.log(res);
+        //this.jsonEncuestaGet.Lat = this.Ubilat;
+        //this.jsonEncuestaGet.Lng = this.Ubilng;
         loading.dismiss();
       },error => {  
         loading.dismiss();
-        this.presentAlert('Info', 'Problema', error.message + ' ' +JSON.stringify(error.error));  
+        this.presentAlert('Info', 'Problema', JSON.stringify(error));  
         console.log(error);
     });
   }

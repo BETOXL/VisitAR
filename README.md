@@ -41,12 +41,12 @@ ng deploy --base-href=/VisitAR/
 
 ## Input type for questions
 
--Text
--Number
--Combo
--Check
--Date
--Bool
+1. Text
+2. Number
+3. Combo
+4. Check
+5. Date
+6. Bool
 
 ## Conditional
 

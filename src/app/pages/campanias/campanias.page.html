@@ -1,5 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
+    <ion-buttons *ngIf="deferredPrompt" slot="start">
+      <ion-button color="success" (click)="showInstallBanner()" routerLink="/browse" [replaceUrl]="true">
+        <ion-icon slot="start" name="archive-outline"></ion-icon>
+        Instalar
+      </ion-button>
+    </ion-buttons>
     <ion-title  mode=ios>
       VisitAR
     </ion-title>
@@ -22,25 +28,25 @@
       <ion-item-divider style="height: 40px;" color="secondary">
         <h3>Campañas</h3>
       </ion-item-divider>
-      <div *ngFor="let item of campanias?.relevamientos; let i = index" (click)="enviarEncuesta(i)">
-        <ion-item detail *ngIf="campanias?.relevamientos.length > 0" button>
+      <div *ngFor="let item of campaniasJson?.campanias; let i = index" (click)="enviarCampanias(item?.Id)">
+        <ion-item detail *ngIf="campaniasJson?.campanias.length > 0" button>
           <ion-thumbnail slot="start">
             <img src="assets/imgs/campaign_icon.svg">
           </ion-thumbnail>
-          <ion-label>
+          <ion-label text-wrap>
             <h3>Id:{{item?.Id}} Nom: {{item?.Nombre}}</h3>
             <p>{{item?.Descripcion}} - Fecha Fin: {{item?.FechaFin | date:"dd/MM/yy" }}</p>
           </ion-label>
         </ion-item>
       </div>
-      <div *ngIf="campanias?.relevamientos.length <= 0">
+      <div *ngIf="campaniasJson?.campanias.length <= 0">
         <h2 text-center>No hay campañas disponibles...
         </h2>
       </div>
     </ion-list>
     <div class="footer-button">
 
-      <ion-button  (click)="login()" expand="block" shape="round"   >
+      <ion-button  (click)="getCampanias()" expand="block" shape="round"   >
         Bajar Campañas
       </ion-button>
     </div>
