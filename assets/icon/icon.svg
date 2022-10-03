@@ -5,7 +5,7 @@
    viewBox="0 0 135.46666 135.46667"
    version="1.1"
    id="svg8"
-   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   inkscape:version="1.2.1 (e23ecae422, 2022-09-26, custom)"
    sodipodi:docname="icon.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -83,19 +83,21 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="469.28571"
-     inkscape:cy="270"
+     inkscape:cx="273.57143"
+     inkscape:cy="452.14286"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      inkscape:document-rotation="0"
      showgrid="false"
      units="px"
-     inkscape:window-width="1366"
-     inkscape:window-height="697"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1846"
+     inkscape:window-height="1016"
+     inkscape:window-x="74"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
-     inkscape:pagecheckerboard="0" />
+     inkscape:pagecheckerboard="0"
+     inkscape:showpageshadow="2"
+     inkscape:deskcolor="#d1d1d1" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -112,7 +114,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="fill:url(#linearGradient2923);fill-opacity:1;stroke:#0df0be;stroke-width:0.365;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:url(#linearGradient2923);fill-opacity:1;stroke:#0df0be;stroke-width:0.365;stroke-dasharray:none;stroke-opacity:1;opacity:0.99999999"
        id="rect2863"
        width="127.93716"
        height="126.18433"
@@ -120,6 +122,30 @@
        y="5.3515148"
        rx="17.415785"
        ry="17.415785" />
+    <text
+       xml:space="preserve"
+       style="font-size:34.5869px;font-family:Galindo;-inkscape-font-specification:Galindo;fill:#909090;fill-opacity:1;stroke:#909090;stroke-width:2.6879;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="12.085057"
+       y="82.480843"
+       id="text12219"
+       transform="scale(0.99839019,1.0016124)"><tspan
+         sodipodi:role="line"
+         id="tspan12217"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:34.5869px;font-family:Arial;-inkscape-font-specification:Arial;opacity:1;fill:#909090;fill-opacity:1;stroke:#909090;stroke-width:2.6879;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         x="12.085057"
+         y="82.480843">VisitAR</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:33.5115px;font-family:Galindo;-inkscape-font-specification:Galindo;fill:#f9f9f9;fill-opacity:1;stroke:#ffffff;stroke-width:2.60433;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="16.873608"
+       y="77.787811"
+       id="text4766"
+       transform="scale(0.96415121,1.0371817)"><tspan
+         sodipodi:role="line"
+         id="tspan4764"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:33.5115px;font-family:Arial;-inkscape-font-specification:Arial;opacity:1;fill:#f9f9f9;fill-opacity:1;stroke:#ffffff;stroke-width:2.60433;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         x="16.873608"
+         y="77.787811">VisitAR</tspan></text>
     <rect
        style="opacity:0.904624;fill:url(#linearGradient819);fill-opacity:1;stroke-width:1.39838"
        id="rect234"
@@ -131,29 +157,5 @@
        rx="17.415785"
        clip-path="url(#clipPath2803)"
        transform="translate(1.1366242,2.3789278)" />
-    <text
-       xml:space="preserve"
-       style="font-size:34.5869px;font-family:Galindo;-inkscape-font-specification:Galindo;fill:#909090;fill-opacity:1;stroke:#909090;stroke-width:2.6879;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       x="13.963128"
-       y="85.349632"
-       id="text12219"
-       transform="scale(0.99839019,1.0016124)"><tspan
-         sodipodi:role="line"
-         id="tspan12217"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:34.5869px;font-family:Arial;-inkscape-font-specification:Arial;opacity:1;fill:#909090;fill-opacity:1;stroke:#909090;stroke-width:2.6879;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         x="13.963128"
-         y="85.349632">VisitAR</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:34.5869px;font-family:Galindo;-inkscape-font-specification:Galindo;fill:#f9f9f9;fill-opacity:1;stroke:#ffffff;stroke-width:2.6879;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       x="12.677715"
-       y="80.066483"
-       id="text4766"
-       transform="scale(0.99839019,1.0016124)"><tspan
-         sodipodi:role="line"
-         id="tspan4764"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:34.5869px;font-family:Arial;-inkscape-font-specification:Arial;opacity:1;fill:#f9f9f9;fill-opacity:1;stroke:#ffffff;stroke-width:2.6879;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         x="12.677715"
-         y="80.066483">VisitAR</tspan></text>
   </g>
 </svg>
