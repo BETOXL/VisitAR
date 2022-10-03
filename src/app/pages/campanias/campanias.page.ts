@@ -28,7 +28,7 @@ export class CampaniasPage implements OnInit {
 
   ngOnInit() {
   }
-  async ionViewDidEnter(){
+  async ionViewWillEnter() {
     window.addEventListener('beforeinstallprompt', (e) => {
       console.log('beforeinstallprompt Event fired');
       // Prevent Chrome 67 and earlier from automatically showing the prompt
@@ -36,6 +36,9 @@ export class CampaniasPage implements OnInit {
       // Stash the event so it can be triggered later.
       this.deferredPrompt = e
     });
+  }
+  async ionViewDidEnter(){
+    
     Network.getStatus().then (async status => {
       this.verificoConectividad(status.connected);
     });

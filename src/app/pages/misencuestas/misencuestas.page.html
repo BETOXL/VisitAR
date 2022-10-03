@@ -22,7 +22,7 @@
       <ion-item-divider style="height: 40px;" color="secondary">
         <h3>Mis Encuestas-Campaña Id: {{id_Campania}}</h3>
       </ion-item-divider>
-      <div *ngFor="let item of misencuestasJson; let i = index" (click)="enviarCampanias(item?.Id)">
+      <div *ngFor="let item of misencuestasJson; let i = index">
         <ion-item detail *ngIf="misencuestasJson?.length > 0" button>
           <ion-thumbnail *ngIf="!item?.Enviado" slot="start">
             <img src="assets/imgs/close_icon.svg">
