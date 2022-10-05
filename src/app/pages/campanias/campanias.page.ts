@@ -98,7 +98,7 @@ export class CampaniasPage implements OnInit {
   async getCampanias(){
     console.log("Obtengo Campañas");
     const loading = await this.loadingController.create({
-      message: 'Aguarde pidiendo json...',
+      message: 'Aguarde pidiendo campañas...',
     });
    
     loading.present();
@@ -144,7 +144,7 @@ export class CampaniasPage implements OnInit {
   async getModelosEncuentas(){
     console.log("Obtengo Modelos");
     const loading = await this.loadingController.create({
-      message: 'Aguarde pidiendo json...',
+      message: 'Aguarde pidiendo modelos...',
     });
     loading.present();
     var limit = this.campaniasJson['campanias'].length;
