@@ -58,7 +58,7 @@ export class MisencuestasPage implements OnInit {
       console.log("Sin Internet Get");
       this.baselocalService.getArrayEncuestas().then(
         data => {
-          //this.campaniasJson['campanias'] = data;
+          //no hace nada ya tiene de storage las encuestas
         }, error => {
           console.log(error);
         }
@@ -103,64 +103,85 @@ export class MisencuestasPage implements OnInit {
   }
   async postEncuestasSinEnviar(){
     this.btndisable = true;
-    console.log("Subiendo Encuestas sin enviar al servidor");
+    console.log("Intentando subir Encuestas sin enviar al servidor");
     const loading = await this.loadingController.create({
-      message: 'Aguarde Subiendo Encuestas sin enviar al servidor.',
+      message: 'Intentando subir Encuestas sin enviar al servidor.',
     });
     loading.present();
     var limit = this.misencuestasJson?.length;
     var cont = 0;
     if(limit > 0){ 
           await this.misencuestasJson.forEach(async (element, indice) => {
-            this.apiVisitArService.postEncuesta(element).subscribe(
-              async data => {
-                if(data['success'] == true){
-                  this.misencuestasJson[indice].Enviado = true;
-                  await this.baselocalService.chageEnviadoIndexEncuestas(indice);
-                }else{
-                  console.log(data['success']);
-                }
-                cont++;
-                if(cont==limit){
-                    console.log('Encuestas Subidad');
-                    loading.dismiss();
-                    this.btndisable = false;
-                    const toast = await this.toastController.create({
-                      message: 'Encuestas Enviadas',
-                      duration: 3000,
-                      cssClass: 'custom-toast',
-                      buttons: [
-                        {
-                          text: 'cerrar',
-                          role: 'cancel'
-                        }
-                      ],
-                    });
-                    await toast.present();
-                }
-              },async error => {  
-                cont++;
-                if(cont==limit){
-                    console.log('Finaliza bajada de modelos');
-                    loading.dismiss();
-                    this.btndisable = false;
-                    const toast = await this.toastController.create({
-                      message: 'Encuestas Enviadas',
-                      duration: 3000,
-                      cssClass: 'custom-toast',
-                      buttons: [
-                        {
-                          text: 'cerrar',
-                          role: 'cancel'
-                        }
-                      ],
-                    });
-                    await toast.present();
-                  
-                }
-                //this.presentAlert('Info', 'Problema', error.message + ' ' +JSON.stringify(error.error));  
-                console.log(error);
-            });
+            if(element.Enviado == false){
+                  this.apiVisitArService.postEncuesta(element).subscribe(
+                    async data => {
+                      if(data['success'] == true){
+                        this.misencuestasJson[indice].Enviado = true;
+                        await this.baselocalService.chageEnviadoIndexEncuestas(indice);
+                      }else{
+                        console.log(data['success']);
+                      }
+                      cont++;
+                      if(cont==limit){
+                          console.log('Encuestas Subidad');
+                          loading.dismiss();
+                          this.btndisable = false;
+                          const toast = await this.toastController.create({
+                            message: 'Encuestas Subidas al Servidor',
+                            duration: 3000,
+                            cssClass: 'custom-toast',
+                            buttons: [
+                              {
+                                text: 'cerrar',
+                                role: 'cancel'
+                              }
+                            ],
+                          });
+                          await toast.present();
+                      }
+                    },async error => {  
+                      cont++;
+                      if(cont==limit){
+                          console.log('Encuestas Subidas al Servidor');
+                          loading.dismiss();
+                          this.btndisable = false;
+                          const toast = await this.toastController.create({
+                            message: 'Encuestas Subidas al Servidor',
+                            duration: 3000,
+                            cssClass: 'custom-toast',
+                            buttons: [
+                              {
+                                text: 'cerrar',
+                                role: 'cancel'
+                              }
+                            ],
+                          });
+                          await toast.present();
+                        
+                      }
+                      //this.presentAlert('Info', 'Problema', error.message + ' ' +JSON.stringify(error.error));  
+                      console.log(error);
+                  });
+              }else{
+                      cont++;
+                      if(cont==limit){
+                          console.log('Encuestas Subidas al Servidor');
+                          loading.dismiss();
+                          this.btndisable = false;
+                          const toast = await this.toastController.create({
+                            message: 'Encuestas Subidas al Servidor',
+                            duration: 3000,
+                            cssClass: 'custom-toast',
+                            buttons: [
+                              {
+                                text: 'cerrar',
+                                role: 'cancel'
+                              }
+                            ],
+                          });
+                          await toast.present();
+                      }
+              }
           }); 
     }else{
       this.btndisable = false;
