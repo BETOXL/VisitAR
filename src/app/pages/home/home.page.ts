@@ -24,6 +24,7 @@ export class HomePage {
   fliaApellido: string = '';
   device_uuid: string;
   device_model: string;
+  btndisable: boolean = false;
   constructor(private formBuilder: FormBuilder,public alertController: AlertController,private authService: AuthService,
     public loadingController: LoadingController, private activatedRoute: ActivatedRoute, private baselocalService:BaselocalService,
     public router:Router,public apiVisitArService:ApiVisitArService) {
@@ -88,6 +89,7 @@ export class HomePage {
     await alert.present();
   }
   async guardar(){
+    this.btndisable = true;
     console.log(this.jsonEncuestaGet);
     try {
       const coordinates = await Geolocation.getCurrentPosition();
@@ -143,6 +145,7 @@ export class HomePage {
         this.router.navigate(['misencuestas', {
         idCampania: this.id_Campania
         }]);
+        this.btndisable = false;
       },error => {  
         loading.dismiss();
         this.presentAlert('Info', 'Problema', JSON.stringify(error));  
@@ -150,6 +153,7 @@ export class HomePage {
         this.router.navigate(['misencuestas', {
           idCampania: this.id_Campania
         }]);
+        this.btndisable = false;
     });
     
   }

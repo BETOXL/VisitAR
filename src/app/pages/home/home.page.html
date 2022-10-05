@@ -57,7 +57,7 @@
       </ion-row>
     </ion-grid>
     <!-- <ion-input [(ngModel)]="fliaApellido"   placeholder="Ingrese Apellido Flia." type="text"></ion-input> -->
-    <ion-button  (click)="guardarMensaje()" expand="block" fill="outline" type="submit"   color="success">
+    <ion-button  [disabled]="btndisable" (click)="guardarMensaje()" expand="block" fill="outline" type="submit"   color="success">
       <ion-icon slot="start" name="save"></ion-icon>
        Completar y Guardar
     </ion-button>
