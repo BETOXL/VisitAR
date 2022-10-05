@@ -6,6 +6,7 @@ import { ApiVisitArService } from '../../services/api-visit-ar.service';
 import { AuthService } from '../../services/auth.service';
 import { Geolocation } from '@capacitor/geolocation';
 import { BaselocalService } from 'src/app/services/baselocal.service';
+import { Device } from '@capacitor/device';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -20,6 +21,9 @@ export class HomePage {
   respuestasCon =[];
   contadorMul:number=0;
   id_Campania:number = 0;
+  fliaApellido: string = '';
+  device_uuid: string;
+  device_model: string;
   constructor(private formBuilder: FormBuilder,public alertController: AlertController,private authService: AuthService,
     public loadingController: LoadingController, private activatedRoute: ActivatedRoute, private baselocalService:BaselocalService,
     public router:Router,public apiVisitArService:ApiVisitArService) {
@@ -27,6 +31,10 @@ export class HomePage {
   }
   async ionViewDidEnter(){
 
+    const { model } = await Device.getInfo();
+    const  { uuid }  = await Device.getId();
+    this.device_uuid = uuid;
+    this.device_model = model;
     this.id_Campania = 0;
     this.activatedRoute.paramMap.subscribe(async paramMap => {
       this.id_Campania = Number(paramMap.get('idCampania'));
@@ -36,6 +44,7 @@ export class HomePage {
       console.log("arranco");
       this.getCurrentPosition();
     }, 500);
+    
   }
   
   ngOnInit() {
@@ -80,6 +89,18 @@ export class HomePage {
   }
   async guardar(){
     console.log(this.jsonEncuestaGet);
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
+      console.log('Current', coordinates);
+      this.Ubilat=  coordinates.coords.latitude;
+      this.Ubilng= coordinates.coords.longitude;
+      this.jsonEncuestaGet.Lat = this.Ubilat;
+      this.jsonEncuestaGet.Lng = this.Ubilng;
+    } catch (error) {
+      console.error(error);
+      this.presentAlertConfirmGPSactivar(error.message);
+    }
+    
     console.log("Guardo encuesta");
     const loading = await this.loadingController.create({
       message: 'Guardando Encuesta Realizada',
@@ -187,8 +208,8 @@ export class HomePage {
       res => {
         this.jsonEncuestaGet = res;
         console.log(res);
-        //this.jsonEncuestaGet.Lat = this.Ubilat;
-        //this.jsonEncuestaGet.Lng = this.Ubilng;
+        this.jsonEncuestaGet.Lat = this.Ubilat;
+        this.jsonEncuestaGet.Lng = this.Ubilng;
         loading.dismiss();
       },error => {  
         loading.dismiss();
