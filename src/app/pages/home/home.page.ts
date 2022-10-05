@@ -103,7 +103,7 @@ export class HomePage {
       this.presentAlertConfirmGPSactivar(error.message);
     }
     
-    console.log("Guardo encuesta");
+    console.log("Intento enviar al servidor la encuesta");
     const loading = await this.loadingController.create({
       message: 'Intento enviar al servidor la encuesta',
     });
@@ -220,7 +220,7 @@ export class HomePage {
   async getEncuestaRonda(){
     console.log("obtengo encuesta");
     const loading = await this.loadingController.create({
-      message: 'Aguarde pidiendo json...',
+      message: 'Aguarde Cargando el Modelo de formulario.',
     });
    
     loading.present();
