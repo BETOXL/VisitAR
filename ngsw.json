@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1664911679885,
+  "timestamp": 1664990654424,
   "index": "/VisitAR/index.html",
   "assetGroups": [
     {
@@ -85,7 +85,7 @@
     },
     {
       "name": "assets",
-      "installMode": "lazy",
+      "installMode": "prefetch",
       "updateMode": "prefetch",
       "cacheQueryOptions": {
         "ignoreVary": true
