@@ -103,7 +103,7 @@ export class HomePage {
     
     console.log("Guardo encuesta");
     const loading = await this.loadingController.create({
-      message: 'Guardando Encuesta Realizada',
+      message: 'Intento enviar al servidor la encuesta',
     });
    
     loading.present();
@@ -129,13 +129,29 @@ export class HomePage {
 
   }
 
-  guardarStorage(){
-    this.baselocalService.setArrayEncuesta(this.jsonEncuestaGet);
-    this.presentAlert('Satisfactorio', 'Info', "Se guarda correctamente la encuesta");  
-    //alert(JSON.stringify(this.jsonEncuestaGet));
-    this.router.navigate(['misencuestas', {
-      idCampania: this.id_Campania
-    }]);
+  async guardarStorage(){
+    const loading = await this.loadingController.create({
+      message: 'Guardando Encuesta en Local..',
+    });
+   
+    loading.present();
+    await this.baselocalService.setArrayEncuesta(this.jsonEncuestaGet).then(
+      res => {
+        loading.dismiss();
+        this.presentAlert('Satisfactorio', 'Info', "Se guarda la encuesta en local");  
+        //alert(JSON.stringify(this.jsonEncuestaGet));
+        this.router.navigate(['misencuestas', {
+        idCampania: this.id_Campania
+        }]);
+      },error => {  
+        loading.dismiss();
+        this.presentAlert('Info', 'Problema', JSON.stringify(error));  
+        console.log(error);
+        this.router.navigate(['misencuestas', {
+          idCampania: this.id_Campania
+        }]);
+    });
+    
   }
   changeCombo(idPregunta:number,ev){
     this.currentRes = ev.target.value;
