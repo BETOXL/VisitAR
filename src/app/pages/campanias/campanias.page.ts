@@ -38,7 +38,13 @@ export class CampaniasPage implements OnInit {
     });
   }
   async ionViewDidEnter(){
-    
+    this.baselocalService.getArrayCampanias().then(
+      data => {
+        this.campaniasJson['campanias'] = data;
+      }, error => {
+        console.log(error);
+      }
+    );
     Network.getStatus().then (async status => {
       this.verificoConectividad(status.connected);
     });
@@ -70,13 +76,7 @@ export class CampaniasPage implements OnInit {
             }, 1500);
         }else{
           console.log("Sin Internet Get");
-          this.baselocalService.getArrayCampanias().then(
-            data => {
-              this.campaniasJson['campanias'] = data;
-            }, error => {
-              console.log(error);
-            }
-          );
+          
           const toast = await this.toastController.create({
             message: 'Sin conectividad',
             duration: 4000,
