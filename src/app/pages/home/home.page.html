@@ -453,7 +453,13 @@
               </ion-button>
             </ion-item-divider>
             <br>
+            <ion-accordion-group class="accordionGroupIntancias">
             <div *ngFor="let instancia of grupos.Instancias; let ins=index">
+              <ion-accordion>
+                <ion-item slot="header" color="medium">
+                  <ion-label text-wrap> {{grupos.Grupo}} Nro:{{ins+1}}</ion-label>
+                </ion-item>
+                <div class="ion-padding" slot="content">
               <p style="color:blue">Se agregó una nueva instancia {{grupos.Grupo}} Nro:{{ins+1}}</p>
               <ion-button (click)="deleteIntanciasGrupos(i,ins)" color="dark">
                 <ion-icon slot="start" name="close-circle-outline"></ion-icon>
@@ -824,8 +830,10 @@
                       </div><!--  end for de respuestas-->
                     </div><!--  end if condicional subgrupo verdadero-->
                 </div>  
-
+              </div><!--  end ion-padding content accordion-->
+              </ion-accordion>
             </div><!--  end if for instancias -->
+          </ion-accordion-group>
         </div><!--  end if multiple true -->
         
         </div>
