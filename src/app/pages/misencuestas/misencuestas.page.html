@@ -26,6 +26,7 @@
       <ion-item-divider style="height: 40px;" color="secondary">
         <h3>Mis Encuestas-Campaña Id: {{id_Campania}}</h3>
       </ion-item-divider>
+      <p>Si una encuesta tiene una "X" en rojo es por que aun no fue enviada al servidor.</p>
       <input [(ngModel)]="searchText" (keyup)="searchCoin()" type="text" placeholder="Buscar por Id, Identi" class="text-center border-0 text-light" style="width: 95%; text-align: center; ">
       <div *ngFor="let item of filterCoints; let i = index">
         <ion-item  *ngIf="filterCoints?.length > 0" button>

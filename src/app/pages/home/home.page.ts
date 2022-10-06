@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {FormGroup, Validators, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController, IonContent, LoadingController } from '@ionic/angular';
 import { ApiVisitArService } from '../../services/api-visit-ar.service';
 import { AuthService } from '../../services/auth.service';
 import { Geolocation } from '@capacitor/geolocation';
@@ -13,6 +13,7 @@ import { Device } from '@capacitor/device';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  @ViewChild(IonContent) content: IonContent;
   Ubilat: number = 0;
   Ubilng: number = 0;
   jsonEncuestaGet: any;
@@ -372,5 +373,9 @@ export class HomePage {
 
     await alert.present();
     
+  }
+
+  subirArriba(){
+    this.content.scrollToTop();
   }
 }
