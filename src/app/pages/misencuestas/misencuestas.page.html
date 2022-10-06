@@ -26,8 +26,9 @@
       <ion-item-divider style="height: 40px;" color="secondary">
         <h3>Mis Encuestas-Campaña Id: {{id_Campania}}</h3>
       </ion-item-divider>
-      <div *ngFor="let item of misencuestasJson; let i = index">
-        <ion-item detail *ngIf="misencuestasJson?.length > 0" button>
+      <input [(ngModel)]="searchText" (keyup)="searchCoin()" type="text" placeholder="Buscar por Id, Identi" class="text-center border-0 text-light" style="width: 95%; text-align: center; ">
+      <div *ngFor="let item of filterCoints; let i = index">
+        <ion-item  *ngIf="filterCoints?.length > 0" button>
           <ion-thumbnail *ngIf="!item?.Enviado" slot="start">
             <img src="assets/imgs/close_icon.svg">
           </ion-thumbnail>
@@ -35,13 +36,13 @@
             <img src="assets/imgs/success_icon.svg">
           </ion-thumbnail>
           <ion-label text-wrap>
-            <h3>Indice:{{i}} Nom: {{item?.Nombre}}</h3>
-            <p>{{item?.Descripcion}} - Fecha Fin: {{item?.FechaHasta | date:"dd/MM/yy" }}</p>
+            <h3>N{{i}} Id:{{item?.IdCampania_data}} - Identi: {{item?.Identificador}}</h3>
+            <p>{{item?.Descripcion}} - Fecha: {{item?.Fecha }}</p>
           </ion-label>
         </ion-item>
       </div>
-      <div *ngIf="misencuestasJson?.length <= 0">
-        <h2 text-center>No hay Encuestas disponibles...
+      <div *ngIf="filterCoints?.length <= 0">
+        <h2 text-center>No hay Encuestas Buscadas...
         </h2>
       </div>
     </ion-list>

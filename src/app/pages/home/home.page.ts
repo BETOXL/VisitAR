@@ -21,7 +21,7 @@ export class HomePage {
   respuestasCon =[];
   contadorMul:number=0;
   id_Campania:number = 0;
-  fliaApellido: string = '';
+  Identificador_c: string = '';
   device_uuid: string;
   device_model: string;
   btndisable: boolean = false;
@@ -89,8 +89,12 @@ export class HomePage {
     await alert.present();
   }
   async guardar(){
+    const now = new Date();
     this.btndisable = true;
-    console.log(this.jsonEncuestaGet);
+    this.jsonEncuestaGet.Mac = this.device_uuid;
+    this.jsonEncuestaGet.Modelo = this.device_model;
+    this.jsonEncuestaGet.Identificador = this.Identificador_c;
+    this.jsonEncuestaGet.Fecha = now.toLocaleString();
     try {
       const coordinates = await Geolocation.getCurrentPosition();
       console.log('Current', coordinates);
@@ -102,7 +106,7 @@ export class HomePage {
       console.error(error);
       this.presentAlertConfirmGPSactivar(error.message);
     }
-    
+    console.log(this.jsonEncuestaGet);
     console.log("Intento enviar al servidor la encuesta");
     const loading = await this.loadingController.create({
       message: 'Intento enviar al servidor la encuesta',
@@ -114,6 +118,7 @@ export class HomePage {
         loading.dismiss();
         if(data['success'] == true){
           this.jsonEncuestaGet.Enviado = true;
+          this.jsonEncuestaGet.IdCampania_data = data['idCampania_data'] ;
           setTimeout(() => {
             this.guardarStorage();
           }, 500);
@@ -315,14 +320,20 @@ export class HomePage {
   }
 
   async getCurrentPosition() {
+    const loading = await this.loadingController.create({
+      message: 'Verifico GPS',
+    });
+    loading.present();
     try {
       const coordinates = await Geolocation.getCurrentPosition();
       console.log('Current', coordinates);
       this.Ubilat=  coordinates.coords.latitude;
       this.Ubilng= coordinates.coords.longitude;
+      loading.dismiss();
       this.getEncuestaRonda();
     } catch (error) {
       console.error(error);
+      loading.dismiss();
       this.presentAlertConfirmGPSactivar(error.message);
     }
     

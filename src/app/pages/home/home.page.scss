@@ -28,7 +28,27 @@
 ion-input{
   --background: rgb(218, 255, 196);
   }
-
+  ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    white-space:pre-line !important;  
+    position:relative !important;
+    top:-7px !important;
+    
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+       white-space:pre-line !important;  
+    position:relative !important;
+    top:-7px !important;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+      white-space:pre-line !important;  
+    position:relative !important;
+    top:-7px !important;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+       white-space:pre-line !important;  
+    position:relative !important;
+    top:-7px !important;
+  }
 ion-select{
   width: 200px !important;// your choice :)
 }

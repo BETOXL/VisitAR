@@ -111,19 +111,21 @@ export class BaselocalService {
       if (res !== null){
         this.arrayModelos = res;
       }
-      this.arrayModelos.push(modelo);
       
-      var hash = {};
-      let uniqueChars = this.arrayModelos.filter(function(current) {
-        var exists = !hash[current.Id];
-        hash[current.Id] = true;
-        return exists;
+      const arraySinId =  this.arrayModelos.filter(function( obj ) {
+          return obj.Id !== modelo.Id;
       });
-      this.arrayModelos = uniqueChars;
-
+      //var hash = {};
+      // let uniqueChars = this.arrayModelos.filter(function(current) {
+      //   var exists = !hash[current.Id];
+      //   hash[current.Id] = true;
+      //   return exists;
+      // });
+      // this.arrayModelos = uniqueChars;
+      arraySinId.push(modelo);
       Preferences.set({
         key: 'ModelosVisitar',
-        value: JSON.stringify(this.arrayModelos)
+        value: JSON.stringify(arraySinId)
       });
     });
     

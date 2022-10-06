@@ -14,6 +14,8 @@ export class MisencuestasPage implements OnInit {
   misencuestasJson: any;
   id_Campania:number;
   btndisable: boolean = false;
+  searchText: string = '';
+  filterCoints: any;
   constructor( private activatedRoute: ActivatedRoute, private baselocalService:BaselocalService,public toastController: ToastController,
     public router:Router,private authService: AuthService,public alertController: AlertController,
     public apiVisitArService:ApiVisitArService ,public loadingController: LoadingController) 
@@ -42,6 +44,7 @@ export class MisencuestasPage implements OnInit {
     this.baselocalService.getArrayEncuestasForIdCam(this.id_Campania ).then(
       data => {
         this.misencuestasJson = data;
+        this.filterCoints = this.misencuestasJson;
       }, error => {
         console.log(error);
       }
@@ -117,6 +120,7 @@ export class MisencuestasPage implements OnInit {
                     async data => {
                       if(data['success'] == true){
                         this.misencuestasJson[indice].Enviado = true;
+                        this.misencuestasJson[indice].IdCampania_data = data['idCampania_data'] ;
                         await this.baselocalService.chageEnviadoIndexEncuestas(indice);
                       }else{
                         console.log(data['success']);
@@ -138,6 +142,7 @@ export class MisencuestasPage implements OnInit {
                             ],
                           });
                           await toast.present();
+                          this.filterCoints = this.misencuestasJson;
                       }
                     },async error => {  
                       cont++;
@@ -204,5 +209,11 @@ export class MisencuestasPage implements OnInit {
     var d = R * c * 1000; 
     return d ; 
   }
-
+  searchCoin(){
+    //console.log(this.searchText);
+    this.filterCoints = this.misencuestasJson.filter( (coin) => 
+      coin.Identificador.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      coin.IdCampania_data == Number(this.searchText.toLowerCase()) 
+    );
+  }
 }
