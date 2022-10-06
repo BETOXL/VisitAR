@@ -26,8 +26,8 @@
   text-decoration: none;
 }
 ion-input{
-  --background: rgb(218, 255, 196);
-  }
+  --background: var(--ion-color-inputc);
+}
 ion-select{
   width: 200px !important;// your choice :)
 }
@@ -42,7 +42,7 @@ ion-toggle {
 
 .ion-grid-color
 {
-    background-color:#c1e0de;
+    background-color: var(--ion-color-tablac);
     font-size: 9px;
 }
 .ion-row-borde
