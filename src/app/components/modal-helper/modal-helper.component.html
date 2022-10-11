@@ -1,0 +1,16 @@
+
+<ion-header>
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Cerrar</ion-button>
+    </ion-buttons>
+    <ion-title>Ayuda Pregunta</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()">Confirmar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <div [innerHTML]="mensaje"></div>
+</ion-content>
+

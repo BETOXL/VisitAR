@@ -94,7 +94,7 @@
                             </ion-label>
                             <ion-item>
                               <ion-input  [(ngModel)]="preguntas.respuesta"  type="text"></ion-input>
-                              <ion-note slot="helper">Sin detalles</ion-note>
+                              <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                             </ion-item>    
                           </div>
                           <div *ngIf="preguntas.tipo=='Number'">
@@ -104,7 +104,7 @@
                             </ion-label>
                             <ion-item>
                               <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
-                              <ion-note slot="helper">Sin detalles</ion-note>
+                              <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                             </ion-item>
                           </div>
                           <div *ngIf="preguntas.tipo=='Combo'">
@@ -118,7 +118,7 @@
                                   {{opcions}}
                                 </ion-select-option>
                               </ion-select>
-                              <ion-note slot="helper">Sin detalles</ion-note>
+                              <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                             </ion-item>
                           </div>
                           <div *ngIf="preguntas.tipo=='Check'">
@@ -138,7 +138,7 @@
                                   >
                                     <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                   </ion-select>
-                                  <ion-note slot="helper">Sin detalles</ion-note>
+                                  <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                 </ion-item>
                           </div>
                           <div *ngIf="preguntas.tipo=='Date'">
@@ -153,7 +153,7 @@
                                   <ion-datetime [(ngModel)]="preguntas.respuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{preguntas.code}}"></ion-datetime>
                                 </ng-template>
                               </ion-modal>
-                              <ion-note slot="helper">Sin detalles</ion-note>
+                              <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                             </ion-item>
                           </div>
                           <div *ngIf="preguntas.tipo=='Bool'">
@@ -163,7 +163,7 @@
                                 {{preguntas.code}}-{{preguntas.pregunta}}:
                               </ion-label>
                               <ion-toggle mode='ios' [(ngModel)]="preguntas.respuesta" color="success"></ion-toggle>
-                              <ion-note slot="helper">Sin detalles</ion-note>
+                              <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                             </ion-item>
                           </div>
                     </div><!--  end if condicional -->
@@ -177,7 +177,7 @@
                                   </ion-label>
                                   <ion-item>
                                     <ion-input  [(ngModel)]="preguntas.respuesta"  type="text"></ion-input>
-                                    <ion-note slot="helper">Sin detalles</ion-note>
+                                    <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>    
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Number'">
@@ -187,7 +187,7 @@
                                   </ion-label>
                                   <ion-item>
                                     <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
-                                    <ion-note slot="helper">Sin detalles</ion-note>
+                                    <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Combo'">
@@ -201,7 +201,7 @@
                                         {{opcions}}
                                       </ion-select-option>
                                     </ion-select>
-                                    <ion-note slot="helper">Sin detalles</ion-note>
+                                    <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Check'">
@@ -221,7 +221,7 @@
                                         >
                                           <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                         </ion-select>
-                                        <ion-note slot="helper">Sin detalles</ion-note>
+                                        <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                       </ion-item>
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Date'">
@@ -236,7 +236,7 @@
                                         <ion-datetime [(ngModel)]="preguntas.respuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{preguntas.code}}"></ion-datetime>
                                       </ng-template>
                                     </ion-modal>
-                                    <ion-note slot="helper">Sin detalles</ion-note>
+                                    <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Bool'">
@@ -246,7 +246,7 @@
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
                                     <ion-toggle mode='ios' [(ngModel)]="preguntas.respuesta" color="success"></ion-toggle>
-                                    <ion-note slot="helper">Sin detalles</ion-note>
+                                    <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>
                                 </div>
                         </div>
@@ -275,7 +275,7 @@
                                     </ion-label>
                                     <ion-item>
                                       <ion-input  [(ngModel)]="preguntas.respuesta"  type="text"></ion-input>
-                                      <ion-note slot="helper">Sin detalles</ion-note>
+                                      <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                     </ion-item>    
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Number'">
@@ -285,7 +285,7 @@
                                     </ion-label>
                                     <ion-item>
                                       <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
-                                      <ion-note slot="helper">Sin detalles</ion-note>
+                                      <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                     </ion-item>
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Combo'">
@@ -299,7 +299,7 @@
                                           {{opcions}}
                                         </ion-select-option>
                                       </ion-select>
-                                      <ion-note slot="helper">Sin detalles</ion-note>
+                                      <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                     </ion-item>
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Check'">
@@ -319,7 +319,7 @@
                                           >
                                             <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                           </ion-select>
-                                          <ion-note slot="helper">Sin detalles</ion-note>
+                                          <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                         </ion-item>
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Date'">
@@ -334,7 +334,7 @@
                                           <ion-datetime [(ngModel)]="preguntas.respuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{preguntas.code}}"></ion-datetime>
                                         </ng-template>
                                       </ion-modal>
-                                      <ion-note slot="helper">Sin detalles</ion-note>
+                                      <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                     </ion-item>
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Bool'">
@@ -344,7 +344,7 @@
                                         {{preguntas.code}}-{{preguntas.pregunta}}:
                                       </ion-label>
                                       <ion-toggle mode='ios' [(ngModel)]="preguntas.respuesta" color="success"></ion-toggle>
-                                      <ion-note slot="helper">Sin detalles</ion-note>
+                                      <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                     </ion-item>
                                   </div>
                             </div><!--  end if condicional -->
@@ -358,7 +358,7 @@
                                           </ion-label>
                                           <ion-item>
                                             <ion-input  [(ngModel)]="preguntas.respuesta"  type="text"></ion-input>
-                                            <ion-note slot="helper">Sin detalles</ion-note>
+                                            <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>    
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Number'">
@@ -368,7 +368,7 @@
                                           </ion-label>
                                           <ion-item>
                                             <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
-                                            <ion-note slot="helper">Sin detalles</ion-note>
+                                            <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Combo'">
@@ -382,7 +382,7 @@
                                                 {{opcions}}
                                               </ion-select-option>
                                             </ion-select>
-                                            <ion-note slot="helper">Sin detalles</ion-note>
+                                            <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Check'">
@@ -402,7 +402,7 @@
                                                 >
                                                   <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                                 </ion-select>
-                                                <ion-note slot="helper">Sin detalles</ion-note>
+                                                <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                               </ion-item>
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Date'">
@@ -417,7 +417,7 @@
                                                 <ion-datetime [(ngModel)]="preguntas.respuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{preguntas.code}}"></ion-datetime>
                                               </ng-template>
                                             </ion-modal>
-                                            <ion-note slot="helper">Sin detalles</ion-note>
+                                            <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Bool'">
@@ -427,7 +427,7 @@
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
                                             <ion-toggle mode='ios' [(ngModel)]="preguntas.respuesta" color="success"></ion-toggle>
-                                            <ion-note slot="helper">Sin detalles</ion-note>
+                                            <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
                                 </div>
@@ -483,7 +483,7 @@
                                   </ion-label>
                                   <ion-item>
                                     <ion-input  [(ngModel)]="preguntas.respuesta"  type="text"></ion-input>
-                                    <ion-note slot="helper">Sin detalles</ion-note>
+                                    <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>    
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Number'">
@@ -493,7 +493,7 @@
                                   </ion-label>
                                   <ion-item>
                                     <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
-                                    <ion-note slot="helper">Sin detalles</ion-note>
+                                    <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Combo'">
@@ -507,7 +507,7 @@
                                         {{opcions}}
                                       </ion-select-option>
                                     </ion-select>
-                                    <ion-note slot="helper">Sin detalles</ion-note>
+                                    <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Check'">
@@ -527,7 +527,7 @@
                                         >
                                           <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                         </ion-select>
-                                        <ion-note slot="helper">Sin detalles</ion-note>
+                                        <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                       </ion-item>
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Date'">
@@ -542,7 +542,7 @@
                                         <ion-datetime [(ngModel)]="preguntas.respuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{ins}}{{preguntas.code}}"></ion-datetime>
                                       </ng-template>
                                     </ion-modal>
-                                    <ion-note slot="helper">Sin detalles</ion-note>
+                                    <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Bool'">
@@ -552,7 +552,7 @@
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
                                     <ion-toggle mode='ios' [(ngModel)]="preguntas.respuesta" color="success"></ion-toggle>
-                                    <ion-note slot="helper">Sin detalles</ion-note>
+                                    <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>
                                 </div>
                           </div><!--  end if condicional -->
@@ -566,7 +566,7 @@
                                         </ion-label>
                                         <ion-item>
                                           <ion-input  [(ngModel)]="preguntas.respuesta"  type="text"></ion-input>
-                                          <ion-note slot="helper">Sin detalles</ion-note>
+                                          <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                         </ion-item>    
                                       </div>
                                       <div *ngIf="preguntas.tipo=='Number'">
@@ -576,7 +576,7 @@
                                         </ion-label>
                                         <ion-item>
                                           <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
-                                          <ion-note slot="helper">Sin detalles</ion-note>
+                                          <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                         </ion-item>
                                       </div>
                                       <div *ngIf="preguntas.tipo=='Combo'">
@@ -590,7 +590,7 @@
                                               {{opcions}}
                                             </ion-select-option>
                                           </ion-select>
-                                          <ion-note slot="helper">Sin detalles</ion-note>
+                                          <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                         </ion-item>
                                       </div>
                                       <div *ngIf="preguntas.tipo=='Check'">
@@ -610,7 +610,7 @@
                                               >
                                                 <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                               </ion-select>
-                                              <ion-note slot="helper">Sin detalles</ion-note>
+                                              <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                             </ion-item>
                                       </div>
                                       <div *ngIf="preguntas.tipo=='Date'">
@@ -625,7 +625,7 @@
                                               <ion-datetime [(ngModel)]="preguntas.respuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{ins}}{{preguntas.code}}"></ion-datetime>
                                             </ng-template>
                                           </ion-modal>
-                                          <ion-note slot="helper">Sin detalles</ion-note>
+                                          <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                         </ion-item>
                                       </div>
                                       <div *ngIf="preguntas.tipo=='Bool'">
@@ -635,7 +635,7 @@
                                             {{preguntas.code}}-{{preguntas.pregunta}}:
                                           </ion-label>
                                           <ion-toggle mode='ios' [(ngModel)]="preguntas.respuesta" color="success"></ion-toggle>
-                                          <ion-note slot="helper">Sin detalles</ion-note>
+                                          <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                         </ion-item>
                                       </div>
                               </div>
@@ -664,7 +664,7 @@
                                           </ion-label>
                                           <ion-item>
                                             <ion-input  [(ngModel)]="preguntas.respuesta"  type="text"></ion-input>
-                                            <ion-note slot="helper">Sin detalles</ion-note>
+                                            <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>    
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Number'">
@@ -674,7 +674,7 @@
                                           </ion-label>
                                           <ion-item>
                                             <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
-                                            <ion-note slot="helper">Sin detalles</ion-note>
+                                            <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Combo'">
@@ -688,7 +688,7 @@
                                                 {{opcions}}
                                               </ion-select-option>
                                             </ion-select>
-                                            <ion-note slot="helper">Sin detalles</ion-note>
+                                            <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Check'">
@@ -708,7 +708,7 @@
                                                 >
                                                   <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                                 </ion-select>
-                                                <ion-note slot="helper">Sin detalles</ion-note>
+                                                <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                               </ion-item>
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Date'">
@@ -723,7 +723,7 @@
                                                 <ion-datetime [(ngModel)]="preguntas.respuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{ins}}{{preguntas.code}}"></ion-datetime>
                                               </ng-template>
                                             </ion-modal>
-                                            <ion-note slot="helper">Sin detalles</ion-note>
+                                            <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Bool'">
@@ -733,7 +733,7 @@
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
                                             <ion-toggle mode='ios' [(ngModel)]="preguntas.respuesta" color="success"></ion-toggle>
-                                            <ion-note slot="helper">Sin detalles</ion-note>
+                                            <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
                                   </div><!--  end if condicional -->
@@ -747,7 +747,7 @@
                                                   </ion-label>
                                                 <ion-item>
                                                   <ion-input  [(ngModel)]="preguntas.respuesta"  type="text"></ion-input>
-                                                  <ion-note slot="helper">Sin detalles</ion-note>
+                                                  <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                                 </ion-item>    
                                               </div>
                                               <div *ngIf="preguntas.tipo=='Number'">
@@ -757,7 +757,7 @@
                                                     {{preguntas.code}}-{{preguntas.pregunta}}:
                                                   </ion-label>
                                                   <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
-                                                  <ion-note slot="helper">Sin detalles</ion-note>
+                                                  <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                                 </ion-item>
                                               </div>
                                               <div *ngIf="preguntas.tipo=='Combo'">
@@ -771,7 +771,7 @@
                                                       {{opcions}}
                                                     </ion-select-option>
                                                   </ion-select>
-                                                  <ion-note slot="helper">Sin detalles</ion-note>
+                                                  <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                                 </ion-item>
                                               </div>
                                               <div *ngIf="preguntas.tipo=='Check'">
@@ -791,7 +791,7 @@
                                                       >
                                                         <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                                       </ion-select>
-                                                      <ion-note slot="helper">Sin detalles</ion-note>
+                                                      <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                                     </ion-item>
                                               </div>
                                               <div *ngIf="preguntas.tipo=='Date'">
@@ -806,7 +806,7 @@
                                                       <ion-datetime [(ngModel)]="preguntas.respuesta" [showDefaultButtons]="true" cancelText="cancelar" doneText="ok" presentation="date" id="date{{ins}}{{preguntas.code}}"></ion-datetime>
                                                     </ng-template>
                                                   </ion-modal>
-                                                  <ion-note slot="helper">Sin detalles</ion-note>
+                                                  <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                                 </ion-item>
                                               </div>
                                               <div *ngIf="preguntas.tipo=='Bool'">
@@ -816,7 +816,7 @@
                                                     {{preguntas.code}}-{{preguntas.pregunta}}:
                                                   </ion-label>
                                                   <ion-toggle mode='ios' [(ngModel)]="preguntas.respuesta" color="success"></ion-toggle>
-                                                  <ion-note slot="helper">Sin detalles</ion-note>
+                                                  <ion-button (click)="ayudaPreguntas(preguntas?.Identificador)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                                 </ion-item>
                                               </div>
                                       </div>

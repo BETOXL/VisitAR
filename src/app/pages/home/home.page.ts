@@ -1,12 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import {FormGroup, Validators, FormControl, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertController, IonContent, LoadingController } from '@ionic/angular';
+import { AlertController, IonContent, LoadingController, ModalController } from '@ionic/angular';
 import { ApiVisitArService } from '../../services/api-visit-ar.service';
 import { AuthService } from '../../services/auth.service';
 import { Geolocation } from '@capacitor/geolocation';
 import { BaselocalService } from 'src/app/services/baselocal.service';
 import { Device } from '@capacitor/device';
+import { ModalHelperComponent } from 'src/app/components/modal-helper/modal-helper.component';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -26,7 +27,7 @@ export class HomePage {
   device_uuid: string;
   device_model: string;
   btndisable: boolean = false;
-  constructor(private formBuilder: FormBuilder,public alertController: AlertController,private authService: AuthService,
+  constructor(public modalController: ModalController,private formBuilder: FormBuilder,public alertController: AlertController,private authService: AuthService,
     public loadingController: LoadingController, private activatedRoute: ActivatedRoute, private baselocalService:BaselocalService,
     public router:Router,public apiVisitArService:ApiVisitArService) {
     this.formPreguntas = formBuilder.group({});
@@ -377,5 +378,22 @@ export class HomePage {
 
   subirArriba(){
     this.content.scrollToTop();
+  }
+  async ayudaPreguntas(texto:String){
+    let mensaje;
+    if(texto=='' || texto==null || texto==undefined){
+      mensaje= '<H1>TITULO 1 PREGUNTA ID xxx</H1> asdas asd asdas d sadas dd asdasdasd JDOSDOAS ASDKASODMOASD MOASMDOMASMD MOMSAODOMAOSDM MOASMDOMOASM OMASMDOMAOSD OMOSAMDM ASMD SAOMDMOMAOSD AS OMASDOMASOMDOM MOASOMDOMMASODMAS MOSAMODMMSAMDOASMD MOSAMDOMASOMDMASMD OSAMDOASMDOMASMDOMAS SOAMDOMSAMDMASD MOASMDOMASMDMASMD MOASMDOM OASMODMOASMDMSA OMSAMODMOASMDMAMSODMASD OSMAOMDMASDMOMASODMOASMDM 1121 D151 515 15 151 51 51 5151 51S51D51S5D1 5A15D 151 151S 5D15A1S5D 51S 15S1 51S51D 51S5A1D51SA51D 51AS5 151 515S1AD 51D51SA51D 5S1A5D 151D 51S5A1D51 5DA151D5S1 5 15AS1D 51AS5D 5AS1D 551D 51SA5D15SA1D ASD SADUSADUASUDJNIASJDI JIJSAIJ DISJIDJIASJDIJASID JKAISJDI IJD ISAJDIJASIDMKASMLDIFDNFIJNGKDM OJDFIGNMDKFMGPDF,GO MKDFOGM FMG OIG NDO MDFOMGO ODIFGNJ DFMOGM  ASMDOMASOMDMASMDMASD OASMDOMASMDOMASODMOAMSDMO ASODMOASMDOMASMDMASOMDOMASOD DAMSODM OMASODMASOMDHoladsad mskodfkdsmfkms dskfmsdkomfkosdkfm fsdkfmksodm fkomsdkfsd sdkfmsdokfmksdmfkomskd dfskfmoskdmfkosdmofsdm sdkofmsdkomfkosmdfkmsdokfmskodmf sdfkmsdkomf sdsfkmoms koddf s,dpf  sdf ,dspl,fp,dsfop,sdo,sidjf89jsd9fj sd ujds98f9sje ds 9jsdf9j9sdjfjsd9fj  j9sdjf9jd9jfi9dsj9if';
+      
+    }else{
+      mensaje = texto;
+    }
+    const modal = await this.modalController.create({
+      component: ModalHelperComponent,
+      componentProps: { 
+        mensaje: mensaje,
+      }
+    });
+    return await modal.present();
+    
   }
 }
