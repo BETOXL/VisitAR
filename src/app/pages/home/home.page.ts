@@ -231,12 +231,18 @@ export class HomePage {
           console.log("Encuesta en Storage busco por id");
           this.baselocalService.getArrayEncuestasForIdData(this.idCampania_data).then(
             res => {
-              this.jsonEncuestaGet = res;
-              this.Identificador_c = res['Identificador'];
               console.log(res);
-              this.jsonEncuestaGet.Lat = this.Ubilat;
-              this.jsonEncuestaGet.Lng = this.Ubilng;
+              if(res != undefined && res!= null){
+                this.jsonEncuestaGet = res;
+                this.jsonEncuestaGet.Lat = this.Ubilat;
+                this.jsonEncuestaGet.Lng = this.Ubilng;
+                this.Identificador_c = res.Identificador;
+              }else{
+                this.presentAlert('Info', 'Error', 'No se encontró el Identificador de la encuesta'); 
+              }
+             
               loading.dismiss();
+             
             },error => {  
               loading.dismiss();
               this.presentAlert('Info', 'Problema', JSON.stringify(error));  

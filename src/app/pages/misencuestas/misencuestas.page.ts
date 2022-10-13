@@ -16,6 +16,7 @@ export class MisencuestasPage implements OnInit {
   btndisable: boolean = false;
   searchText: string = '';
   filterCoints: any;
+  listdisable: boolean = false;
   constructor( private activatedRoute: ActivatedRoute, private baselocalService:BaselocalService,public toastController: ToastController,
     public router:Router,private authService: AuthService,public alertController: AlertController,
     public apiVisitArService:ApiVisitArService ,public loadingController: LoadingController) 
@@ -106,6 +107,7 @@ export class MisencuestasPage implements OnInit {
   }
   async postEncuestasSinEnviar(){
     this.btndisable = true;
+    this.listdisable = true;
     console.log("Intentando subir Encuestas sin enviar al servidor");
     const loading = await this.loadingController.create({
       message: 'Intentando subir Encuestas sin enviar al servidor.',
@@ -124,7 +126,7 @@ export class MisencuestasPage implements OnInit {
                       if(data['success'] == true){
                         this.misencuestasJson[indice].Enviado = true;
                         this.misencuestasJson[indice].IdCampania_data = data['idCampania_data'] ;
-                        await this.baselocalService.chageEnviadoIndexEncuestas(indice);
+                        await this.baselocalService.chageEnviadoIndexEncuestas(indice, Number(data['idCampania_data']));
                       }else{
                         console.log(data['success']);
                         const toastE = await this.toastController.create({
@@ -145,6 +147,7 @@ export class MisencuestasPage implements OnInit {
                           console.log('Encuestas Subidad');
                           loading.dismiss();
                           this.btndisable = false;
+                          this.listdisable = false;
                           const toast = await this.toastController.create({
                             message: 'Encuestas Subidas al Servidor',
                             duration: 3000,
@@ -166,6 +169,7 @@ export class MisencuestasPage implements OnInit {
                           console.log('Encuestas Subidas al Servidor');
                           loading.dismiss();
                           this.btndisable = false;
+                          this.listdisable = false;
                           const toast = await this.toastController.create({
                             message: 'Encuestas Subidas al Servidor',
                             duration: 3000,
@@ -201,6 +205,7 @@ export class MisencuestasPage implements OnInit {
                           console.log('Encuestas Subidas al Servidor');
                           loading.dismiss();
                           this.btndisable = false;
+                          this.listdisable = false;
                           const toast = await this.toastController.create({
                             message: 'Encuestas Subidas al Servidor',
                             duration: 3000,
@@ -218,6 +223,7 @@ export class MisencuestasPage implements OnInit {
           }); 
     }else{
       this.btndisable = false;
+      this.listdisable = false;
       loading.dismiss();
       console.log("No hay encuestas guardadas o todas ya fueron subidas al servidor");
     }

@@ -96,7 +96,7 @@ export class BaselocalService {
       });
     });
   }
-  async chageEnviadoIndexEncuestas(indice: number){
+  async chageEnviadoIndexEncuestas(indice: number, IdCampania_data: number){
     await this.getArrayEncuestas().then(res=>{
       //console.log('res',res);
       if (res !== null){
@@ -104,6 +104,7 @@ export class BaselocalService {
       }
       //Cambio el estado a enviado faltaria agrgar el id de la encuesta
       this.arrayEncuesta[indice].Enviado= true;
+      this.arrayEncuesta[indice].IdCampania_data = IdCampania_data;
       
       Preferences.set({
         key: 'Encuestas',
