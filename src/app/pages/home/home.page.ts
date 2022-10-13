@@ -131,7 +131,7 @@ export class HomePage {
         this.presentAlert('Satisfactorio', 'Info', "Se guarda la encuesta en local");  
         //alert(JSON.stringify(this.jsonEncuestaGet));
         this.router.navigate(['misencuestas', {
-          idCampania: this.id_Campania
+          idCampania: this.jsonEncuestaGet.Id
         }]);
         this.btndisable = false;
       },error => {  
@@ -139,7 +139,7 @@ export class HomePage {
         this.presentAlert('Info', 'Problema', JSON.stringify(error));  
         console.log(error);
         this.router.navigate(['misencuestas', {
-          idCampania: this.id_Campania
+          idCampania: this.jsonEncuestaGet.Id
         }]);
         this.btndisable = false;
     });
