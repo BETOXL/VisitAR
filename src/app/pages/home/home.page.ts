@@ -8,6 +8,8 @@ import { Geolocation } from '@capacitor/geolocation';
 import { BaselocalService } from 'src/app/services/baselocal.service';
 import { Device } from '@capacitor/device';
 import { ModalHelperComponent } from 'src/app/components/modal-helper/modal-helper.component';
+//https://stackoverflow.com/questions/939326/execute-javascript-code-stored-as-a-string
+//eval("my script here");
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -23,6 +25,7 @@ export class HomePage {
   respuestasCon =[];
   contadorMul:number=0;
   id_Campania:number = 0;
+  idCampania_data:number = null;
   Identificador_c: string = '';
   device_uuid: string;
   device_model: string;
@@ -41,6 +44,7 @@ export class HomePage {
     this.id_Campania = 0;
     this.activatedRoute.paramMap.subscribe(async paramMap => {
       this.id_Campania = Number(paramMap.get('idCampania'));
+      this.idCampania_data = Number(paramMap.get('idCampania_data'));
       console.log(this.id_Campania);
     });
     setTimeout(() => {
@@ -97,6 +101,7 @@ export class HomePage {
     this.jsonEncuestaGet.Modelo = this.device_model;
     this.jsonEncuestaGet.Identificador = this.Identificador_c;
     this.jsonEncuestaGet.Fecha = now.toLocaleString();
+    this.jsonEncuestaGet.Enviado = false;
     try {
       const coordinates = await Geolocation.getCurrentPosition();
       console.log('Current', coordinates);
@@ -109,36 +114,12 @@ export class HomePage {
       this.presentAlertConfirmGPSactivar(error.message);
     }
     console.log(this.jsonEncuestaGet);
-    console.log("Intento enviar al servidor la encuesta");
-    const loading = await this.loadingController.create({
-      message: 'Intento enviar al servidor la encuesta',
-    });
-   
-    loading.present();
-    this.apiVisitArService.postEncuesta(this.jsonEncuestaGet).subscribe(
-      data => {
-        loading.dismiss();
-        if(data['success'] == true){
-          this.jsonEncuestaGet.Enviado = true;
-          this.jsonEncuestaGet.IdCampania_data = data['idCampania_data'] ;
-          setTimeout(() => {
-            this.guardarStorage();
-          }, 500);
-        }else{
-          this.jsonEncuestaGet.Enviado = false;
-          this.guardarStorage();
-        }
-      },error => {  
-        this.jsonEncuestaGet.Enviado = false;
-        loading.dismiss();
-        this.guardarStorage();
-        //this.presentAlert('Info', 'Problema', error.message + ' ' +JSON.stringify(error.error));  
-        console.log(error);
-    });
+
+    this.guardarNuevaStorage();
 
   }
 
-  async guardarStorage(){
+  async guardarNuevaStorage(){
     const loading = await this.loadingController.create({
       message: 'Guardando Encuesta en Local..',
     });
@@ -150,7 +131,7 @@ export class HomePage {
         this.presentAlert('Satisfactorio', 'Info', "Se guarda la encuesta en local");  
         //alert(JSON.stringify(this.jsonEncuestaGet));
         this.router.navigate(['misencuestas', {
-        idCampania: this.id_Campania
+          idCampania: this.id_Campania
         }]);
         this.btndisable = false;
       },error => {  
@@ -225,24 +206,45 @@ export class HomePage {
   }
 
   async getEncuestaRonda(){
-    console.log("obtengo encuesta");
+    
     const loading = await this.loadingController.create({
       message: 'Aguarde Cargando el Modelo de formulario.',
     });
    
     loading.present();
-    this.baselocalService.getModeloForIdCam(this.id_Campania).then(
-      res => {
-        this.jsonEncuestaGet = res;
-        console.log(res);
-        this.jsonEncuestaGet.Lat = this.Ubilat;
-        this.jsonEncuestaGet.Lng = this.Ubilng;
-        loading.dismiss();
-      },error => {  
-        loading.dismiss();
-        this.presentAlert('Info', 'Problema', JSON.stringify(error));  
-        console.log(error);
-    });
+    if(this.id_Campania!= null && this.id_Campania!=0 && this.id_Campania!=undefined){
+      console.log("Encuesta Nueva miro modelos.");
+      this.baselocalService.getModeloForIdCam(this.id_Campania).then(
+        res => {
+          this.jsonEncuestaGet = res;
+          console.log(res);
+          this.jsonEncuestaGet.Lat = this.Ubilat;
+          this.jsonEncuestaGet.Lng = this.Ubilng;
+          loading.dismiss();
+        },error => {  
+          loading.dismiss();
+          this.presentAlert('Info', 'Problema', JSON.stringify(error));  
+          console.log(error);
+      });
+    }else{
+      if(this.idCampania_data!= null && this.idCampania_data!=0 && this.idCampania_data!=undefined){
+          console.log("Encuesta en Storage busco por id");
+          this.baselocalService.getArrayEncuestasForIdData(this.idCampania_data).then(
+            res => {
+              this.jsonEncuestaGet = res;
+              this.Identificador_c = res['Identificador'];
+              console.log(res);
+              this.jsonEncuestaGet.Lat = this.Ubilat;
+              this.jsonEncuestaGet.Lng = this.Ubilng;
+              loading.dismiss();
+            },error => {  
+              loading.dismiss();
+              this.presentAlert('Info', 'Problema', JSON.stringify(error));  
+              console.log(error);
+          });
+      }
+    }
+    
   }
   
   async presentAlert( header:string, subHeader:string, texto:string) {
@@ -379,18 +381,21 @@ export class HomePage {
   subirArriba(){
     this.content.scrollToTop();
   }
-  async ayudaPreguntas(texto:String){
+  async ayudaPreguntas(titulo: string,texto:String){
     let mensaje;
+    let tituloP;
     if(texto=='' || texto==null || texto==undefined){
-      mensaje= '<H1>TITULO 1 PREGUNTA ID xxx</H1> asdas asd asdas d sadas dd asdasdasd JDOSDOAS ASDKASODMOASD MOASMDOMASMD MOMSAODOMAOSDM MOASMDOMOASM OMASMDOMAOSD OMOSAMDM ASMD SAOMDMOMAOSD AS OMASDOMASOMDOM MOASOMDOMMASODMAS MOSAMODMMSAMDOASMD MOSAMDOMASOMDMASMD OSAMDOASMDOMASMDOMAS SOAMDOMSAMDMASD MOASMDOMASMDMASMD MOASMDOM OASMODMOASMDMSA OMSAMODMOASMDMAMSODMASD OSMAOMDMASDMOMASODMOASMDM 1121 D151 515 15 151 51 51 5151 51S51D51S5D1 5A15D 151 151S 5D15A1S5D 51S 15S1 51S51D 51S5A1D51SA51D 51AS5 151 515S1AD 51D51SA51D 5S1A5D 151D 51S5A1D51 5DA151D5S1 5 15AS1D 51AS5D 5AS1D 551D 51SA5D15SA1D ASD SADUSADUASUDJNIASJDI JIJSAIJ DISJIDJIASJDIJASID JKAISJDI IJD ISAJDIJASIDMKASMLDIFDNFIJNGKDM OJDFIGNMDKFMGPDF,GO MKDFOGM FMG OIG NDO MDFOMGO ODIFGNJ DFMOGM  ASMDOMASOMDMASMDMASD OASMDOMASMDOMASODMOAMSDMO ASODMOASMDOMASMDMASOMDOMASOD DAMSODM OMASODMASOMDHoladsad mskodfkdsmfkms dskfmsdkomfkosdkfm fsdkfmksodm fkomsdkfsd sdkfmsdokfmksdmfkomskd dfskfmoskdmfkosdmofsdm sdkofmsdkomfkosmdfkmsdokfmskodmf sdfkmsdkomf sdsfkmoms koddf s,dpf  sdf ,dspl,fp,dsfop,sdo,sidjf89jsd9fj sd ujds98f9sje ds 9jsdf9j9sdjfjsd9fj  j9sdjf9jd9jfi9dsj9if';
-      
+      mensaje= '<H1>TITULO 1 PREGUNTA ID xx</H1> asdas asd asdas d sadas dd asdasdasd JDOSDOAS ASDKASODMOASD MOASMDOMASMD MOMSAODOMAOSDM MOASMDOMOASM OMASMDOMAOSD OMOSAMDM ASMD SAOMDMOMAOSD AS OMASDOMASOMDOM MOASOMDOMMASODMAS MOSAMODMMSAMDOASMD MOSAMDOMASOMDMASMD OSAMDOASMDOMASMDOMAS SOAMDOMSAMDMASD MOASMDOMASMDMASMD MOASMDOM OASMODMOASMDMSA OMSAMODMOASMDMAMSODMASD OSMAOMDMASDMOMASODMOASMDM 1121 D151 515 15 151 51 51 5151 51S51D51S5D1 5A15D 151 151S 5D15A1S5D 51S 15S1 51S51D 51S5A1D51SA51D 51AS5 151 515S1AD 51D51SA51D 5S1A5D 151D 51S5A1D51 5DA151D5S1 5 15AS1D 51AS5D 5AS1D 551D 51SA5D15SA1D ASD SADUSADUASUDJNIASJDI JIJSAIJ DISJIDJIASJDIJASID JKAISJDI IJD ISAJDIJASIDMKASMLDIFDNFIJNGKDM OJDFIGNMDKFMGPDF,GO MKDFOGM FMG OIG NDO MDFOMGO ODIFGNJ DFMOGM  ASMDOMASOMDMASMDMASD OASMDOMASMDOMASODMOAMSDMO ASODMOASMDOMASMDMASOMDOMASOD DAMSODM OMASODMASOMDHoladsad mskodfkdsmfkms dskfmsdkomfkosdkfm fsdkfmksodm fkomsdkfsd sdkfmsdokfmksdmfkomskd dfskfmoskdmfkosdmofsdm sdkofmsdkomfkosmdfkmsdokfmskodmf sdfkmsdkomf sdsfkmoms koddf s,dpf  sdf ,dspl,fp,dsfop,sdo,sidjf89jsd9fj sd ujds98f9sje ds 9jsdf9j9sdjfjsd9fj  j9sdjf9jd9jfi9dsj9if';
+      tituloP='PREGUNTA'
     }else{
       mensaje = texto;
+      tituloP = titulo;
     }
     const modal = await this.modalController.create({
       component: ModalHelperComponent,
       componentProps: { 
         mensaje: mensaje,
+        titulo: tituloP,
       }
     });
     return await modal.present();

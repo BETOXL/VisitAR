@@ -21,9 +21,23 @@ export class BaselocalService {
       if (res !== null){
         this.arrayEncuesta = res;
       }
-      
+      if(encuesta.IdCampania_data==null ||encuesta.IdCampania_data==undefined ){
+        encuesta.IdCampania_data = ((this.arrayEncuesta.length + 1) * (-1));
+        this.arrayEncuesta.push(encuesta);
+      }else if(encuesta.IdCampania_data<0){
+        let indexl = this.arrayEncuesta.findIndex(x => x.IdCampania_data == encuesta.IdCampania_data);
+        this.arrayEncuesta[indexl] = encuesta;
+      }else if(encuesta.IdCampania_data>0){
+          let indexl = this.arrayEncuesta.findIndex(x => x.IdCampania_data == encuesta.IdCampania_data);
+          this.arrayEncuesta[indexl] = encuesta;
+      }else{
+        encuesta.IdCampania_data = ((this.arrayEncuesta.length + 1) * (-1));
+        this.arrayEncuesta.push(encuesta);
+      }
+     
+
       //console.log('2 = ',this.arrayEncuesta);
-      this.arrayEncuesta.push(encuesta);
+      
       //console.log('3 push',this.arrayEncuesta);
       Preferences.set({
         key: 'Encuestas',
@@ -51,6 +65,13 @@ export class BaselocalService {
     let resEn = await Preferences.get({key:'Encuestas'});
     var resObjEnc = JSON.parse(resEn.value);
     const encuestasSolo = await resObjEnc.filter(x => x.Id == idCampana);
+        //return res.find(x => x.Id == idCampaña);
+    return encuestasSolo;
+  }
+  async getArrayEncuestasForIdData(idData: number){
+    let resEn = await Preferences.get({key:'Encuestas'});
+    var resObjEnc = JSON.parse(resEn.value);
+    const encuestasSolo = await resObjEnc.filter(x => x.IdCampania_data == idData)[0];
         //return res.find(x => x.Id == idCampaña);
     return encuestasSolo;
   }

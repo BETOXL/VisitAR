@@ -116,6 +116,9 @@ export class MisencuestasPage implements OnInit {
     if(limit > 0){ 
           await this.misencuestasJson.forEach(async (element, indice) => {
             if(element.Enviado == false){
+                  if (element.IdCampania_data < 0){
+                    element.IdCampania_data = null;
+                  }
                   this.apiVisitArService.postEncuesta(element).subscribe(
                     async data => {
                       if(data['success'] == true){
@@ -124,6 +127,18 @@ export class MisencuestasPage implements OnInit {
                         await this.baselocalService.chageEnviadoIndexEncuestas(indice);
                       }else{
                         console.log(data['success']);
+                        const toastE = await this.toastController.create({
+                          message: data['message'],
+                          duration: 3000,
+                          cssClass: 'custom-toast',
+                          buttons: [
+                            {
+                              text: 'cerrar',
+                              role: 'cancel'
+                            }
+                          ],
+                        });
+                        await toastE.present();
                       }
                       cont++;
                       if(cont==limit){
@@ -146,6 +161,7 @@ export class MisencuestasPage implements OnInit {
                       }
                     },async error => {  
                       cont++;
+                      
                       if(cont==limit){
                           console.log('Encuestas Subidas al Servidor');
                           loading.dismiss();
@@ -166,6 +182,18 @@ export class MisencuestasPage implements OnInit {
                       }
                       //this.presentAlert('Info', 'Problema', error.message + ' ' +JSON.stringify(error.error));  
                       console.log(error);
+                      const toastE = await this.toastController.create({
+                        message: 'Error al subir: ' + JSON.stringify(error),
+                        duration: 3000,
+                        cssClass: 'custom-toast',
+                        buttons: [
+                          {
+                            text: 'cerrar',
+                            role: 'cancel'
+                          }
+                        ],
+                      });
+                      await toastE.present();
                   });
               }else{
                       cont++;
@@ -215,5 +243,11 @@ export class MisencuestasPage implements OnInit {
       coin.Identificador.toLowerCase().includes(this.searchText.toLowerCase()) ||
       coin.IdCampania_data == Number(this.searchText.toLowerCase()) 
     );
+  }
+  editarEncuesta(indice: number){
+      console.log(indice);
+      this.router.navigate(['home', {
+        idCampania_data: indice
+      }]);
   }
 }

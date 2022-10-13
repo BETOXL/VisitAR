@@ -7,9 +7,11 @@ import { ModalController } from '@ionic/angular';
 })
 export class ModalHelperComponent implements OnInit {
   mensaje;
+  titulo;
   constructor(private modalCtrl: ModalController) { }
   ngOnInit() {
     console.log(`${this.mensaje} `);
+    console.log(`${this.titulo} `);
   }
 
   cancel() {
