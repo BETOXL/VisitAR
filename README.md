@@ -39,6 +39,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ng deploy --base-href=/VisitAR/
 
+# chrome://inspect
+# sudo adb start-server
+
 ## Input type for questions
 
 1. Text
@@ -50,7 +53,7 @@ ng deploy --base-href=/VisitAR/
 
 ## Conditional
 
-Works only for `check` and `combo` types
+Works only for `Check` and `Combo` types
 Format:
 
 {{IdPregunta}}=='StringRespuesta'
