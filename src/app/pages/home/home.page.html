@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title  mode=ios>
-      VisitAR Alpha01
+      VisitAR Alpha0.2
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrar()" color="secondary">
@@ -103,7 +103,7 @@
                               {{preguntas.code}}-{{preguntas.pregunta}}:
                             </ion-label>
                             <ion-item>
-                              <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
+                              <ion-input  (ionBlur)="checkFocusOut(preguntas.id,$event)" [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
                               <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                             </ion-item>
                           </div>
@@ -186,7 +186,7 @@
                                     {{preguntas.code}}-{{preguntas.pregunta}}:
                                   </ion-label>
                                   <ion-item>
-                                    <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
+                                    <ion-input (ionBlur)="checkFocusOut(preguntas.id,$event)"  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
                                     <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>
                                 </div>
@@ -284,7 +284,7 @@
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
                                     <ion-item>
-                                      <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
+                                      <ion-input (ionBlur)="checkFocusOut(preguntas.id,$event)" [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
                                       <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                     </ion-item>
                                   </div>
@@ -367,7 +367,7 @@
                                             {{preguntas.code}}-{{preguntas.pregunta}}:
                                           </ion-label>
                                           <ion-item>
-                                            <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
+                                            <ion-input (ionBlur)="checkFocusOut(preguntas.id,$event)" [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
                                             <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
@@ -492,7 +492,7 @@
                                     {{preguntas.code}}-{{preguntas.pregunta}}:
                                   </ion-label>
                                   <ion-item>
-                                    <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
+                                    <ion-input (ionBlur)="checkFocusOutMul(ins,preguntas.id,$event)" [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
                                     <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>
                                 </div>
@@ -575,7 +575,7 @@
                                           {{preguntas.code}}-{{preguntas.pregunta}}:
                                         </ion-label>
                                         <ion-item>
-                                          <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
+                                          <ion-input (ionBlur)="checkFocusOutMul(ins,preguntas.id,$event)"  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
                                           <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                         </ion-item>
                                       </div>
@@ -673,7 +673,7 @@
                                             {{preguntas.code}}-{{preguntas.pregunta}}:
                                           </ion-label>
                                           <ion-item>
-                                            <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
+                                            <ion-input  (ionBlur)="checkFocusOutMul(ins,preguntas.id,$event)"  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
                                             <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
@@ -756,7 +756,7 @@
                                                     <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                                     {{preguntas.code}}-{{preguntas.pregunta}}:
                                                   </ion-label>
-                                                  <ion-input  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
+                                                  <ion-input (ionBlur)="checkFocusOutMul(ins,preguntas.id,$event)"  [(ngModel)]="preguntas.respuesta" type="number"></ion-input>
                                                   <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                                 </ion-item>
                                               </div>

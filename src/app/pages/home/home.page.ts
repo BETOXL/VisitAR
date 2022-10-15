@@ -504,5 +504,77 @@ export class HomePage {
               }         
     };
     return false;
-}
+    }
+    checkFocusOut(idPregunta:number,ev){
+        let respuSel = ev.target.value;
+        if(respuSel!=''){
+          let respuestaLlega = {
+            idInstancia: null,
+            idPregunta: idPregunta,
+            respuSel: respuSel
+          };
+          //console.log('llega', respuestaLlega);
+          if(this.respuestasCon.length >0){
+            this.respuestasCon.forEach((respAlm, index) => {
+              //console.log('alma', respAlm);
+              if(respuestaLlega.idPregunta == respAlm.idPregunta){
+                //elimina si el idpregunta es igual y pone el nuevo
+                this.respuestasCon.splice(index, 1);
+                this.respuestasCon.push(respuestaLlega);
+                //console.log('push elimina', respuestaLlega);
+              }else{
+                this.respuestasCon.push(respuestaLlega);
+              }
+  
+            });
+            // //elimina elementos repetidos
+            let uniqueChars = this.respuestasCon.filter((element, index) => {
+              return this.respuestasCon.indexOf(element) === index;
+            });
+            this.respuestasCon =uniqueChars;
+            //console.log('cargado', this.respuestasCon);
+          }else{
+            this.respuestasCon.push(respuestaLlega);
+            //console.log('limpio', this.respuestasCon);
+          }
+          console.log(this.respuestasCon);
+        }
+        
+    }
+    checkFocusOutMul(idInstancia:number,idPregunta:number,ev){
+      let respuSel = ev.target.value;
+      if(respuSel!=''){
+        let respuestaLlega = {
+          idInstancia: idInstancia,
+          idPregunta: idPregunta,
+          respuSel: respuSel
+        };
+        //console.log('llega', respuestaLlega);
+        if(this.respuestasCon.length >0){
+          this.respuestasCon.forEach((respAlm, index) => {
+            //console.log('alma', respAlm);
+            if(respuestaLlega.idInstancia == respAlm.idInstancia && respuestaLlega.idPregunta == respAlm.idPregunta){
+              //elimina si el idpregunta es igual y pone el nuevo
+              this.respuestasCon.splice(index, 1);
+              this.respuestasCon.push(respuestaLlega);
+              //console.log('push elimina', respuestaLlega);
+            }else{
+              this.respuestasCon.push(respuestaLlega);
+            }
+
+          });
+          // //elimina elementos repetidos
+          let uniqueChars = this.respuestasCon.filter((element, index) => {
+            return this.respuestasCon.indexOf(element) === index;
+          });
+          this.respuestasCon =uniqueChars;
+          //console.log('cargado', this.respuestasCon);
+        }else{
+          this.respuestasCon.push(respuestaLlega);
+          //console.log('limpio', this.respuestasCon);
+        }
+        console.log(this.respuestasCon);
+      }
+      
+  }
 }

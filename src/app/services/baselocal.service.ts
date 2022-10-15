@@ -96,15 +96,18 @@ export class BaselocalService {
       });
     });
   }
-  async chageEnviadoIndexEncuestas(indice: number, IdCampania_data: number){
+  async chageEnviadoIndexEncuestas(idDataOld: number, IdCampania_data: number){
     await this.getArrayEncuestas().then(res=>{
       //console.log('res',res);
       if (res !== null){
         this.arrayEncuesta = res;
       }
       //Cambio el estado a enviado faltaria agrgar el id de la encuesta
-      this.arrayEncuesta[indice].Enviado= true;
-      this.arrayEncuesta[indice].IdCampania_data = IdCampania_data;
+      console.log('cambio la encuesta en storage');
+      let indexl = this.arrayEncuesta.findIndex(x => x.IdCampania_data == idDataOld);
+      console.log(idDataOld,IdCampania_data );
+      this.arrayEncuesta[indexl].Enviado= true;
+      this.arrayEncuesta[indexl].IdCampania_data = IdCampania_data;
       
       Preferences.set({
         key: 'Encuestas',

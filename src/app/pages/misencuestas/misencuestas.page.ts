@@ -118,15 +118,17 @@ export class MisencuestasPage implements OnInit {
     if(limit > 0){ 
           await this.misencuestasJson.forEach(async (element, indice) => {
             if(element.Enviado == false){
+                  let idDaraOld = element.IdCampania_data;
                   if (element.IdCampania_data < 0){
                     element.IdCampania_data = null;
                   }
                   this.apiVisitArService.postEncuesta(element).subscribe(
                     async data => {
+                      
                       if(data['success'] == true){
                         this.misencuestasJson[indice].Enviado = true;
+                        await this.baselocalService.chageEnviadoIndexEncuestas(idDaraOld, Number(data['idCampania_data']));
                         this.misencuestasJson[indice].IdCampania_data = data['idCampania_data'] ;
-                        await this.baselocalService.chageEnviadoIndexEncuestas(indice, Number(data['idCampania_data']));
                       }else{
                         console.log(data['success']);
                         const toastE = await this.toastController.create({
