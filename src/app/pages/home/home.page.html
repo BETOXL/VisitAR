@@ -4,7 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title  mode=ios>
-      VisitAR
+      VisitAR Alpha01
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrar()" color="secondary">
@@ -35,7 +35,7 @@
       </ion-row>
       <ion-row class="ion-row-borde">
         <ion-col>
-          <b>IdCamp:</b> {{jsonEncuestaGet?.Id}} 
+          <b>IdRonda:</b> {{jsonEncuestaGet?.Id}} 
         </ion-col>
         <ion-col>
           <b>Fecha Desde:</b> {{jsonEncuestaGet?.FechaDesde | date:"dd/MM/yy"}} 
@@ -168,8 +168,8 @@
                           </div>
                     </div><!--  end if condicional -->
                     <div *ngIf="preguntas.condicion">
-                      <div *ngFor="let rescon of respuestasCon; let l=index">
-                        <div *ngIf="rescon==preguntas.condicion"> 
+                      <!-- <div *ngFor="let rescon of respuestasCon; let l=index"> -->
+                        <div *ngIf="funcionCondiciones(preguntas.condicion, null , respuestasCon)"> 
                                 <div *ngIf="preguntas.tipo=='Text'">
                                   <ion-label text-wrap position="default">
                                     <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -251,14 +251,14 @@
                                 </div>
                         </div>
 
-                      </div><!--  end for de respuestas nivel preguntas-->
+                      <!-- </div> end for de respuestas nivel preguntas-->
 
                     </div><!--  end if condicional -->
                   </div>
               </div><!--  end if condicional subgrupo-->
               <div *ngIf="subgrupos.condicion">
-                <div *ngFor="let resconS of respuestasCon; let y=index">
-                    <div *ngIf="resconS==subgrupos.condicion">
+                <!-- <div *ngFor="let resconS of respuestasCon; let y=index"> -->
+                    <div *ngIf="funcionCondicionesPre(subgrupos.condicion, null , respuestasCon)" >
                           <ion-item>
                             <ion-label text-wrap class="ion-text-wrap">
                               <ion-text color="primary">
@@ -349,8 +349,8 @@
                                   </div>
                             </div><!--  end if condicional -->
                             <div *ngIf="preguntas.condicion">
-                              <div *ngFor="let rescon of respuestasCon; let l=index">
-                                <div *ngIf="rescon==preguntas.condicion"> 
+                              <!-- <div *ngFor="let rescon of respuestasCon; let l=index"> -->
+                                <div *ngIf="funcionCondiciones(preguntas.condicion, null , respuestasCon)"> 
                                         <div *ngIf="preguntas.tipo=='Text'">
                                           <ion-label text-wrap position="default">
                                             <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -432,13 +432,13 @@
                                         </div>
                                 </div>
         
-                              </div><!--  end for de respuestas nivel preguntas-->
+                              <!--</div>  end for de respuestas nivel preguntas-->
         
                             </div><!--  end if condicional -->
                           </div>
 
                     </div><!--  end subgrupo condicion-->
-                </div><!--  end for de respuestas-->
+                <!--</div>  end for de respuestas-->
               </div><!--  end if condicional subgrupo verdadero-->
           </div>
         </div> <!--  end if multiple -->
@@ -557,8 +557,8 @@
                                 </div>
                           </div><!--  end if condicional -->
                           <div *ngIf="preguntas.condicion">
-                            <div *ngFor="let rescon of respuestasCon; let l=index">
-                              <div *ngIf="rescon=='{{' + ins + '}}' + preguntas.condicion"> 
+                            <!-- <div *ngFor="let rescon of respuestasCon; let l=index"> -->
+                              <div *ngIf="funcionCondiciones(preguntas.condicion, ins , respuestasCon)"> 
                                       <div *ngIf="preguntas.tipo=='Text'">
                                         <ion-label text-wrap position="default" >
                                           <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -640,14 +640,14 @@
                                       </div>
                               </div>
       
-                            </div><!--  end for de respuestas nivel preguntas-->
+                            <!-- </div> end for de respuestas nivel preguntas-->
       
                           </div><!--  end if condicional -->
                         </div>
                     </div><!--  end if condicional subgrupo-->
                     <div *ngIf="subgruposIns.condicion">
-                      <div *ngFor="let resconS of respuestasCon; let y=index">
-                          <div *ngIf="resconS== '{{' + ins + '}}' + subgruposIns.condicion">
+                      <!-- <div *ngFor="let resconS of respuestasCon; let y=index"> -->
+                          <div *ngIf="funcionCondicionesPre(subgruposIns.condicion, ins , respuestasCon)" >
                                 <ion-item>
                                   <ion-label text-wrap class="ion-text-wrap">
                                     <ion-text color="primary">
@@ -655,8 +655,8 @@
                                     </ion-text>
                                   </ion-label>
                                 </ion-item>
-                                <div *ngFor="let preguntas of subgruposIns.preguntas; let k=index">
-                                  <div *ngIf="!preguntas.condicion">
+                                <div *ngFor="let preguntas of subgruposIns.Preguntas; let k=index">
+                                 <div *ngIf="!preguntas.condicion"> 
                                         <div *ngIf="preguntas.tipo=='Text'">
                                           <ion-label text-wrap  position="default">
                                             <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -736,10 +736,10 @@
                                             <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
-                                  </div><!--  end if condicional -->
+                                  </div> <!-- end if condicional -->
                                   <div *ngIf="preguntas.condicion">
-                                    <div *ngFor="let rescon of respuestasCon; let l=index">
-                                      <div *ngIf="rescon=='{{' + ins + '}}' + preguntas.condicion"> 
+                                    <!-- <div *ngFor="let rescon of respuestasCon; let l=index"> -->
+                                      <div *ngIf="funcionCondiciones(preguntas.condicion, ins , respuestasCon)"> 
                                               <div *ngIf="preguntas.tipo=='Text'">
                                                 <ion-label text-wrap  position="default" >
                                                     <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
@@ -821,13 +821,13 @@
                                               </div>
                                       </div>
               
-                                    </div><!--  end for de respuestas nivel preguntas-->
+                                    <!--</div> end for de respuestas nivel preguntas-->
               
-                                  </div><!--  end if condicional -->
-                                </div>
+                                </div><!--  end if condicional -->
+                              </div>
       
                           </div><!--  end subgrupo condicion-->
-                      </div><!--  end for de respuestas-->
+                     <!--  </div> end for de respuestas-->
                     </div><!--  end if condicional subgrupo verdadero-->
                 </div>  
               </div><!--  end ion-padding content accordion-->

@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="campanias"></ion-back-button>
     </ion-buttons>
     <ion-title  mode=ios>
-      VisitAR
+      VisitAR Alpha01
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrar()" color="secondary">
@@ -24,7 +24,7 @@
   <div class="container">
     <ion-list lines="full" detail>
       <ion-item-divider style="height: 40px;" color="secondary">
-        <h3>Mis Encuestas-Campaña Id: {{id_Campania}}</h3>
+        <h3>Mis Encuestas-Ronda Id: {{id_Campania}}</h3>
       </ion-item-divider>
       <p>Si una encuesta tiene una "X" en rojo es por que aun no fue enviada al servidor.</p>
       <input [(ngModel)]="searchText" (keyup)="searchCoin()" type="text" placeholder="Buscar por Id, Identi" class="text-center border-0 text-light" style="width: 95%; text-align: center; ">

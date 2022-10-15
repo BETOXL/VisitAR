@@ -8,6 +8,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { BaselocalService } from 'src/app/services/baselocal.service';
 import { Device } from '@capacitor/device';
 import { ModalHelperComponent } from 'src/app/components/modal-helper/modal-helper.component';
+
 //https://stackoverflow.com/questions/939326/execute-javascript-code-stored-as-a-string
 //eval("my script here");
 @Component({
@@ -30,6 +31,7 @@ export class HomePage {
   device_uuid: string;
   device_model: string;
   btndisable: boolean = false;
+  condicionTest: String  = "{{78}}=='Femenino'    && {{76}}=='DNI'"
   constructor(public modalController: ModalController,private formBuilder: FormBuilder,public alertController: AlertController,private authService: AuthService,
     public loadingController: LoadingController, private activatedRoute: ActivatedRoute, private baselocalService:BaselocalService,
     public router:Router,public apiVisitArService:ApiVisitArService) {
@@ -145,65 +147,7 @@ export class HomePage {
     });
     
   }
-  changeCombo(idPregunta:number,ev){
-    this.currentRes = ev.target.value;
-    for (var respuesta of this.currentRes){
-        let conARM = `{{${idPregunta}}}=='${respuesta}'`;
-        if(this.respuestasCon.length >0){
-          
-          this.respuestasCon.forEach((respAlm, index) => {
-            console.log(index); // 0, 1, 2
-            var splitted = respAlm.split("==", 2);
-            if(splitted[0] == `{{${idPregunta}}}`){
-              //elimina si el idpregunta es igual y pone el nuevo
-              this.respuestasCon.splice(index, 1);
-              this.respuestasCon.push(conARM);
-            }
-            console.log(splitted);
-          });
-        }else{
-          this.respuestasCon.push(conARM);
-        }
-        //elimina elementos repetidos
-        let uniqueChars = this.respuestasCon.filter((element, index) => {
-          return this.respuestasCon.indexOf(element) === index;
-        });
-        this.respuestasCon =uniqueChars;
-    }
-    console.log(this.respuestasCon);
-
-  }
-
-  changeSelect(idPregunta:number,ev){
-    
   
-    let respuSel = ev.target.value;
-    let conARM = `{{${idPregunta}}}=='${respuSel}'`;
-    
-    if(this.respuestasCon.length >0){
-      this.respuestasCon.forEach((respAlm, index) => {
-        //console.log(index); // 0, 1, 2
-        var splitted = respAlm.split("==", 2);
-        if(splitted[0] == `{{${idPregunta}}}`){
-          //elimina si el idpregunta es igual y pone el nuevo
-          this.respuestasCon.splice(index, 1);
-          this.respuestasCon.push(conARM);
-        }else{
-          this.respuestasCon.push(conARM);
-        }
-        //console.log(splitted);
-      });
-      //elimina elementos repetidos
-      let uniqueChars = this.respuestasCon.filter((element, index) => {
-        return this.respuestasCon.indexOf(element) === index;
-      });
-      this.respuestasCon =uniqueChars;
-    }else{
-      this.respuestasCon.push(conARM);
-    }
-    console.log(this.respuestasCon);
-
-  }
 
   async getEncuestaRonda(){
     
@@ -268,21 +212,26 @@ export class HomePage {
   changeComboMul(idInstancia:number,idPregunta:number,ev){
     this.currentRes = ev.target.value;
     for (var respuesta of this.currentRes){
-        let conARM = `{{${idInstancia}}}{{${idPregunta}}}=='${respuesta}'`;
+        let respuestaLlega = {
+          idInstancia: idInstancia,
+          idPregunta: idPregunta,
+          respuSel: respuesta
+        };
         if(this.respuestasCon.length >0){
           
           this.respuestasCon.forEach((respAlm, index) => {
             console.log(index); // 0, 1, 2
-            var splitted = respAlm.split("==", 2);
-            if(splitted[0] == `{{${idInstancia}}}{{${idPregunta}}}`){
+            console.log(respAlm);
+            if(respuestaLlega.idInstancia == respAlm.idInstancia && respuestaLlega.idPregunta == respAlm.idPregunta){
               //elimina si el idpregunta es igual y pone el nuevo
               this.respuestasCon.splice(index, 1);
-              this.respuestasCon.push(conARM);
+              this.respuestasCon.push(respuestaLlega);
+            }else{
+              this.respuestasCon.push(respuestaLlega);
             }
-            console.log(splitted);
           });
         }else{
-          this.respuestasCon.push(conARM);
+          this.respuestasCon.push(respuestaLlega);
         }
         //elimina elementos repetidos
         let uniqueChars = this.respuestasCon.filter((element, index) => {
@@ -294,22 +243,97 @@ export class HomePage {
 
   }
 
+  changeCombo(idPregunta:number,ev){
+    this.currentRes = ev.target.value;
+    for (var respuesta of this.currentRes){
+        let respuestaLlega = {
+          idInstancia: null,
+          idPregunta: idPregunta,
+          respuSel: respuesta
+        };
+
+        if(this.respuestasCon.length >0){
+          
+          this.respuestasCon.forEach((respAlm, index) => {
+            console.log(index); // 0, 1, 2
+            console.log(respAlm);
+            if(respuestaLlega.idPregunta == respAlm.idPregunta){
+              //elimina si el idpregunta es igual y pone el nuevo
+              this.respuestasCon.splice(index, 1);
+              this.respuestasCon.push(respuestaLlega);
+            }else{
+              this.respuestasCon.push(respuestaLlega);
+            }
+          });
+        }else{
+          this.respuestasCon.push(respuestaLlega);
+        }
+        //elimina elementos repetidos
+        let uniqueChars = this.respuestasCon.filter((element, index) => {
+          return this.respuestasCon.indexOf(element) === index;
+        });
+        this.respuestasCon =uniqueChars;
+    }
+    console.log(this.respuestasCon);
+
+  }
+
+  changeSelect(idPregunta:number,ev){
+    
+  
+    let respuSel = ev.target.value;
+    let respuestaLlega = {
+      idInstancia: null,
+      idPregunta: idPregunta,
+      respuSel: respuSel
+    };
+    //console.log('llega', respuestaLlega);
+    if(this.respuestasCon.length >0){
+      this.respuestasCon.forEach((respAlm, index) => {
+        //console.log('alma', respAlm);
+        if(respuestaLlega.idPregunta == respAlm.idPregunta){
+          //elimina si el idpregunta es igual y pone el nuevo
+          this.respuestasCon.splice(index, 1);
+          this.respuestasCon.push(respuestaLlega);
+          //console.log('push elimina', respuestaLlega);
+        }else{
+          this.respuestasCon.push(respuestaLlega);
+        }
+
+      });
+      // //elimina elementos repetidos
+      let uniqueChars = this.respuestasCon.filter((element, index) => {
+        return this.respuestasCon.indexOf(element) === index;
+      });
+      this.respuestasCon =uniqueChars;
+      //console.log('cargado', this.respuestasCon);
+    }else{
+      this.respuestasCon.push(respuestaLlega);
+      //console.log('limpio', this.respuestasCon);
+    }
+    console.log(this.respuestasCon);
+
+  }
+
   changeSelectMul(idInstancia:number,idPregunta:number,ev){
     
   
     let respuSel = ev.target.value;
-    let conARM = `{{${idInstancia}}}{{${idPregunta}}}=='${respuSel}'`;
     
+    let respuestaLlega = {
+      idInstancia: idInstancia,
+      idPregunta: idPregunta,
+      respuSel: respuSel
+    };
     if(this.respuestasCon.length >0){
       this.respuestasCon.forEach((respAlm, index) => {
-        //console.log(index); // 0, 1, 2
-        var splitted = respAlm.split("==", 2);
-        if(splitted[0] == `{{${idInstancia}}}{{${idPregunta}}}`){
+        
+        if(respuestaLlega.idInstancia == respAlm.idInstancia && respuestaLlega.idPregunta == respAlm.idPregunta){
           //elimina si el idpregunta es igual y pone el nuevo
           this.respuestasCon.splice(index, 1);
-          this.respuestasCon.push(conARM);
+          this.respuestasCon.push(respuestaLlega);
         }else{
-          this.respuestasCon.push(conARM);
+          this.respuestasCon.push(respuestaLlega);
         }
         //console.log(splitted);
       });
@@ -319,7 +343,7 @@ export class HomePage {
       });
       this.respuestasCon =uniqueChars;
     }else{
-      this.respuestasCon.push(conARM);
+      this.respuestasCon.push(respuestaLlega);
     }
     console.log(this.respuestasCon);
 
@@ -407,4 +431,78 @@ export class HomePage {
     return await modal.present();
     
   }
+
+  funcionCondiciones(CondEval: String, instaciasCon: number, arrayRespuestas){
+      //console.log(CondEval, ' ', instaciasCon);
+      var newarr = CondEval.split("{{");
+          //recorremos los idPreguntas encontradas y sacamos el }}
+      let replazo = CondEval;
+      for(var i = 0;i<newarr.length;i++) { 
+                let idPreguntaLimpio = newarr[i].split("}}");
+                //console.log(idPreguntaLimpio[0]);
+                if (idPreguntaLimpio[0]!=''){
+                  let idPregNum = Number(idPreguntaLimpio[0]);
+                  //console.log(idPregNum);
+                  for(var j = 0;j<arrayRespuestas.length;j++) {
+                          if(instaciasCon == arrayRespuestas[j].idInstancia && idPregNum == arrayRespuestas[j].idPregunta){
+                              //elimina si el idpregunta es igual y pone el nuevo valor selecccionado
+                              replazo = replazo.replace(`{{${idPregNum}}}`,`'${arrayRespuestas[j].respuSel}'` );
+                              //console.log(replazo);
+                              //verifico si quedo bien armado el string para pasar al eval
+                              let posicion = replazo.indexOf('{{');
+                              if (posicion !== -1){
+                                //console.log("No se encontraron todos los {{ids preguntas}} " + posicion);
+                              }
+                              else{
+                                  //console.log("se remplazo todo los {{ids preguntas}}");
+                                  let resultadoscript = eval(`${replazo}`);
+                                  //console.log(resultadoscript);
+                                  return resultadoscript;
+                              }
+                          }else{
+                            //console.log("no hay idpreguntas iguales");
+                          }
+                          //console.log(splitted);
+                  };
+                }         
+      };
+      return false;
+  }
+  funcionCondicionesPre(CondEval: String, instaciasCon: number, arrayRespuestas){
+    //console.log(CondEval, ' ', instaciasCon);
+    var newarr = CondEval.split("{{");
+        //recorremos los idPreguntas encontradas y sacamos el }}
+    let replazo = CondEval;
+    for(var i = 0;i<newarr.length;i++) { 
+              let idPreguntaLimpio = newarr[i].split("}}");
+              //console.log(idPreguntaLimpio[0]);
+              if (idPreguntaLimpio[0]!=''){
+                let idPregNum = Number(idPreguntaLimpio[0]);
+                //console.log(idPregNum);
+                for(var j = 0;j<arrayRespuestas.length;j++) {
+                        if(instaciasCon == arrayRespuestas[j].idInstancia && idPregNum == arrayRespuestas[j].idPregunta){
+                            //elimina si el idpregunta es igual y pone el nuevo valor selecccionado
+                            replazo = replazo.replace(`{{${idPregNum}}}`,`'${arrayRespuestas[j].respuSel}'` );
+                            //console.log(replazo);
+                            //verifico si quedo bien armado el string para pasar al eval
+                            let posicion = replazo.indexOf('{{');
+                            if (posicion !== -1){
+                              //console.log("No se encontraron todos los {{ids preguntas}} " + posicion);
+                            }
+                            else{
+                                //console.log("se remplazo todo los {{ids preguntas}}");
+                                //console.log(replazo);
+                                let resultadoscript = eval(`${replazo}`);
+                                //console.log(resultadoscript);
+                                return resultadoscript;
+                            }
+                        }else{
+                          //console.log("no hay idpreguntas iguales");
+                        }
+                        //console.log(splitted);
+                };
+              }         
+    };
+    return false;
+}
 }

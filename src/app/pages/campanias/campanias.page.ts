@@ -96,7 +96,7 @@ export class CampaniasPage implements OnInit {
   }
 
   async getCampanias(){
-    console.log("Obtengo Campañas");
+    console.log("Obtengo Rondas");
     const loading = await this.loadingController.create({
       message: 'Aguarde pidiendo campañas...',
     });
