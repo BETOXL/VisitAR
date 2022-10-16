@@ -41,6 +41,7 @@ export class CampaniasPage implements OnInit {
     this.baselocalService.getArrayCampanias().then(
       data => {
         this.campaniasJson['campanias'] = data;
+        this.campaniasJson['campanias']  = this.campaniasJson['campanias'].sort((a, b) => b.Id - a.Id );
       }, error => {
         console.log(error);
       }
@@ -107,8 +108,8 @@ export class CampaniasPage implements OnInit {
         loading.dismiss();
         this.campaniasJson = data;
         console.log(this.campaniasJson);
+        this.campaniasJson['campanias']  = this.campaniasJson['campanias'].sort((a, b) => b.Id - a.Id );
         setTimeout(() => {
-          this.campaniasJson['campanias']  = this.campaniasJson['campanias'].sort((a, b) => b.Id - a.Id );
           this.getModelosEncuentas();
         }, 500);
         this.baselocalService.setArrayCampanias(this.campaniasJson['campanias']);

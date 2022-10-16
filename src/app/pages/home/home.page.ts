@@ -8,15 +8,14 @@ import { Geolocation } from '@capacitor/geolocation';
 import { BaselocalService } from 'src/app/services/baselocal.service';
 import { Device } from '@capacitor/device';
 import { ModalHelperComponent } from 'src/app/components/modal-helper/modal-helper.component';
+import { OnExit } from 'src/app/guards/exit.guard';
 
-//https://stackoverflow.com/questions/939326/execute-javascript-code-stored-as-a-string
-//eval("my script here");
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnExit {
   @ViewChild(IonContent) content: IonContent;
   Ubilat: number = 0;
   Ubilng: number = 0;
@@ -32,13 +31,13 @@ export class HomePage {
   device_model: string;
   btndisable: boolean = false;
   condicionTest: String  = "{{78}}=='Femenino'    && {{76}}=='DNI'"
+  enviado =false;
   constructor(public modalController: ModalController,private formBuilder: FormBuilder,public alertController: AlertController,private authService: AuthService,
     public loadingController: LoadingController, private activatedRoute: ActivatedRoute, private baselocalService:BaselocalService,
     public router:Router,public apiVisitArService:ApiVisitArService) {
     this.formPreguntas = formBuilder.group({});
   }
   async ionViewDidEnter(){
-
     const { model } = await Device.getInfo();
     const  { uuid }  = await Device.getId();
     this.device_uuid = uuid;
@@ -130,20 +129,22 @@ export class HomePage {
     await this.baselocalService.setArrayEncuesta(this.jsonEncuestaGet).then(
       res => {
         loading.dismiss();
+        this.btndisable = false;
+        this.enviado = true;
         this.presentAlert('Satisfactorio', 'Info', "Se guarda la encuesta en local");  
         //alert(JSON.stringify(this.jsonEncuestaGet));
         this.router.navigate(['misencuestas', {
           idCampania: this.jsonEncuestaGet.Id
         }]);
-        this.btndisable = false;
       },error => {  
         loading.dismiss();
         this.presentAlert('Info', 'Problema', JSON.stringify(error));  
         console.log(error);
-        this.router.navigate(['misencuestas', {
-          idCampania: this.jsonEncuestaGet.Id
-        }]);
+        // this.router.navigate(['misencuestas', {
+        //   idCampania: this.jsonEncuestaGet.Id
+        // }]);
         this.btndisable = false;
+        this.enviado = false;
     });
     
   }
@@ -209,71 +210,58 @@ export class HomePage {
     });
     await alert.present();
   }
-  changeComboMul(idInstancia:number,idPregunta:number,ev){
+  async changeComboMul(idInstancia:number,idPregunta:number,ev){
     this.currentRes = ev.target.value;
-    for (var respuesta of this.currentRes){
+    if(this.respuestasCon.length >0){  
+      const limpiaSinId = await this.respuestasCon.filter(x => x.idPregunta != idPregunta && x.idInstancia == idInstancia );
+      this.respuestasCon = limpiaSinId;
+      for (var respuesta of this.currentRes){
         let respuestaLlega = {
           idInstancia: idInstancia,
           idPregunta: idPregunta,
           respuSel: respuesta
         };
-        if(this.respuestasCon.length >0){
-          
-          this.respuestasCon.forEach((respAlm, index) => {
-            console.log(index); // 0, 1, 2
-            console.log(respAlm);
-            if(respuestaLlega.idInstancia == respAlm.idInstancia && respuestaLlega.idPregunta == respAlm.idPregunta){
-              //elimina si el idpregunta es igual y pone el nuevo
-              this.respuestasCon.splice(index, 1);
-              this.respuestasCon.push(respuestaLlega);
-            }else{
-              this.respuestasCon.push(respuestaLlega);
-            }
-          });
-        }else{
-          this.respuestasCon.push(respuestaLlega);
-        }
-        //elimina elementos repetidos
-        let uniqueChars = this.respuestasCon.filter((element, index) => {
-          return this.respuestasCon.indexOf(element) === index;
-        });
-        this.respuestasCon =uniqueChars;
+        this.respuestasCon.push(respuestaLlega);
+      }
+    }else{
+      for (var respuesta of this.currentRes){
+        let respuestaLlega = {
+          idInstancia: idInstancia,
+          idPregunta: idPregunta,
+          respuSel: respuesta
+        };
+        this.respuestasCon.push(respuestaLlega);
+      }
     }
+    
     console.log(this.respuestasCon);
 
   }
 
-  changeCombo(idPregunta:number,ev){
-    this.currentRes = ev.target.value;
-    for (var respuesta of this.currentRes){
+  async changeCombo(idPregunta:number,ev){
+    this.currentRes = ev.target.value;   
+    if(this.respuestasCon.length >0){  
+      const limpiaSinId = await this.respuestasCon.filter(x => x.idPregunta != idPregunta);
+      this.respuestasCon = limpiaSinId;
+      for (var respuesta of this.currentRes){
         let respuestaLlega = {
           idInstancia: null,
           idPregunta: idPregunta,
           respuSel: respuesta
         };
-
-        if(this.respuestasCon.length >0){
-          
-          this.respuestasCon.forEach((respAlm, index) => {
-            console.log(index); // 0, 1, 2
-            console.log(respAlm);
-            if(respuestaLlega.idPregunta == respAlm.idPregunta){
-              //elimina si el idpregunta es igual y pone el nuevo
-              this.respuestasCon.splice(index, 1);
-              this.respuestasCon.push(respuestaLlega);
-            }else{
-              this.respuestasCon.push(respuestaLlega);
-            }
-          });
-        }else{
-          this.respuestasCon.push(respuestaLlega);
-        }
-        //elimina elementos repetidos
-        let uniqueChars = this.respuestasCon.filter((element, index) => {
-          return this.respuestasCon.indexOf(element) === index;
-        });
-        this.respuestasCon =uniqueChars;
+        this.respuestasCon.push(respuestaLlega);
+      }
+    }else{
+      for (var respuesta of this.currentRes){
+        let respuestaLlega = {
+          idInstancia: null,
+          idPregunta: idPregunta,
+          respuSel: respuesta
+        };
+        this.respuestasCon.push(respuestaLlega);
+      }
     }
+    
     console.log(this.respuestasCon);
 
   }
@@ -577,4 +565,46 @@ export class HomePage {
       }
       
   }
+
+
+ 
+  async onExit() {
+    if (this.enviado) {
+      return true;
+    }
+    //const rta = confirm('¿Quieres salir del formulario y perder los cambios realizados?');
+    //return rta;
+    
+    const alert = await this.alertController.create({
+      header: "¿Salir Sin Guardar?",
+      message: "¿Quieres salir del formulario y perder los cambios realizados?",
+      buttons: [
+        {
+          text: "Cancelar",
+          role: "cancel",
+          handler: () => {}
+        },
+        {
+          text: "Aprobar",
+          role: "goBack",
+          handler: () => {}
+        }
+      ]
+    });
+
+    await alert.present();
+
+    const data = await alert.onDidDismiss();
+
+    if (data.role == "goBack") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
+
+
+  //end
 }
