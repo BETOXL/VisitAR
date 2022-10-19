@@ -64,3 +64,15 @@ ion-toggle {
 //     background: #d40303;
 //   }
 // }
+
+ion-button{
+  --background: linear-gradient(135deg, var(--ion-color-success) 0%, var(--ion-color-dark) 100%)!important;
+  --padding-top: 25px!important;
+  --padding-bottom: 25px!important;
+  margin-bottom: 12px!important;
+  --color: #fff!important;
+  font-weight: bold;
+  font-size: 1.1em;
+  text-transform: inherit!important;
+  --box-shadow: none!important;
+}
