@@ -34,9 +34,9 @@ ion-select.text{
   white-space: normal !important;
 }
 
-
 ion-select::part(text) {
   color: #545ca7;
+  white-space: normal !important;
 }
 
 ion-select::part(icon) {
