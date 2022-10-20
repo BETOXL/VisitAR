@@ -101,7 +101,7 @@ export class HomePage implements OnExit {
     this.jsonEncuestaGet.Mac = this.device_uuid;
     this.jsonEncuestaGet.Modelo = this.device_model;
     this.jsonEncuestaGet.Identificador = this.Identificador_c;
-    this.jsonEncuestaGet.Fecha = now.toLocaleString();
+    this.jsonEncuestaGet.Fecha = now.toUTCString();
     this.jsonEncuestaGet.Enviado = false;
     try {
       const coordinates = await Geolocation.getCurrentPosition();

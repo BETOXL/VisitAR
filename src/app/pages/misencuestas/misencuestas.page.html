@@ -27,7 +27,7 @@
         <h3>Mis Encuestas-Ronda Id: {{id_Campania}}</h3>
       </ion-item-divider>
       <p>Si una encuesta tiene una "X" en rojo es por que aun no fue enviada al servidor.</p>
-      <input [(ngModel)]="searchText" (keyup)="searchCoin()" type="text" placeholder="Buscar por Id, Identi" class="text-center border-0 text-light" style="width: 95%; text-align: center; ">
+      <input [(ngModel)]="searchText" (keyup)="searchCoin()" type="text" placeholder="Buscar por Dirección del lote ó Flia" class="text-center border-0 text-light" style="width: 95%; text-align: center; ">
       <div *ngFor="let item of filterCoints; let i = index"   (click)="editarEncuesta(item.IdCampania_data)">
         <ion-item [disabled]="listdisable" detail *ngIf="filterCoints?.length > 0" button>
           <ion-thumbnail *ngIf="!item?.Enviado" slot="start">
