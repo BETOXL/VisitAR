@@ -432,7 +432,8 @@ export class HomePage implements OnExit {
                   let idPregNum = Number(idPreguntaLimpio[0]);
                   //console.log(idPregNum);
                   for(var j = 0;j<arrayRespuestas.length;j++) {
-                          if(instaciasCon == arrayRespuestas[j].idInstancia && idPregNum == arrayRespuestas[j].idPregunta){
+                          if((instaciasCon == arrayRespuestas[j].idInstancia && idPregNum == arrayRespuestas[j].idPregunta)
+                          || (null == arrayRespuestas[j].idInstancia && idPregNum == arrayRespuestas[j].idPregunta)){
                               //elimina si el idpregunta es igual y pone el nuevo valor selecccionado
                               replazo = replazo.replace(`{{${idPregNum}}}`,`'${arrayRespuestas[j].respuSel}'` );
                               //console.log(replazo);
@@ -468,7 +469,8 @@ export class HomePage implements OnExit {
                 let idPregNum = Number(idPreguntaLimpio[0]);
                 //console.log(idPregNum);
                 for(var j = 0;j<arrayRespuestas.length;j++) {
-                        if(instaciasCon == arrayRespuestas[j].idInstancia && idPregNum == arrayRespuestas[j].idPregunta){
+                        if((instaciasCon == arrayRespuestas[j].idInstancia && idPregNum == arrayRespuestas[j].idPregunta)
+                        || (null == arrayRespuestas[j].idInstancia && idPregNum == arrayRespuestas[j].idPregunta)){
                             //elimina si el idpregunta es igual y pone el nuevo valor selecccionado
                             replazo = replazo.replace(`{{${idPregNum}}}`,`'${arrayRespuestas[j].respuSel}'` );
                             //console.log(replazo);
