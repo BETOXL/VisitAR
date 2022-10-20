@@ -27,10 +27,21 @@
 }
 ion-input{
   --background: var(--ion-color-inputc);
+  color: #545ca7;
 }
 ion-select.text{
   //width: 200px !important;// your choice :)
   white-space: normal !important;
+}
+
+
+ion-select::part(text) {
+  color: #545ca7;
+}
+
+ion-select::part(icon) {
+  color: #971e49;
+  opacity: 1;
 }
 
 ion-toggle {
