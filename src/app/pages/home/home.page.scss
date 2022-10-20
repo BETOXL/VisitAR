@@ -28,8 +28,9 @@
 ion-input{
   --background: var(--ion-color-inputc);
 }
-ion-select{
-  width: 200px !important;// your choice :)
+ion-select.text{
+  //width: 200px !important;// your choice :)
+  white-space: normal !important;
 }
 
 ion-toggle {

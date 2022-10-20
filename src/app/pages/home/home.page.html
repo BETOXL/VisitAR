@@ -109,7 +109,7 @@
                           </div>
                           <div *ngIf="preguntas.tipo=='Combo'">
                             <ion-item>
-                              <ion-label text-wrap >
+                              <ion-label text-wrap position="stacked" class="ion-text-wrap">
                                 <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                 {{preguntas.code}}-{{preguntas.pregunta}}:
                               </ion-label>
@@ -118,12 +118,12 @@
                                   {{opcions}}
                                 </ion-select-option>
                               </ion-select>
-                              <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                              <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                             </ion-item>
                           </div>
                           <div *ngIf="preguntas.tipo=='Check'">
                                 <ion-item>
-                                  <ion-label text-wrap >
+                                  <ion-label text-wrap position="stacked" class="ion-text-wrap" >
                                     <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                     {{preguntas.code}}-{{preguntas.pregunta}}:
                                   </ion-label>
@@ -138,7 +138,7 @@
                                   >
                                     <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                   </ion-select>
-                                  <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                  <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                 </ion-item>
                           </div>
                           <div *ngIf="preguntas.tipo=='Date'">
@@ -192,7 +192,7 @@
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Combo'">
                                   <ion-item>
-                                    <ion-label text-wrap >
+                                    <ion-label text-wrap position="stacked" class="ion-text-wrap" >
                                       <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                       {{preguntas.code}}-{{preguntas.pregunta}}:
                                     </ion-label>
@@ -201,12 +201,12 @@
                                         {{opcions}}
                                       </ion-select-option>
                                     </ion-select>
-                                    <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                    <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Check'">
                                       <ion-item>
-                                        <ion-label text-wrap >
+                                        <ion-label text-wrap position="stacked" class="ion-text-wrap" >
                                           <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                           {{preguntas.code}}-{{preguntas.pregunta}}:
                                         </ion-label>
@@ -221,7 +221,7 @@
                                         >
                                           <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                         </ion-select>
-                                        <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                        <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                       </ion-item>
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Date'">
@@ -290,7 +290,7 @@
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Combo'">
                                     <ion-item>
-                                      <ion-label text-wrap >
+                                      <ion-label text-wrap position="stacked" class="ion-text-wrap" >
                                         <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                         {{preguntas.code}}-{{preguntas.pregunta}}:
                                       </ion-label>
@@ -299,12 +299,12 @@
                                           {{opcions}}
                                         </ion-select-option>
                                       </ion-select>
-                                      <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                      <ion-button  slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                     </ion-item>
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Check'">
                                         <ion-item>
-                                          <ion-label text-wrap >
+                                          <ion-label text-wrap position="stacked" class="ion-text-wrap" >
                                             <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                             {{preguntas.code}}-{{preguntas.pregunta}}:
                                           </ion-label>
@@ -319,7 +319,7 @@
                                           >
                                             <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                           </ion-select>
-                                          <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                          <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                         </ion-item>
                                   </div>
                                   <div *ngIf="preguntas.tipo=='Date'">
@@ -373,7 +373,7 @@
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Combo'">
                                           <ion-item>
-                                            <ion-label text-wrap >
+                                            <ion-label text-wrap position="stacked" class="ion-text-wrap">
                                               <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                               {{preguntas.code}}-{{preguntas.pregunta}}:
                                             </ion-label>
@@ -382,12 +382,12 @@
                                                 {{opcions}}
                                               </ion-select-option>
                                             </ion-select>
-                                            <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                            <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Check'">
                                               <ion-item>
-                                                <ion-label text-wrap >
+                                                <ion-label text-wrap position="stacked" class="ion-text-wrap">
                                                   <ion-icon *ngIf="preguntas.respuesta" color="success" name="checkmark-done-outline"></ion-icon>
                                                   {{preguntas.code}}-{{preguntas.pregunta}}:
                                                 </ion-label>
@@ -402,7 +402,7 @@
                                                 >
                                                   <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                                 </ion-select>
-                                                <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                                <ion-button  slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                               </ion-item>
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Date'">
@@ -507,7 +507,7 @@
                                         {{opcions}}
                                       </ion-select-option>
                                     </ion-select>
-                                    <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                    <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                   </ion-item>
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Check'">
@@ -527,7 +527,7 @@
                                         >
                                           <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                         </ion-select>
-                                        <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                        <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                       </ion-item>
                                 </div>
                                 <div *ngIf="preguntas.tipo=='Date'">
@@ -590,7 +590,7 @@
                                               {{opcions}}
                                             </ion-select-option>
                                           </ion-select>
-                                          <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                          <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                         </ion-item>
                                       </div>
                                       <div *ngIf="preguntas.tipo=='Check'">
@@ -610,7 +610,7 @@
                                               >
                                                 <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                               </ion-select>
-                                              <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                              <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                             </ion-item>
                                       </div>
                                       <div *ngIf="preguntas.tipo=='Date'">
@@ -688,7 +688,7 @@
                                                 {{opcions}}
                                               </ion-select-option>
                                             </ion-select>
-                                            <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                            <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                           </ion-item>
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Check'">
@@ -708,7 +708,7 @@
                                                 >
                                                   <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                                 </ion-select>
-                                                <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                                <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                               </ion-item>
                                         </div>
                                         <div *ngIf="preguntas.tipo=='Date'">
@@ -771,7 +771,7 @@
                                                       {{opcions}}
                                                     </ion-select-option>
                                                   </ion-select>
-                                                  <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                                  <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                                 </ion-item>
                                               </div>
                                               <div *ngIf="preguntas.tipo=='Check'">
@@ -791,7 +791,7 @@
                                                       >
                                                         <ion-select-option *ngFor="let opcion of preguntas.opciones; let p=index" [value]="opcion">{{opcion}}</ion-select-option>
                                                       </ion-select>
-                                                      <ion-button (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
+                                                      <ion-button slot="end" (click)="ayudaPreguntas(preguntas?.pregunta,preguntas?.indicacion)" shape="round"><ion-icon name="help-circle"></ion-icon></ion-button>
                                                     </ion-item>
                                               </div>
                                               <div *ngIf="preguntas.tipo=='Date'">
