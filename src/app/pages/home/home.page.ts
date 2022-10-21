@@ -9,6 +9,7 @@ import { BaselocalService } from 'src/app/services/baselocal.service';
 import { Device } from '@capacitor/device';
 import { ModalHelperComponent } from 'src/app/components/modal-helper/modal-helper.component';
 import { OnExit } from 'src/app/guards/exit.guard';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -96,12 +97,11 @@ export class HomePage implements OnExit {
     await alert.present();
   }
   async guardar(){
-    const now = new Date();
     this.btndisable = true;
     this.jsonEncuestaGet.Mac = this.device_uuid;
     this.jsonEncuestaGet.Modelo = this.device_model;
     this.jsonEncuestaGet.Identificador = this.Identificador_c;
-    this.jsonEncuestaGet.Fecha = now.toUTCString();
+    this.jsonEncuestaGet.Fecha = moment().format('YYYY-MM-DD HH:mm:ss');
     this.jsonEncuestaGet.Enviado = false;
     try {
       const coordinates = await Geolocation.getCurrentPosition();
