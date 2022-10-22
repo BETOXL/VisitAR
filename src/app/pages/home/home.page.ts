@@ -24,6 +24,7 @@ export class HomePage implements OnExit {
   formPreguntas: FormGroup;
   currentRes = undefined;
   respuestasCon =[];
+  idInterval;
   contadorMul:number=0;
   id_Campania:number = 0;
   idCampania_data:number = null;
@@ -57,7 +58,16 @@ export class HomePage implements OnExit {
   }
   
   ngOnInit() {
-    
+    this.idInterval = setInterval(() => {
+      //this.battleInit(); 
+      console.log("Intervalo de 10 segundos");
+    }, 10000);
+  }
+  
+  ngOnDestroy() {
+    if (this.idInterval) {
+      clearInterval(this.idInterval);
+    }
   }
   addIntanciasGrupos(idGrupo:number, subgrupoArray:any){
       var insArray = JSON.parse(JSON.stringify(subgrupoArray));
@@ -114,8 +124,8 @@ export class HomePage implements OnExit {
       console.error(error);
       this.presentAlertConfirmGPSactivar(error.message);
     }
-    console.log(this.jsonEncuestaGet);
 
+    console.log(this.jsonEncuestaGet);
     this.guardarNuevaStorage();
 
   }
