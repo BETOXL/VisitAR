@@ -20,6 +20,7 @@ export class HomePage implements OnExit {
   @ViewChild(IonContent) content: IonContent;
   Ubilat: number = 0;
   Ubilng: number = 0;
+  countSave: number = 0;
   jsonEncuestaGet: any;
   formPreguntas: FormGroup;
   currentRes = undefined;
@@ -59,10 +60,40 @@ export class HomePage implements OnExit {
   
   ngOnInit() {
     this.idInterval = setInterval(() => {
-      //this.battleInit(); 
+      this.autoguardado(); 
       console.log("Intervalo de 10 segundos");
     }, 10000);
   }
+
+  async autoguardado(){
+    let indeLimpio = this.Identificador_c.replace('(borrador) ', '');
+    this.btndisable = true;
+    this.jsonEncuestaGet.Mac = this.device_uuid;
+    this.jsonEncuestaGet.Modelo = this.device_model;
+    this.jsonEncuestaGet.Identificador = '(borrador) ' + indeLimpio;
+    this.jsonEncuestaGet.Fecha = moment().format('YYYY-MM-DD HH:mm:ss');
+    this.jsonEncuestaGet.Enviado = false;
+    this.jsonEncuestaGet.IsBorrador = true;
+    this.jsonEncuestaGet.Lat = this.Ubilat;
+    this.jsonEncuestaGet.Lng = this.Ubilng;
+   
+    await this.baselocalService.setArrayEncuesta(this.jsonEncuestaGet).then(
+      resId => {
+        if(this.countSave==0){
+          this.jsonEncuestaGet.IdCampania_data = resId;
+        }
+        this.btndisable = false;
+        console.log("Resguardo Nro", this.countSave);
+        this.countSave++;
+      },error => {  
+        console.error(JSON.stringify(error));  
+        this.btndisable = false;
+        this.countSave++;
+    });
+
+
+  }
+
   
   ngOnDestroy() {
     if (this.idInterval) {
@@ -107,12 +138,14 @@ export class HomePage implements OnExit {
     await alert.present();
   }
   async guardar(){
+    let indeLimpio = this.Identificador_c.replace('(borrador) ', '');
     this.btndisable = true;
     this.jsonEncuestaGet.Mac = this.device_uuid;
     this.jsonEncuestaGet.Modelo = this.device_model;
-    this.jsonEncuestaGet.Identificador = this.Identificador_c;
+    this.jsonEncuestaGet.Identificador = indeLimpio;
     this.jsonEncuestaGet.Fecha = moment().format('YYYY-MM-DD HH:mm:ss');
     this.jsonEncuestaGet.Enviado = false;
+    this.jsonEncuestaGet.IsBorrador = false;
     try {
       const coordinates = await Geolocation.getCurrentPosition();
       console.log('Current', coordinates);

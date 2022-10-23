@@ -4,10 +4,10 @@
       <ion-back-button defaultHref="campanias"></ion-back-button>
     </ion-buttons>
     <ion-title  mode=ios>
-      VisitAR Alpha0.8
+      VisitAR Alpha0.9
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="cerrar()" color="secondary">
+      <ion-button [disabled]="btndisableOffline" (click)="cerrar()" color="secondary">
         <ion-icon slot="icon-only" name="log-out"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -30,11 +30,14 @@
       <input [(ngModel)]="searchText" (keyup)="searchCoin()" type="text" placeholder="Buscar por Dirección del lote ó Flia" class="text-center border-0 text-light" style="width: 95%; text-align: center; ">
       <div *ngFor="let item of filterCoints; let i = index"   (click)="editarEncuesta(item.IdCampania_data)">
         <ion-item [disabled]="listdisable" detail *ngIf="filterCoints?.length > 0" button>
-          <ion-thumbnail *ngIf="!item?.Enviado" slot="start">
+          <ion-thumbnail *ngIf="!item?.Enviado && !item?.IsBorrador" slot="start">
             <img src="assets/imgs/close_icon.svg">
           </ion-thumbnail>
-          <ion-thumbnail *ngIf="item?.Enviado" slot="start">
+          <ion-thumbnail *ngIf="item?.Enviado  && !item?.IsBorrador" slot="start">
             <img src="assets/imgs/success_icon.svg">
+          </ion-thumbnail>
+          <ion-thumbnail *ngIf="item?.IsBorrador" slot="start">
+            <img src="assets/imgs/document_icon.svg">
           </ion-thumbnail>
           <ion-label  class="notranslate" text-wrap>
             <h3>N{{i}} Id:{{item?.IdCampania_data}} - Identi: {{item?.Identificador}}</h3>

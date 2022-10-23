@@ -17,6 +17,7 @@ export class MisencuestasPage implements OnInit {
   searchText: string = '';
   filterCoints: any;
   listdisable: boolean = false;
+  btndisableOffline: boolean = false;
   constructor( private activatedRoute: ActivatedRoute, private baselocalService:BaselocalService,public toastController: ToastController,
     public router:Router,private authService: AuthService,public alertController: AlertController,
     public apiVisitArService:ApiVisitArService ,public loadingController: LoadingController) 
@@ -55,11 +56,13 @@ export class MisencuestasPage implements OnInit {
     //console.log('Network status changed', status);
     if(estado){
       console.log("Conectado Internet Get");
+      this.btndisableOffline = false;
       setTimeout(() => {
         this.postEncuestasSinEnviar();
       }, 1500);
     }else{
       console.log("Sin Internet Get");
+      this.btndisableOffline = true;
       this.baselocalService.getArrayEncuestas().then(
         data => {
           //no hace nada ya tiene de storage las encuestas
@@ -117,7 +120,7 @@ export class MisencuestasPage implements OnInit {
     var cont = 0;
     if(limit > 0){ 
           await this.misencuestasJson.forEach(async (element, indice) => {
-            if(element.Enviado == false){
+            if(element.Enviado == false && element.IsBorrador==false){
                   let idDaraOld = element.IdCampania_data;
                   if (element.IdCampania_data < 0){
                     element.IdCampania_data = null;

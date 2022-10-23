@@ -34,7 +34,6 @@ export class BaselocalService {
         encuesta.IdCampania_data = ((this.arrayEncuesta.length + 1) * (-1));
         this.arrayEncuesta.push(encuesta);
       }
-     
 
       //console.log('2 = ',this.arrayEncuesta);
       
@@ -45,7 +44,7 @@ export class BaselocalService {
       });
       //console.log('4 storage',this.arrayEncuesta);
     });
-    
+    return encuesta.IdCampania_data;
   }
 
   

@@ -13,6 +13,7 @@ import { BaselocalService } from 'src/app/services/baselocal.service';
 export class CampaniasPage implements OnInit {
   campaniasJson: any;
   deferredPrompt;
+  btndisableOffline: boolean = false;
   constructor( private baselocalService:BaselocalService,public toastController: ToastController,
     public router:Router,private authService: AuthService,public alertController: AlertController,
     public apiVisitArService:ApiVisitArService ,public loadingController: LoadingController) 
@@ -72,12 +73,13 @@ export class CampaniasPage implements OnInit {
         //console.log('Network status changed', status);
         if(estado){
             console.log("Conectado Internet Get");
+            this.btndisableOffline = false;
             setTimeout(() => {
               this.getCampanias();
             }, 1500);
         }else{
           console.log("Sin Internet Get");
-          
+          this.btndisableOffline = true;
           const toast = await this.toastController.create({
             message: 'Sin conectividad',
             duration: 4000,
