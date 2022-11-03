@@ -225,6 +225,7 @@ export class HomePage implements OnExit {
                 this.jsonEncuestaGet.Lat = this.Ubilat;
                 this.jsonEncuestaGet.Lng = this.Ubilng;
                 this.Identificador_c = res.Identificador;
+                this.preparingInputsQuestions();
               }else{
                 this.presentAlert('Info', 'Error', 'No se encontró el Identificador de la encuesta'); 
               }
@@ -537,8 +538,9 @@ export class HomePage implements OnExit {
               }         
     };
     return false;
-    }
-    checkFocusOut(idPregunta:number,ev){
+  }
+
+  checkFocusOut(idPregunta:number,ev){
         let respuSel = ev.target.value;
         if(respuSel!=''){
           let respuestaLlega = {
@@ -649,7 +651,87 @@ export class HomePage implements OnExit {
   }
 
 
+  preparingInputsQuestions(){
+    for (var grupos of this.jsonEncuestaGet.Grupos){
+        //Veo los grupos existentes
+        console.log("Agrego un grupo ", grupos.Grupo);
+        //Recorro los subgrupos
+        if(grupos.EsMultiple==true){
+          //this.SubGruposMultiples.push(subgrupos.pregutas);
+          for (let i = 0; i < grupos.Instancias.length ; i++) {
+              for (var subgrupos of grupos.Instancias[i].Subgrupos){
+                  console.log("Agrego un subgrupo ", subgrupos.Subgrupo);
+                  //Recorro las preguntas
+                  for (var preguntas of subgrupos.Preguntas){
+                      console.log("Agrego un preguntas ", preguntas.pregunta);
+                      //this.inputsPreguntas.push(preguntas);
+                      if(preguntas.tipo == "Combo"){
+                            let respuestaLlega = {
+                              idInstancia: i,
+                              idPregunta: preguntas.id,
+                              respuSel: preguntas.respuesta
+                            };
+                            this.respuestasCon.push(respuestaLlega);
+                      }else if(preguntas.tipo == "Check"){
+                          for (var respuesta of preguntas.respuesta){
+                            let respuestaLlega = {
+                              idInstancia: i,
+                              idPregunta: preguntas.id,
+                              respuSel: respuesta
+                            };
+                            this.respuestasCon.push(respuestaLlega);
+                          }
+      
+                      }else if(preguntas.tipo == "Number"){
+                            let respuestaLlega = {
+                              idInstancia: i,
+                              idPregunta: preguntas.id,
+                              respuSel: preguntas.respuesta
+                            };
+                            this.respuestasCon.push(respuestaLlega);
+                      }
+                  }
+              }
+          }
+        }else{
+          for (var subgrupos of grupos.Subgrupos){
+            console.log("Agrego un subgrupo ", subgrupos.Subgrupo);
+            //Recorro las preguntas
+            for (var preguntas of subgrupos.Preguntas){
+                console.log("Agrego un preguntas ", preguntas.pregunta);
+                //this.inputsPreguntas.push(preguntas);
+                if(preguntas.tipo == "Combo"){
+                      let respuestaLlega = {
+                        idInstancia: null,
+                        idPregunta: preguntas.id,
+                        respuSel: preguntas.respuesta
+                      };
+                      this.respuestasCon.push(respuestaLlega);
+                }else if(preguntas.tipo == "Check"){
+                    for (var respuesta of preguntas.respuesta){
+                      let respuestaLlega = {
+                        idInstancia: null,
+                        idPregunta: preguntas.id,
+                        respuSel: respuesta
+                      };
+                      this.respuestasCon.push(respuestaLlega);
+                    }
 
+                }else if(preguntas.tipo == "Number"){
+                      let respuestaLlega = {
+                        idInstancia: null,
+                        idPregunta: preguntas.id,
+                        respuSel: preguntas.respuesta
+                      };
+                      this.respuestasCon.push(respuestaLlega);
+                }
+            }
+          }
+        }
+        
+    }
+    
+  }
 
   //end
 }
