@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiVisitar: 'https://strausssrl.com.ar:3443/',
+  apiVisitar: 'https://www.strausssrl.com.ar:3443/',
 };
