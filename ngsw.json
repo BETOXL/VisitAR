@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1672862800156,
+  "timestamp": 1672875969407,
   "index": "/VisitAR/index.html",
   "assetGroups": [
     {
@@ -74,7 +74,7 @@
         "/VisitAR/9958.0e2a15f48c2b4eba.js",
         "/VisitAR/common.fd25ac1a353aa4b5.js",
         "/VisitAR/index.html",
-        "/VisitAR/main.af5f1810610dd788.js",
+        "/VisitAR/main.13cd537301ef434e.js",
         "/VisitAR/manifest.webmanifest",
         "/VisitAR/polyfills-core-js.c8961a92c3ed4c69.js",
         "/VisitAR/polyfills-dom.5c5f23fb57b03028.js",
@@ -206,8 +206,8 @@
     "/VisitAR/assets/imgs/og_image.png": "5d531b726b3d3cea18bf8d649de7044d66a3e99c",
     "/VisitAR/assets/imgs/success_icon.svg": "a06951aae6ede397c077dfee2a2e38433186e562",
     "/VisitAR/common.fd25ac1a353aa4b5.js": "5def9685cb210e5bd2a012127e5f1749e9c4f305",
-    "/VisitAR/index.html": "f3f3832a46c638d9b49f0d55b3a48e79d818823c",
-    "/VisitAR/main.af5f1810610dd788.js": "7823dcb349e062b1f697c37769dc8a95db0191d9",
+    "/VisitAR/index.html": "f63bdfa238e37000b683610afdde608adce609f6",
+    "/VisitAR/main.13cd537301ef434e.js": "c02fe01e3ec6be35cd73683991df15089aae4c7d",
     "/VisitAR/manifest.webmanifest": "58833287fb2019e745cfd8ecdf75422a082c7d2c",
     "/VisitAR/polyfills-core-js.c8961a92c3ed4c69.js": "e44d42a08762418090a95d81b35288ab338d21e8",
     "/VisitAR/polyfills-dom.5c5f23fb57b03028.js": "06f5dc30f55bf9a3d9c6f9bca07c0041a6bbdaa0",
