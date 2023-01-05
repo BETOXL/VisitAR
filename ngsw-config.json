@@ -5,7 +5,7 @@
   [
     {
       "name": "api",
-      "urls": ["https://strausssrl.com.ar:3443/**"],
+      "urls": ["https://www.strausssrl.com.ar:3443/**"],
       "cacheConfig" : {
         "strategy": "freshness",
         "maxSize": 0,
